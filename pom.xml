@@ -16,6 +16,7 @@
         <site.plugin.version>3.12.1</site.plugin.version>
         <checkstyle.plugin.version>3.2.0</checkstyle.plugin.version>
         <puppycrawl.tools.version>10.3.3</puppycrawl.tools.version>
+        <github.spotbugs.version>4.7.2.0</github.spotbugs.version>
     </properties>
 
     <dependencies>
@@ -92,6 +93,11 @@
                     </dependency>
                 </dependencies>
             </plugin>
+            <plugin>
+                <groupId>com.github.spotbugs</groupId>
+                <artifactId>spotbugs-maven-plugin</artifactId>
+                <version>${github.spotbugs.version}</version>
+            </plugin>
         </plugins>
     </build>
 
@@ -109,6 +115,11 @@
                 <configuration>
                     <configLocation>${basedir}/rulesets/checkstyle-rules.xml</configLocation>
                 </configuration>
+            </plugin>
+            <plugin>
+                <groupId>com.github.spotbugs</groupId>
+                <artifactId>spotbugs-maven-plugin</artifactId>
+                <version>${github.spotbugs.version}</version>
             </plugin>
         </plugins>
     </reporting>
