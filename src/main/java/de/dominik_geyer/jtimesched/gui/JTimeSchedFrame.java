@@ -133,7 +133,7 @@ public class JTimeSchedFrame extends JFrame {
 			// ignore this exception: no project file -> no backup
 		} catch (Exception e) {
 			e.printStackTrace();
-	    	JTimeSchedApp.getLogger().warning("Unable to create backup of project file: " + e.getMessage());
+			JTimeSchedApp.getLogger().warning("Unable to create backup of project file: " + e.getMessage());
 		}
 		
 		// load project-file
@@ -385,8 +385,7 @@ public class JTimeSchedFrame extends JFrame {
 		this.runningState = running;
 	}
 
-	protected void updateIconImage(boolean running)
-	{
+	protected void updateIconImage(boolean running) {
 		List<Image> images = new ArrayList<Image>();
 		
 		for (int size: JTimeSchedFrame.appIconSizes) {
@@ -397,8 +396,7 @@ public class JTimeSchedFrame extends JFrame {
 		this.setIconImages(images);
 	}
 	
-	protected void updateTrayIcon(boolean running)
-	{
+	protected void updateTrayIcon(boolean running) {
 		int trayIconSize = this.trayIcon.getSize().width;
 		int useSize = JTimeSchedFrame.appIconSizes[JTimeSchedFrame.appIconSizes.length - 1];
 		
@@ -706,18 +704,18 @@ public class JTimeSchedFrame extends JFrame {
 		File file = new File(JTimeSchedApp.PRJ_FILE);
 
 		FileInputStream fis = null;
-    	FileOutputStream fos = null;
+		FileOutputStream fos = null;
 
-		fis  = new FileInputStream(file);
-    	fos = new FileOutputStream(new File(JTimeSchedApp.PRJ_FILE_BACKUP));
-    	
-        byte[] buf = new byte[1024];
-        int i = 0;
-        while ((i = fis.read(buf)) != -1) {
-            fos.write(buf, 0, i);
-        }
-        fis.close();
-        fos.close();
+		fis = new FileInputStream(file);
+		fos = new FileOutputStream(new File(JTimeSchedApp.PRJ_FILE_BACKUP));
+
+		byte[] buf = new byte[1024];
+		int i = 0;
+		while ((i = fis.read(buf)) != -1) {
+			fos.write(buf, 0, i);
+		}
+		fis.close();
+		fos.close();
 	}
 	
 	protected void loadSettings() throws FileNotFoundException, Exception {

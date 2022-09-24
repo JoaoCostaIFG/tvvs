@@ -96,8 +96,7 @@ public class JTimeSchedApp {
 	 * 
 	 * @return String The application's version; if not set in Manifest or not available it returns the string "unknown"
 	 */
-	public static String getAppVersion()
-	{
+	public static String getAppVersion() {
 		String appVersion = Package.getPackage("de.dominik_geyer.jtimesched").getImplementationVersion();
 		return (appVersion != null) ? appVersion : "unknown";
 	}
