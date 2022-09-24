@@ -77,38 +77,37 @@ public class ProjectSerializer {
 		addXmlAttribute(atts, "version", JTimeSchedApp.getAppVersion());
 		startXmlElement(hd, "projects", atts);
 
-		for (Project p: projects)
-		{
-		  startXmlElement(hd, "project", null);
-		  
-		  addXmlElement(hd, "title", null, p.getTitle());
-		  addXmlElement(hd, "notes", null, p.getNotes());
-		  addXmlElement(hd, "created", null, new Long(p.getTimeCreated().getTime()));
-		  addXmlElement(hd, "started", null, new Long(p.getTimeStart().getTime()));
-		  addXmlElement(hd, "running", null, "no" /*p.isRunning() ? "yes" : "no"*/);
-		  addXmlElement(hd, "checked", null, p.isChecked() ? "yes" : "no");
-		  
-		  atts.clear();
-		  addXmlAttribute(atts, "overall", new Integer(p.getSecondsOverall()));
-		  addXmlAttribute(atts, "today", new Integer(p.getSecondsToday()));
-		  addXmlElement(hd, "time", atts, null);
-		  
-		  atts.clear();
-		  addXmlAttribute(atts, "overall", new Integer(p.getQuotaOverall()));
-		  addXmlAttribute(atts, "today", new Integer(p.getQuotaToday()));
-		  addXmlElement(hd, "quota", atts, null);
-		  
-		  Color color = p.getColor();
-		  if (color != null) {
-			  atts.clear();
-			  addXmlAttribute(atts, "red", new Integer(color.getRed()));
-			  addXmlAttribute(atts, "green", new Integer(color.getGreen()));
-			  addXmlAttribute(atts, "blue", new Integer(color.getBlue()));
-			  addXmlAttribute(atts, "alpha", new Integer(color.getAlpha()));
-			  addXmlElement(hd, "color", atts, null);
-		  }
-		  
-		  endXmlElement(hd, "project");
+		for (Project p: projects) {
+			startXmlElement(hd, "project", null);
+
+			addXmlElement(hd, "title", null, p.getTitle());
+			addXmlElement(hd, "notes", null, p.getNotes());
+			addXmlElement(hd, "created", null, new Long(p.getTimeCreated().getTime()));
+			addXmlElement(hd, "started", null, new Long(p.getTimeStart().getTime()));
+			addXmlElement(hd, "running", null, "no" /*p.isRunning() ? "yes" : "no"*/);
+			addXmlElement(hd, "checked", null, p.isChecked() ? "yes" : "no");
+
+			atts.clear();
+			addXmlAttribute(atts, "overall", new Integer(p.getSecondsOverall()));
+			addXmlAttribute(atts, "today", new Integer(p.getSecondsToday()));
+			addXmlElement(hd, "time", atts, null);
+
+			atts.clear();
+			addXmlAttribute(atts, "overall", new Integer(p.getQuotaOverall()));
+			addXmlAttribute(atts, "today", new Integer(p.getQuotaToday()));
+			addXmlElement(hd, "quota", atts, null);
+
+			Color color = p.getColor();
+			if (color != null) {
+				atts.clear();
+				addXmlAttribute(atts, "red", new Integer(color.getRed()));
+				addXmlAttribute(atts, "green", new Integer(color.getGreen()));
+				addXmlAttribute(atts, "blue", new Integer(color.getBlue()));
+				addXmlAttribute(atts, "alpha", new Integer(color.getAlpha()));
+				addXmlElement(hd, "color", atts, null);
+			}
+
+			endXmlElement(hd, "project");
 		}
 		endXmlElement(hd, "projects");
 		
