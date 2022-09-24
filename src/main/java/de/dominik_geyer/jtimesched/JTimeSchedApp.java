@@ -53,9 +53,13 @@ public class JTimeSchedApp {
 	public static void main(String[] args) {
 		// FIXME: allow custom configuration path via command-line argument [#22]
 		File dirConf = new File(JTimeSchedApp.CONF_PATH);
-		if (!dirConf.isDirectory())
-			dirConf.mkdir();
-		
+		if (!dirConf.isDirectory()) {
+			if (!dirConf.mkdir()) {
+				System.err.println("Unable to create configuration directory: " + JTimeSchedApp.CONF_PATH);
+				System.exit(1);
+			}
+		}
+
 		// request lock
 		if (!JTimeSchedApp.lockInstance()) {
 			JOptionPane.showMessageDialog(null,

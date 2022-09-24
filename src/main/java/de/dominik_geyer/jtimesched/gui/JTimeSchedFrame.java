@@ -703,19 +703,14 @@ public class JTimeSchedFrame extends JFrame {
 	protected void backupProjects() throws FileNotFoundException, Exception {
 		File file = new File(JTimeSchedApp.PRJ_FILE);
 
-		FileInputStream fis = null;
-		FileOutputStream fos = null;
-
-		fis = new FileInputStream(file);
-		fos = new FileOutputStream(new File(JTimeSchedApp.PRJ_FILE_BACKUP));
-
-		byte[] buf = new byte[1024];
-		int i = 0;
-		while ((i = fis.read(buf)) != -1) {
-			fos.write(buf, 0, i);
+		try (FileInputStream fis = new FileInputStream(file);
+			 FileOutputStream fos = new FileOutputStream(new File(JTimeSchedApp.PRJ_FILE_BACKUP))) {
+			byte[] buf = new byte[1024];
+			int i = 0;
+			while ((i = fis.read(buf)) != -1) {
+				fos.write(buf, 0, i);
+			}
 		}
-		fis.close();
-		fos.close();
 	}
 	
 	protected void loadSettings() throws FileNotFoundException, Exception {
@@ -976,6 +971,9 @@ public class JTimeSchedFrame extends JFrame {
 			case KeyEvent.VK_DELETE:
 				handleDelete(ptm, p, row);
 				e.consume();
+				break;
+			default:
+				// do nothing
 				break;
 			}
 		}

@@ -97,6 +97,9 @@
                 <groupId>com.github.spotbugs</groupId>
                 <artifactId>spotbugs-maven-plugin</artifactId>
                 <version>${github.spotbugs.version}</version>
+                <configuration>
+                    <threshold>Low</threshold>
+                </configuration>
             </plugin>
         </plugins>
     </build>
@@ -120,6 +123,9 @@
                 <groupId>com.github.spotbugs</groupId>
                 <artifactId>spotbugs-maven-plugin</artifactId>
                 <version>${github.spotbugs.version}</version>
+                <configuration>
+                    <threshold>Low</threshold>
+                </configuration>
             </plugin>
         </plugins>
     </reporting>
