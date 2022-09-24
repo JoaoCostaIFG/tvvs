@@ -190,3 +190,9 @@ dist/*
 !dist/create_dist_zip.sh
 conf/*
 assets/output/*
+
+#
+# IntelliJ
+#
+
+.idea/
