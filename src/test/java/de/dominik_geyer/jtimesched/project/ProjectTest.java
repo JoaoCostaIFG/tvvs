@@ -15,6 +15,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class ProjectTest {
     private static final int secondsToday = 10;
     private static final int secondsOverall = 30;
+
     private Project project;
 
     @BeforeEach
