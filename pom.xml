@@ -13,17 +13,37 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.surefire.version>2.22.2</maven.surefire.version>
+
+        <!-- report -->
         <site.plugin.version>3.12.1</site.plugin.version>
         <checkstyle.plugin.version>3.2.0</checkstyle.plugin.version>
         <puppycrawl.tools.version>10.3.3</puppycrawl.tools.version>
         <github.spotbugs.version>4.7.2.0</github.spotbugs.version>
+
+        <!-- JUnit related -->
+        <junit.jupiter.version>5.9.1</junit.jupiter.version>
+        <junit.vintage.version>5.9.1</junit.vintage.version>
+        <junit.version>5.9.1</junit.version>
     </properties>
 
     <dependencies>
         <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>4.13.2</version>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-api</artifactId>
+            <version>${junit.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.vintage</groupId>
+            <artifactId>junit-vintage-engine</artifactId>
+            <version>${junit.vintage.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-params</artifactId>
+            <version>${junit.jupiter.version}</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
@@ -100,6 +120,11 @@
                 <configuration>
                     <threshold>Low</threshold>
                 </configuration>
+            </plugin>
+
+            <plugin>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>${maven.surefire.version}</version>
             </plugin>
         </plugins>
     </build>
