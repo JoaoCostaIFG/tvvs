@@ -1,3 +1,16 @@
+Project.java
+- public void setSecondsToday(int secondsToday)
+
+ProjectSrializzaer.java
+- protected static void addXmlElement(TransformerHandler hd, String element, AttributesImpl atts, Object data) throws SAXException {
+
+ProjectTableModel.java
+- public Object getValueAt(int row, int column)
+- public Class<?> getColumnClass(int column) {
+- public void removeProject(int row) {
+
+ProjectTime.java
+- public static String formatSeconds(int s) {
 # Assignment 2 - G03P02
 
 ## Group information
@@ -16,6 +29,7 @@ the project. We discarded functions belonging to the `gui` package due to its
 dependence on *swing*. The `misc` package was also discarded since it only contains one function (not enough for the completion of the assignment). 
 Function related to the elapsed time were also ignored.  
 
+The selected package for testing was the `de.dominik_geyer.jtimesched.project` package. 
 ## Category-Partition - Function 1
 
 **Function**: `public static int parseSeconds(String strTime)` in `Project.java` 
@@ -35,19 +49,37 @@ Function related to the elapsed time were also ignored.
     - Seconds lie within the interval [0, 59]
     - Minutes lie within the interval [0, 59]
 4. Generate combinations
+    | Partition             | Input    | Expected output  |
+    |-----------------------|----------|------------------|
+    | Negative hour         | -1:00:00 | Thrown exception |
+    | Negative minute       | 00:-1:00 | Thrown exception |
+    | Negative seconds      | 00:00:-1 | Thrown exception |
+    | Minute out of bounds  | 00:60:00 | Thrown exception |
+    | Seconds out of bounds | 00:00:60 | Thrown exception |
+    | Not a number          | a:b:c    | Thrown exception |
+    | Missing component     | 00:00    | Thrown exception |
+    | One digit minute      | 00:1:00  | 60               |
+    | One digit second      | 00:00:01 | 1                |
+    | Two digit minutes     | 00:59:00 | 999x3600         |
+    | Two digit seconds     | 00:00:59 | 999x3600         |
 
-| Partition             | Input    | Expected output  |
-|-----------------------|----------|------------------|
-| Negative hour         | -1:00:00 | Thrown exception |
-| Negative minute       | 00:-1:00 | Thrown exception |
-| Negative seconds      | 00:00:-1 | Thrown exception |
-| Minute out of bounds  | 00:60:00 | Thrown exception |
-| Seconds out of bounds | 00:00:60 | Thrown exception |
-| Not a number          | a:b:c    | Thrown exception |
-| Missing component     | 00:00    | Thrown exception |
-| One digit minute      | 00:1:00  | 60               |
-| One digit second      | 00:00:01 | 1                |
-| Two digit minutes     | 00:59:00 | 999x3600         |
-| Two digit seconds     | 00:00:59 | 999x3600         |
+## Category-Partition - Function 2
+
+**Function**: `public void adjustSecondsToday(int secondsToday)` in `Project.java` 
+
+**Reason for selection:** Adjusting the time of a project is an important feature for the application that takes user input to update the time. This function is a crucial part of this feature.
+
+**Function's purpose:** This function receives a integer representing the number of seconds that took complete a task. Then, the function updates the number of seconds spent on the task today and overall.
+
+### Steps
+
+1. Identify the parameters:
+    - Int representing the number of seconds
+2. Characteristics of the parameters
+    - The integer should represent a positive number between 0 and infinite.
+3. Add constraints
+    - Negative time is not allowed
+4. Generate combinations
+
 
 
