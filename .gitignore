@@ -196,3 +196,9 @@ assets/output/*
 #
 
 .idea/
+
+#
+# VS Code
+#
+
+.vscode/
