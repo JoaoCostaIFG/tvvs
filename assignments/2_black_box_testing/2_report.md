@@ -1,0 +1,53 @@
+# Assignment 2 - G03P02
+
+## Group information
+
+- Ana Inês Oliveira de Barros - `up201806593@fe.up.pt`;
+- João de Jesus Costa - `up201806560@fe.up.pt`
+
+## Function Selection Process
+
+The aim of this assignment is to perform black-box testing. This is problematic because none of 
+methods in the code are documented (e.g. javadoc). In order to find the purpose of each method, 
+we need to read the source code, which defeats the purpose of black-box testing. 
+
+Since we aren't using mocks, we tried to test methods that didn't depend on other objects of 
+the project. We discarded functions belonging to the `gui` package due to its
+dependence on *swing*. The `misc` package was also discarded since it only contains one function (not enough for the completion of the assignment). 
+Function related to the elapsed time were also ignored.  
+
+## Category-Partition - Function 1
+
+**Function**: `public static int parseSeconds(String strTime)` in `Project.java` 
+
+**Reason for selection:** Parsing of time string might be error prone.
+
+**Function's purpose:** This function receives a string representing time, in `hh:mm:ss` format, and returns the total number of seconds it represents.
+
+### Steps
+
+1. Identify the parameters:
+    - String representing time 
+2. Characteristics of the parameters
+    - The string should represent a valid time in this format `hh:mm:ss` (where *hh* represents the hours, *mm* represents the minutes and *ss* represents the seconds).
+3. Add constraints
+    - Negative time is not allowed
+    - Seconds lie within the interval [0, 59]
+    - Minutes lie within the interval [0, 59]
+4. Generate combinations
+
+| Partition             | Input    | Expected output  |
+|-----------------------|----------|------------------|
+| Negative hour         | -1:00:00 | Thrown exception |
+| Negative minute       | 00:-1:00 | Thrown exception |
+| Negative seconds      | 00:00:-1 | Thrown exception |
+| Minute out of bounds  | 00:60:00 | Thrown exception |
+| Seconds out of bounds | 00:00:60 | Thrown exception |
+| Not a number          | a:b:c    | Thrown exception |
+| Missing component     | 00:00    | Thrown exception |
+| One digit minute      | 00:1:00  | 60               |
+| One digit second      | 00:00:01 | 1                |
+| Two digit minutes     | 00:59:00 | 999x3600         |
+| Two digit seconds     | 00:00:59 | 999x3600         |
+
+
