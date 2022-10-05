@@ -1,16 +1,3 @@
-Project.java
-- public void setSecondsToday(int secondsToday)
-
-ProjectSrializzaer.java
-- protected static void addXmlElement(TransformerHandler hd, String element, AttributesImpl atts, Object data) throws SAXException {
-
-ProjectTableModel.java
-- public Object getValueAt(int row, int column)
-- public Class<?> getColumnClass(int column) {
-- public void removeProject(int row) {
-
-ProjectTime.java
-- public static String formatSeconds(int s) {
 # Assignment 2 - G03P02
 
 ## Group information
@@ -110,7 +97,7 @@ public void parseSecondsInvalidTest(String hours, String minutes, String seconds
     assertThrows(ParseException.class, () -> ProjectTime.parseSeconds(timeStr));
 }
 ```
-
+**Test Results**: 
 All the tests pass successfully.
 
 ## Category-Partition - Function 2
@@ -145,7 +132,7 @@ taken to accomplish. This is an important feature that this functions is part of
 
 ## Unit Test - Function 2
 
-We created three tests: one for valid inputs and another one for invalid inputs. 
+We created two tests: one for valid inputs and another one for invalid inputs. 
 Each test receives the inputs from a stream of arguments from an auxiliar method.
 The inputs tested are the same as the ones present on the previous table. 
 
@@ -185,6 +172,7 @@ public void adjustSecondsInvalidTest(int secondsToday) {
 }
 ```
 
+**Test Results**: 
 All the tests pass successfully.
 
 ## Category-Partition - Function 3
@@ -200,9 +188,10 @@ All the tests pass successfully.
 1. Identify the parameters:
     - int representing the row
     - int representing the column
+    - list of projects present on the table model
 2. Characteristics of the parameters
     - The row integer should represent a positive number between 0 and the total number of projects.
-    - The column integer should represent a positive number between 0 and the total number of columns.
+    - The column integer should represent a positive number between 0 and the total number of categories.
 3. Add constraints
     - Negative rows are not allowed.
     - Negative columns are not allowed.
@@ -210,24 +199,80 @@ All the tests pass successfully.
     - No single column is valid when there are no projects.
     - Rows must point to a project.
     - Columns must point to a category.
+    - Lists of projects mustn't be empty.
 4. Generate combinations
-    | Partition                               | Input                | Expected output  |
-    |-----------------------------------------|----------------------|------------------|
-    | Negative seconds                        | -1                   | 0                |
-
+    | Partition                   | Input (List, line, column)               | Expected output        |
+    |-----------------------------|------------------------------------------|------------------------|
+    | Title singleton list        | One project, Line 0, Title column        | Project's title        |
+    | Time overall singleton list | One project, Line 0, Time overall column | Project's time overall |
+    | Time created singleton list | One project, Line 0, Time created column | Project's time crated  |
+    | Checked singleton list      | One project, Line 0, Checked column      | Project's checked      |
+    | Time today singleton list   | One project, Line 0, Time today column   | Project's time today   |
+    | Start/Pause singleton list  | One project, Line 0, Start/pause column  | Project's start/pause  |
+    | Title two projects list     | Two projects, Line 1, Title column       | Second project's title |
+    | Title empty list            | No projects, Line 0, Title column        | Thrown exception       |
+    | Out of lower bound project  | One project, Line -1, Title column       | Thrown exception       |
+    | Out of upper bound project  | One project, Line 1, Title column        | Thrown exception       |
+    | Out of lower bound column   | One project, Line 0, -100                | Default case           |
+    | Out of upper bound column   | One project, Line 0, 100                 | Default case           |
+    | Out of upper bound column   | One project, Line 0, Delete column       | Default case           |
 
 ## Unit Test - Function 3
 
-We created three tests: one for valid inputs and another one for invalid inputs. 
+We created three tests: one for valid inputs, one for out of bounds inputs, and another one for invalid inputs. 
 Each test receives the inputs from a stream of arguments from an auxiliar method.
 The inputs tested are the same as the ones present on the previous table. 
 
 **Valid test:**
 ```java 
+@ParameterizedTest
+@MethodSource("getValueAtValidInputs")
+public void getValueAtValidTest(ArrayList<Project> projects, int row, int column, Object expected) {
+    // given
+    ProjectTableModel projectTableModel = new ProjectTableModel(projects);
+
+    // when
+    Object result = projectTableModel.getValueAt(row, column);
+
+    // then
+    assertEquals(expected, result);
+}
+```
+
+
+**Out of bounds inputs test:**
+```java 
+@ParameterizedTest
+@MethodSource("getValueAtOutOfBoundsInputs")
+public void getValueAtOutOfBoundsTest(ArrayList<Project> projects, int row, int column) {
+    // given
+    ProjectTableModel projectTableModel = new ProjectTableModel(projects);
+
+    // when + then
+    assertThrows(IndexOutOfBoundsException.class, () -> projectTableModel.getValueAt(row, column));
+}
 ```
 
 **Invalid inputs test:**
 ```java 
+@ParameterizedTest
+@MethodSource("getValueAtInvalidInputs")
+public void getValueAtInvalidTest(ArrayList<Project> projects, int row, int column) {
+    // given
+    ProjectTableModel projectTableModel = new ProjectTableModel(projects);
+
+    // when
+    Object result = projectTableModel.getValueAt(row, column);
+
+    // then
+    assertEquals("wtf?", result);
+}
 ```
 
-All the tests pass successfully.
+**Test Results**: 
+Only the invalid inputs test failed for the inputs: one project list, line 0, delete column. 
+This specific test fails because of the "delete column" argument. It is expected that the value 
+of the delete column of a project would be the default case. However, it returns whether 
+the project is currently running or not. This does not makes sense in the context of the project
+since it is expected that the user deletes projects whether they are running or not.
+For this reason, we consider this case to be a fault. 
