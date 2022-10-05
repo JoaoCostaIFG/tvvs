@@ -14,7 +14,7 @@ we need to read the source code, which defeats the purpose of black-box testing.
 Since we aren't using mocks, we tried to test methods that didn't depend on other objects of 
 the project. We discarded functions belonging to the `gui` package due to its
 dependence on *swing*. The `misc` package was also discarded since it only contains one function (not enough for the completion of the assignment). 
-Function related to the elapsed time were also ignored.  
+Functions related to elapsed time were also ignored.  
 
 The selected package for testing was the `de.dominik_geyer.jtimesched.project` package. 
 ## Category-Partition - Function 1
@@ -28,7 +28,7 @@ The selected package for testing was the `de.dominik_geyer.jtimesched.project` p
 ### Steps
 
 1. Identify the parameters:
-    - String representing time 
+    - String representing time.
 2. Characteristics of the parameters
     - The string should represent a valid time in this format `hh:mm:ss` (where *hh* represents the hours, *mm* represents the minutes and *ss* represents the seconds).
 3. Add constraints
@@ -47,8 +47,8 @@ The selected package for testing was the `de.dominik_geyer.jtimesched.project` p
     | Missing component     | 00:00    | Thrown exception |
     | One digit minute      | 00:1:00  | 60               |
     | One digit second      | 00:00:01 | 1                |
-    | Two digit minutes     | 00:59:00 | 999x3600         |
-    | Two digit seconds     | 00:00:59 | 999x3600         |
+    | Two digit minutes     | 00:59:00 | 59x60            |
+    | Two digit seconds     | 00:00:59 | 59               |
 
 ## Unit Test - Function 1
 
@@ -56,7 +56,7 @@ We created three tests: one for valid inputs, one for missing components, and an
 Each test receives the inputs from a stream of arguments from an auxiliar method.
 The inputs tested are the same as the ones present on the previous table. 
 
-**Valid inputs test:**
+**Valid inputs test**:
 ```java 
 @ParameterizedTest(name = "Hours: {0} | Minutes: {1} | Seconds: {2}")
 @MethodSource("parseSecondsValidInputs")
@@ -73,7 +73,7 @@ public void parseSecondsValidTest(String hours, String minutes, String seconds) 
 }
 ```
 
-**Missing component test:**
+**Missing component test**:
 ```java 
 @Test(expected = ParseException.class)
 public void parseSecondsMissingComponentTest() throws ParseException {
@@ -85,7 +85,7 @@ public void parseSecondsMissingComponentTest() throws ParseException {
 }
 ```
 
-**Invalid inputs test:**
+**Invalid inputs test**:
 ```java 
 @ParameterizedTest(name = "Hours: {0} | Minutes: {1} | Seconds: {2}")
 @MethodSource("parseSecondsInvalidInputs")
@@ -104,15 +104,15 @@ All the tests pass successfully.
 
 **Function**: `public void adjustSecondsToday(int secondsToday)` in `Project.java` line 192.
 
-**Reason for selection:** Throughout the usage of the application, the user will frequently set the time a task has
+**Reason for selection**: Throughout the usage of the application, the user will frequently set the time a task has
 taken to accomplish. This is an important feature that this functions is part of.
 
-**Function's purpose:** This function receives a integer representing the number of seconds that took complete a task. Then, the function updates the number of seconds spent on the task today and overall.
+**Function's purpose:** This function receives an integer representing the number of seconds that it took to complete a task. Then, the function updates the number of seconds spent today on the task and overall.
 
 ### Steps
 
 1. Identify the parameters:
-    - int representing the number of seconds
+    - Integer representing the number of seconds.
 2. Characteristics of the parameters
     - The integer should represent a positive number between 0 and infinite.
 3. Add constraints
@@ -123,7 +123,7 @@ taken to accomplish. This is an important feature that this functions is part of
     | Negative seconds                        | -1                   | 0                |
     | Immediately below time today complement | -(secondsToday - 1)  | 0                |
     | Negative time today                     | - secondsToday       | 0                |
-    | Immediately above time today            | - (secondsToday + 1) | 0                |
+    | Immediately above time today complement | - (secondsToday + 1) | 0                |
     | Zero                                    | 0                    | 0                |
     | Immediately below time today            | secondsToday - 1     | secondsToday - 1 |
     | Time today                              | secondsToday         | secondsToday     |
@@ -374,3 +374,5 @@ public void setSecondsTodayTest(int secondsToday) {
 
 **Test Results**: 
 All the tests pass successfully.
+
+**Note about function 4 and 5**: 
