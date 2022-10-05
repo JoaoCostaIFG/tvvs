@@ -325,3 +325,52 @@ public void setSecondsOverallTest(int secondsOverall) {
 `
 **Test Results**: 
 All the tests pass successfully.
+
+## Category-Partition - Function 5
+
+**Function**: `public void setSecondsToday(int secondsToday)` in `Project.java` line 185.
+
+**Reason for selection**: It is important that this function works as expected since
+other methods depend on it.
+
+**Function's purpose**: This function sets the seconds today of a project as the
+value it receives as an argument (if valid). 
+
+### Steps
+
+1. Identify the parameters:
+    - Integer representing the number of seconds today.
+2. Characteristics of the parameters
+    - The integer should represent a positive number between 0 and infinite.
+3. Add constraints
+    - Negative time is not allowed.
+4. Generate combinations
+    | Partition          | Input | Expected output |
+    |--------------------|-------|-----------------|
+    | Negative seconds   | -100  | 0               |
+    | Negative seconds 2 | -1    | 0               |
+    | Zero seconds       | 0     | 0               |
+    | Positive seconds   | 1     | 1               |
+    | Positive seconds 2 | 100   | 100             |
+
+## Unit Test - Function 5
+
+We created one test for all inputs.
+The test receives the inputs from a stream of arguments from an auxiliar method.
+The inputs tested are the same as the ones present on the previous table. 
+
+**Test:**
+```java 
+@ParameterizedTest
+@MethodSource("setSecondsTodayInputs")
+public void setSecondsTodayTest(int secondsToday) {
+    // when
+    this.project.setSecondsToday(secondsToday);
+
+    // then
+    assertEquals(Math.max(secondsToday, 0), this.project.getSecondsToday());
+}
+```
+
+**Test Results**: 
+All the tests pass successfully.
