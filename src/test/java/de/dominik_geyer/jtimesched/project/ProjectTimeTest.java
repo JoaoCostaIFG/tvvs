@@ -1,6 +1,6 @@
 package de.dominik_geyer.jtimesched.project;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -67,12 +67,12 @@ public class ProjectTimeTest {
         );
     }
 
-    @Test(expected = ParseException.class)
+    @Test
     public void parseSecondsMissingComponentTest() throws ParseException {
         // given
         String timeStr = "00:00";
 
-        // when
-        ProjectTime.parseSeconds(timeStr);
+        // when + then
+        assertThrows(ParseException.class, () -> ProjectTime.parseSeconds(timeStr));
     }
 }
