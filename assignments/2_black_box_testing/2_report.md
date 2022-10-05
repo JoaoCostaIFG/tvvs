@@ -45,9 +45,9 @@ The selected package for testing was the `de.dominik_geyer.jtimesched.project` p
 2. Characteristics of the parameters
     - The string should represent a valid time in this format `hh:mm:ss` (where *hh* represents the hours, *mm* represents the minutes and *ss* represents the seconds).
 3. Add constraints
-    - Negative time is not allowed
-    - Seconds lie within the interval [0, 59]
-    - Minutes lie within the interval [0, 59]
+    - Negative time is not allowed.
+    - Seconds lie within the interval [0, 59].
+    - Minutes lie within the interval [0, 59].
 4. Generate combinations
     | Partition             | Input    | Expected output  |
     |-----------------------|----------|------------------|
@@ -117,18 +117,19 @@ All the tests pass successfully.
 
 **Function**: `public void adjustSecondsToday(int secondsToday)` in `Project.java` line 192.
 
-**Reason for selection:** Adjusting the time of a project is an important feature for the application that takes user input to update the time. This function is a crucial part of this feature.
+**Reason for selection:** Throughout the usage of the application, the user will commonly set the time a task has
+taken to accomplish. This is an important feature that this functions is part of.
 
 **Function's purpose:** This function receives a integer representing the number of seconds that took complete a task. Then, the function updates the number of seconds spent on the task today and overall.
 
 ### Steps
 
 1. Identify the parameters:
-    - Int representing the number of seconds
+    - int representing the number of seconds
 2. Characteristics of the parameters
     - The integer should represent a positive number between 0 and infinite.
 3. Add constraints
-    - Negative time is not allowed
+    - Negative time is not allowed.
 4. Generate combinations
     | Partition                               | Input                | Expected output  |
     |-----------------------------------------|----------------------|------------------|
@@ -182,6 +183,51 @@ public void adjustSecondsInvalidTest(int secondsToday) {
     assertEquals(expectedSecondsToday, this.project.getSecondsToday());
     assertEquals(expectedSecondsOverall, this.project.getSecondsOverall());
 }
+```
+
+All the tests pass successfully.
+
+## Category-Partition - Function 3
+
+**Function**: `public Object getValueAt(int row, int column)` in `ProjectTableModel.java` line 65.
+
+**Reason for selection:** This function takes care of the selection of values present on the table. As the user interacts with the application, it is important that the selected value is the correct one. It is required for the application to work as intended.
+
+**Function's purpose:** Given two integers row and column, this function returns the value at the given column for the project at the given row.
+
+### Steps
+
+1. Identify the parameters:
+    - int representing the row
+    - int representing the column
+2. Characteristics of the parameters
+    - The row integer should represent a positive number between 0 and the total number of projects.
+    - The column integer should represent a positive number between 0 and the total number of columns.
+3. Add constraints
+    - Negative rows are not allowed.
+    - Negative columns are not allowed.
+    - No single row is valid when there are no projects.
+    - No single column is valid when there are no projects.
+    - Rows must point to a project.
+    - Columns must point to a category.
+4. Generate combinations
+    | Partition                               | Input                | Expected output  |
+    |-----------------------------------------|----------------------|------------------|
+    | Negative seconds                        | -1                   | 0                |
+
+
+## Unit Test - Function 3
+
+We created three tests: one for valid inputs and another one for invalid inputs. 
+Each test receives the inputs from a stream of arguments from an auxiliar method.
+The inputs tested are the same as the ones present on the previous table. 
+
+**Valid test:**
+```java 
+```
+
+**Invalid inputs test:**
+```java 
 ```
 
 All the tests pass successfully.
