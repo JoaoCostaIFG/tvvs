@@ -56,7 +56,7 @@ We created three tests: one for valid inputs, one for missing components, and an
 Each test receives the inputs from a stream of arguments from an auxiliar method.
 The inputs tested are the same as the ones present on the previous table. 
 
-**Valid test:**
+**Valid inputs test:**
 ```java 
 @ParameterizedTest(name = "Hours: {0} | Minutes: {1} | Seconds: {2}")
 @MethodSource("parseSecondsValidInputs")
@@ -104,7 +104,7 @@ All the tests pass successfully.
 
 **Function**: `public void adjustSecondsToday(int secondsToday)` in `Project.java` line 192.
 
-**Reason for selection:** Throughout the usage of the application, the user will commonly set the time a task has
+**Reason for selection:** Throughout the usage of the application, the user will frequently set the time a task has
 taken to accomplish. This is an important feature that this functions is part of.
 
 **Function's purpose:** This function receives a integer representing the number of seconds that took complete a task. Then, the function updates the number of seconds spent on the task today and overall.
@@ -136,7 +136,7 @@ We created two tests: one for valid inputs and another one for invalid inputs.
 Each test receives the inputs from a stream of arguments from an auxiliar method.
 The inputs tested are the same as the ones present on the previous table. 
 
-**Valid test:**
+**Valid inputs test:**
 ```java 
 @ParameterizedTest()
 @MethodSource("adjustSecondsValidInputs")
@@ -223,7 +223,7 @@ We created three tests: one for valid inputs, one for out of bounds inputs, and 
 Each test receives the inputs from a stream of arguments from an auxiliar method.
 The inputs tested are the same as the ones present on the previous table. 
 
-**Valid test:**
+**Valid inputs test:**
 ```java 
 @ParameterizedTest
 @MethodSource("getValueAtValidInputs")
@@ -276,3 +276,52 @@ of the delete column of a project would be the default case. However, it returns
 the project is currently running or not. This does not makes sense in the context of the project
 since it is expected that the user deletes projects whether they are running or not.
 For this reason, we consider this case to be a fault. 
+
+## Category-Partition - Function 4
+
+**Function**: `public void setSecondsOverall(int secondsOverall)` in `Project.java` line 178.
+
+**Reason for selection**: It is important that this function works as expected since
+other methods depend on it.
+
+**Function's purpose**: This function sets the seconds overall of a project as the
+value it receives as an argument (if valid). 
+
+### Steps
+
+1. Identify the parameters:
+    - Integer representing the number of seconds overall.
+2. Characteristics of the parameters
+    - The integer should represent a positive number between 0 and infinite.
+3. Add constraints
+    - Negative time is not allowed.
+4. Generate combinations
+    | Partition          | Input | Expected output |
+    |--------------------|-------|-----------------|
+    | Negative seconds   | -100  | 0               |
+    | Negative seconds 2 | -1    | 0               |
+    | Zero seconds       | 0     | 0               |
+    | Positive seconds   | 1     | 1               |
+    | Positive seconds 2 | 100   | 100             |
+
+## Unit Test - Function 4
+
+We created one test for all inputs.
+The test receives the inputs from a stream of arguments from an auxiliar method.
+The inputs tested are the same as the ones present on the previous table. 
+
+**Test:**
+```java 
+@ParameterizedTest
+@MethodSource("setSecondsOverallInputs")
+public void setSecondsOverallTest(int secondsOverall) {
+    // when
+    this.project.setSecondsOverall(secondsOverall);
+
+    // then
+    assertEquals(Math.max(secondsOverall, 0), this.project.getSecondsOverall());
+}
+```
+`
+**Test Results**: 
+All the tests pass successfully.
