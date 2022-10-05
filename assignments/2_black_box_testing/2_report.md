@@ -8,7 +8,7 @@
 ## Function Selection Process
 
 The aim of this assignment is to perform black-box testing. This is problematic
-because none of methods in the code are documented (e.g. javadoc). In order to
+because none of the methods in the code are documented (e.g. JavaDoc). In order to
 find the purpose of each method, we need to read the source code, which somewhat
 defeats the purpose of black-box testing.
 
@@ -29,7 +29,7 @@ package.
 **Purpose**: This function receives a string representing time, in `hh:mm:ss`
 format, and returns the total number of seconds it represents.
 
-**Reason for selection**: This method deals with parsing of user input, which
+**Reason for selection**: This method deals with the parsing of user input, which
 needs to be robust.
 
 ### Steps
@@ -67,20 +67,20 @@ needs to be robust.
 We created three tests: one for valid inputs, one for missing components, and
 another one for invalid inputs. Each test receives the inputs from a stream of
 arguments from an auxiliary method. The inputs tested are the same as the ones
-present on the previous table:
+presented in the previous table:
 
 - Valid inputs test:
     - We pass a string that should be considered valid and result in an output;
     - E.g. "00:59:01".
 - Missing components test:
     - We pass a string that is missing one of that components;
-    - We noticed that the parsing fails, so we consider it the expected behaviour;
-    - The method could be adapted to accept this king of input as valid;
+    - We noticed that the parsing fails, so we consider it the expected behavior;
+    - The method could be adapted to accept this kind of input as valid;
     - E.g. "00:00".
 - Invalid inputs test:
     - Test inputs that are known to be invalid: invalid characters (e.g. letters),
       negative time, minutes/seconds out-of-range, etc...
-    - The parsing of this should always result on a failure;
+    - The parsing of this should always result in a failure;
     - E.g. "00:60:00".
 
 All the tests pass successfully.
@@ -123,17 +123,17 @@ with user input, so it needs to be reliable.
 
 We created two tests: one for valid inputs and another one for invalid inputs. Each test
 receives the inputs from a stream of arguments from an auxiliary method. The inputs
-tested are the same as the ones present on the previous table.
+tested are the same as the ones present in the previous table.
 
 - Valid inputs test:
-    - We try setting the value to 0 and to the values around the current number of _
+    - We try setting the value to 0 and to values around the current number of _
       seconds today_;
-    - This should be valid and result on the number of seconds today being adjusted to
+    - This should be valid and result in the number of seconds today being adjusted to
       the given number of seconds;
     - Furthermore, the overall time should be adjusted accordingly;
     - E.g. `10`.
 - Invalid inputs test:
-    - We try adjusting the time to negative values, and cause the time delta to be
+    - We try adjusting the time to negative values and cause the time delta to be
       negative;
     - This tests whether the method can handle negative values, and negative time
       deltas;
@@ -148,7 +148,7 @@ tested are the same as the ones present on the previous table.
 **Method**: `public Object getValueAt(int row, int column)` in `ProjectTableModel.java`
 line 65.
 
-**Purpose:** Given two integers row and column, this function returns the value at the
+**Purpose:** Given two integers row and column, this function returns the value in the
 given column for the project at the given row.
 
 **Reason for selection:** This function takes care of the selection of values
@@ -181,7 +181,7 @@ application to work as intended.
 |-----------------------------|------------------------------------------|------------------------|
 | Title singleton list        | One project, Line 0, Title column        | Project's title        |
 | Time overall singleton list | One project, Line 0, Time overall column | Project's time overall |
-| Time created singleton list | One project, Line 0, Time created column | Project's time crated  |
+| Time created singleton list | One project, Line 0, Time created column | Project's time created  |
 | Checked singleton list      | One project, Line 0, Checked column      | Project's checked      |
 | Time today singleton list   | One project, Line 0, Time today column   | Project's time today   |
 | Start/Pause singleton list  | One project, Line 0, Start/pause column  | Project's start/pause  |                                       
@@ -195,9 +195,9 @@ application to work as intended.
 
 ### Unit Test
 
-We created three tests: one for valid inputs, one for out of bounds inputs, and another
+We created three tests: one for valid inputs, one for out-of-bounds inputs, and another
 one for invalid inputs. Each test receives the inputs from a stream of arguments from an
-auxiliary method. The inputs tested are the same as the ones present on the previous
+auxiliary method. The inputs tested are the same as the ones present in the previous
 table.
 
 - Valid inputs test:
@@ -212,7 +212,7 @@ table.
     - E.g. "One project, Line -1, Title column".
 - Invalid inputs test:
     - In this test we try getting invalid column numbers from a project;
-    - This includes negative column numbers, and column numbers that don't correspond to
+    - This includes negative column numbers and column numbers that don't correspond to
       any
       column;
     - In our opinion, the _delete column_ should be considered since it doesn't show any
@@ -262,10 +262,10 @@ other methods depend on it.
 
 We created one test for all inputs. The test receives the inputs from a stream of
 arguments from an auxiliary method. The inputs tested are the same as the ones present
-on the previous table.
+in the previous table.
 
-- We try setting the value of secondsOverall to 0 and to the values around;
-- For positive numbers (including 0), this should valid and result on the number of
+- We try setting the value of secondsOverall to 0 and to values around;
+- For positive numbers (including 0), this should be valid and result in the number of
   seconds overall being adjusted to the given number of seconds;
 - For invalid inputs (negative times), the value of seconds overall should be set to 0.
 
@@ -303,21 +303,21 @@ since other methods depend on it.
 ### Unit Test
 
 We created one test for all inputs. The test receives the inputs from a stream
-of arguments from an auxiliar method. The inputs tested are the same as the ones
-present on the previous table.
+of arguments from an auxiliary method. The inputs tested are the same as the ones
+present in the previous table.
 
 - We try setting the value of secondsToday to 0 and to the values around;
-- For positive numbers, this should valid and result on the number of seconds today
+- For positive numbers, this should be valid and result in the number of seconds today
   being adjusted to the given number of seconds;
 - For invalid inputs (negative times), the value of seconds today should be set to 0.
 
 **Test Results**: All the tests pass successfully.
 
-## Note about method 4 and 5
+## Note about methods 4 and 5
 
 We noticed that the function `setSecondsToday(int secondsToday)` does not update the
 value of _seconds overall_ of a project. If the author of the project is not careful
 with keeping both values updated accordingly, it might lead to problems.
 For example, a task could have 10 seconds today and 0 seconds overall, which
 does not make sense. For this reason, we think that this function shouldn't be
-publicly exposed, and that this update should have been implemented differently.
+publicly exposed and that this update should have been implemented differently.
