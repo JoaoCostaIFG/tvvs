@@ -8,30 +8,26 @@
 ## Function Selection Process
 
 The aim of this assignment is to perform black-box testing. This is problematic
-because none of
-methods in the code are documented (e.g. javadoc). In order to find the purpose
-of each method,
-we need to read the source code, which somewhat defeats the purpose of black-box
-testing.
+because none of methods in the code are documented (e.g. javadoc). In order to
+find the purpose of each method, we need to read the source code, which somewhat
+defeats the purpose of black-box testing.
 
 Since we aren't using mocks, we tried to test methods that didn't depend on
-other objects of
-the project. We discarded functions belonging to the `gui` package due to its
-dependence on *swing*. The `misc` package was also discarded since it only
-contains one function
-(not enough for the completion of the assignment). Functions related to elapsed
-time were also ignored.
+other objects of the project. We discarded functions belonging to the `gui`
+package due to its dependence on _swing_. The `misc` package was also discarded
+since it only contains one function (not enough for the completion of the
+assignment). Functions related to elapsed time were also ignored.
 
 The selected package for testing was the `de.dominik_geyer.jtimesched.project`
 package.
 
-## Category-Partition - Function 1
+## Method 1
 
-**Method**: `public static int parseSeconds(String strTime)`
-in `ProjectTime.java` line 36.
+**Method**: `public static int parseSeconds(String strTime)` in
+`ProjectTime.java` line 36.
 
-**Purpose**: This function receives a string representing time,
-in `hh:mm:ss` format, and returns the total number of seconds it represents.
+**Purpose**: This function receives a string representing time, in `hh:mm:ss`
+format, and returns the total number of seconds it represents.
 
 **Reason for selection**: This method deals with parsing of user input, which
 needs to be robust.
@@ -42,9 +38,9 @@ needs to be robust.
     - String representing time.
 2. Characteristics of the parameters
     - The string should represent a valid time in the format: `hh:mm:ss`
-    - *hh* represents the hours
-    - *mm* represents the minutes
-    - *ss* represents the seconds
+    - _hh_ represents the hours
+    - _mm_ represents the minutes
+    - _ss_ represents the seconds
     - It should be possible to pass single digits for each component
 3. Add constraints
     - Negative time is not allowed.
@@ -52,90 +48,55 @@ needs to be robust.
     - Minutes lie within the interval [0, 59].
 4. Generate combinations
 
-| Partition             | Input     | Expected output   |
-|-----------------------|-----------|-------------------|
-| Negative hour         | -1:00:00  | Thrown exception  |
-| Negative minute       | 00:-1:00  | Thrown exception  |
-| Negative seconds      | 00:00:-1  | Thrown exception  |
-| Minute out of bounds  | 00:60:00  | Thrown exception  |
-| Seconds out of bounds | 00:00:60  | Thrown exception  |
-| Not a number          | a:b:c     | Thrown exception  |
-| Missing component     | 00:00     | Thrown exception  |
-| One digit minute      | 00:1:00   | 60                |
-| One digit second      | 00:00:01  | 1                 |
-| Two digit minutes     | 00:59:00  | 59x60             |
-| Two digit seconds     | 00:00:59  | 59                |
+| Partition             | Input      | Expected outcome |
+| --------------------- | ---------- |------------------|
+| Negative hour         | `-1:00:00` | Thrown exception |
+| Negative minute       | `00:-1:00` | Thrown exception |
+| Negative seconds      | `00:00:-1` | Thrown exception |
+| Minute out of bounds  | `00:60:00` | Thrown exception |
+| Seconds out of bounds | `00:00:60` | Thrown exception |
+| Not a number          | `a:b:c`    | Thrown exception |
+| Missing component     | `00:00`    | Thrown exception |
+| One digit minute      | `00:1:00`  | 60               |
+| One digit second      | `00:00:01` | 1                |
+| Two digit minutes     | `00:59:00` | 59x60            |
+| Two digit seconds     | `00:00:59` | 59               |
 
-## Unit Test - Function 1
+### Unit Test
 
 We created three tests: one for valid inputs, one for missing components, and
-another one for invalid inputs.
-Each test receives the inputs from a stream of arguments from an auxiliary
-method.
-The inputs tested are the same as the ones present on the previous table.
+another one for invalid inputs. Each test receives the inputs from a stream of
+arguments from an auxiliary method. The inputs tested are the same as the ones
+present on the previous table:
 
-**Valid inputs test**:
+- Valid inputs test:
+    - We pass a string that should be considered valid and result in an output;
+    - E.g. "00:59:01".
+- Missing components test:
+    - We pass a string that is missing one of that components;
+    - We noticed that the parsing fails, so we consider it the expected behaviour;
+    - The method could be adapted to accept this king of input as valid;
+    - E.g. "00:00".
+- Invalid inputs test:
+    - Test inputs that are known to be invalid: invalid characters (e.g. letters),
+      negative time, minutes/seconds out-of-range, etc...
+    - The parsing of this should always result on a failure;
+    - E.g. "00:60:00".
 
-```java 
-@ParameterizedTest(name = "Hours: {0} | Minutes: {1} | Seconds: {2}")
-@MethodSource("parseSecondsValidInputs")
-public void parseSecondsValidTest(String hours, String minutes, String seconds) throws ParseException {
-    // given
-    int expectedSeconds = this.timeComponentsToSecs(hours, minutes, seconds);
-    String timeStr = this.timeComponentsToTimeStr(hours, minutes, seconds);
-
-    // when
-    int result = ProjectTime.parseSeconds(timeStr);
-
-    // then
-    assertEquals(expectedSeconds, result);
-}
-```
-
-**Missing component test**:
-
-```java 
-@Test(expected = ParseException.class)
-public void parseSecondsMissingComponentTest() throws ParseException {
-    // given
-    String timeStr = "00:00";
-
-    // when
-    ProjectTime.parseSeconds(timeStr);
-}
-```
-
-**Invalid inputs test**:
-
-```java 
-@ParameterizedTest(name = "Hours: {0} | Minutes: {1} | Seconds: {2}")
-@MethodSource("parseSecondsInvalidInputs")
-public void parseSecondsInvalidTest(String hours, String minutes, String seconds) {
-    // given
-    String timeStr = this.timeComponentsToTimeStr(hours, minutes, seconds);
-
-    // when + then
-    assertThrows(ParseException.class, () -> ProjectTime.parseSeconds(timeStr));
-}
-```
-
-**Test Results**:
 All the tests pass successfully.
 
-## Category-Partition - Function 2
+## Method 2
 
-**Function**: `public void adjustSecondsToday(int secondsToday)`
-in `Project.java` line 192.
+**Method**: `public void adjustSecondsToday(int secondsToday)` in `Project.java`
+line 192.
+
+**Purpose:** This function receives an integer representing the number of
+seconds that it took to complete a task. Then, the function updates the number
+of seconds spent on the task today, as well as the overall time spent on it.
 
 **Reason for selection**: Throughout the usage of the application, the user will
-frequently set the time a task has
-taken to accomplish. This is an important feature that this functions is part
-of.
-
-**Function's purpose:** This function receives an integer representing the
-number of seconds that it took to complete a
-task. Then, the function updates the number of seconds spent today on the task
-and overall.
+frequently set the time a task has taken to accomplish. This is a method that deals
+with user input, so it needs to be reliable.
 
 ### Steps
 
@@ -146,79 +107,54 @@ and overall.
 3. Add constraints
     - Negative time is not allowed.
 4. Generate combinations
-   | Partition | Input | Expected output |
-   |-----------------------------------------|----------------------|------------------|
-   | Negative seconds | -1 | 0 |
-   | Immediately below time today complement | -(secondsToday - 1)  | 0 |
-   | Negative time today | - secondsToday | 0 |
-   | Immediately above time today complement | - (secondsToday + 1) | 0 |
-   | Zero | 0 | 0 |
-   | Immediately below time today | secondsToday - 1 | secondsToday - 1 |
-   | Time today | secondsToday | secondsToday |
-   | Immediately above time today | secondsToday + 1 | secondsToday + 1 |
 
-## Unit Test - Function 2
+| Partition                               | Input                | Expected outcome |
+| --------------------------------------- |----------------------|------------------|
+| Negative seconds                        | -1                   | 0                |
+| Immediately below time today complement | - (secondsToday - 1) | 0                |
+| Negative time today                     | - secondsToday       | 0                |
+| Immediately above time today complement | - (secondsToday + 1) | 0                |
+| Zero                                    | 0                    | 0                |
+| Immediately below time today            | secondsToday - 1     | secondsToday - 1 |
+| Time today                              | secondsToday         | secondsToday     |
+| Immediately above time today            | secondsToday + 1     | secondsToday + 1 |
 
-We created two tests: one for valid inputs and another one for invalid inputs.
-Each test receives the inputs from a stream of arguments from an auxiliar
-method.
-The inputs tested are the same as the ones present on the previous table.
+### Unit Test
 
-**Valid inputs test:**
+We created two tests: one for valid inputs and another one for invalid inputs. Each test
+receives the inputs from a stream of arguments from an auxiliary method. The inputs
+tested are the same as the ones present on the previous table.
 
-```java 
-@ParameterizedTest()
-@MethodSource("adjustSecondsValidInputs")
-public void adjustSecondsValidTest(int secondsToday) {
-    // given
-    int expectedSecondsToday = secondsToday;
-    int expectedSecondsOverall = ProjectTest.secondsOverall - ProjectTest.secondsToday + secondsToday;
+- Valid inputs test:
+    - We try setting the value to 0 and to the values around the current number of _
+      seconds today_;
+    - This should be valid and result on the number of seconds today being adjusted to
+      the given number of seconds;
+    - Furthermore, the overall time should be adjusted accordingly;
+    - E.g. `10`.
+- Invalid inputs test:
+    - We try adjusting the time to negative values, and cause the time delta to be
+      negative;
+    - This tests whether the method can handle negative values, and negative time
+      deltas;
+    - This should result in the _seconds today_ being 0 and the overall time being
+      adjusted accordingly (consider the input as 0);
+    - E.g. `-1`.
 
-    // when
-    this.project.adjustSecondsToday(secondsToday);
+**Test Results**: All the tests pass successfully.
 
-    // then
-    assertEquals(expectedSecondsToday, this.project.getSecondsToday());
-    assertEquals(expectedSecondsOverall, this.project.getSecondsOverall());
-}
-```
+## Method 3
 
-**Invalid inputs test:**
+**Method**: `public Object getValueAt(int row, int column)` in `ProjectTableModel.java`
+line 65.
 
-```java 
-@ParameterizedTest()
-@MethodSource("adjustSecondsInvalidInputs")
-public void adjustSecondsInvalidTest(int secondsToday) {
-    // given
-    int expectedSecondsToday = 0;
-    int expectedSecondsOverall = ProjectTest.secondsOverall - ProjectTest.secondsToday;
-
-    // when
-    this.project.adjustSecondsToday(secondsToday);
-
-    // then
-    assertEquals(expectedSecondsToday, this.project.getSecondsToday());
-    assertEquals(expectedSecondsOverall, this.project.getSecondsOverall());
-}
-```
-
-**Test Results**:
-All the tests pass successfully.
-
-## Category-Partition - Function 3
-
-**Function**: `public Object getValueAt(int row, int column)`
-in `ProjectTableModel.java` line 65.
+**Purpose:** Given two integers row and column, this function returns the value at the
+given column for the project at the given row.
 
 **Reason for selection:** This function takes care of the selection of values
-present on the table. As the user
-interacts with the application, it is important that the selected value is the
-correct one. It is required for the
+present on the table. As the user interacts with the application, it is
+important that the selected value is the correct one. It is required for the
 application to work as intended.
-
-**Function's purpose:** Given two integers row and column, this function returns
-the value at the given column for the
-project at the given row.
 
 ### Steps
 
@@ -240,113 +176,69 @@ project at the given row.
     - Columns must point to a category.
     - Lists of projects mustn't be empty.
 4. Generate combinations
-   | Partition | Input (List, line, column)               | Expected output |
-   |-----------------------------|------------------------------------------|------------------------|
-   | Title singleton list | One project, Line 0, Title column | Project's title
-   |
-   | Time overall singleton list | One project, Line 0, Time overall column |
-   Project's time overall |
-   | Time created singleton list | One project, Line 0, Time created column |
-   Project's time crated |
-   | Checked singleton list | One project, Line 0, Checked column | Project's
-   checked |
-   | Time today singleton list | One project, Line 0, Time today column |
-   Project's time today |
-   | Start/Pause singleton list | One project, Line 0, Start/pause column |
-   Project's start/pause |
-   | Title two projects list | Two projects, Line 1, Title column | Second
-   project's title |
-   | Title empty list | No projects, Line 0, Title column | Thrown exception |
-   | Out of lower bound project | One project, Line -1, Title column | Thrown
-   exception |
-   | Out of upper bound project | One project, Line 1, Title column | Thrown
-   exception |
-   | Out of lower bound column | One project, Line 0, -100 | Default case |
-   | Out of upper bound column | One project, Line 0, 100 | Default case |
-   | Out of upper bound column | One project, Line 0, Delete column | Default
-   case |
 
-## Unit Test - Function 3
+| Partition                   | Input (List, line, column)               | Expected output        |
+|-----------------------------|------------------------------------------|------------------------|
+| Title singleton list        | One project, Line 0, Title column        | Project's title        |
+| Time overall singleton list | One project, Line 0, Time overall column | Project's time overall |
+| Time created singleton list | One project, Line 0, Time created column | Project's time crated  |
+| Checked singleton list      | One project, Line 0, Checked column      | Project's checked      |
+| Time today singleton list   | One project, Line 0, Time today column   | Project's time today   |
+| Start/Pause singleton list  | One project, Line 0, Start/pause column  | Project's start/pause  |                                       
+| Title two projects list     | Two projects, Line 1, Title column       | Second project's title |                 
+| Title empty list            | No projects, Line 0, Title column        | Thrown exception       |       
+| Out of lower bound project  | One project, Line -1, Title column       | Thrown exception       |             
+| Out of upper bound project  | One project, Line 1, Title column        | Thrown exception       | 
+| Out of lower bound column   | One project, Line 0, -100                | Default case           | 
+| Out of upper bound column   | One project, Line 0, 100                 | Default case           | 
+| Out of upper bound column   | One project, Line 0, Delete column       | Default case           |
 
-We created three tests: one for valid inputs, one for out of bounds inputs, and
-another one for invalid inputs.
-Each test receives the inputs from a stream of arguments from an auxiliar
-method.
-The inputs tested are the same as the ones present on the previous table.
+### Unit Test
 
-**Valid inputs test:**
+We created three tests: one for valid inputs, one for out of bounds inputs, and another
+one for invalid inputs. Each test receives the inputs from a stream of arguments from an
+auxiliary method. The inputs tested are the same as the ones present on the previous
+table.
 
-```java 
-@ParameterizedTest
-@MethodSource("getValueAtValidInputs")
-public void getValueAtValidTest(ArrayList<Project> projects, int row, int column, Object expected) {
-    // given
-    ProjectTableModel projectTableModel = new ProjectTableModel(projects);
+- Valid inputs test:
+    - In this test we pass valid rows (where there is a project) and valid columns;
+    - We expect to get the value of the project corresponding to the column chosen;
+    - E.g. "One project, Line 0, Title column".
+- Out-of-bounds inputs test:
+    - In this test we play with the list of projects;
+    - Trying to get a project from an empty list;
+    - Passing a negative row value;
+    - Choosing a row where there isn't a project (non-empty project list);
+    - E.g. "One project, Line -1, Title column".
+- Invalid inputs test:
+    - In this test we try getting invalid column numbers from a project;
+    - This includes negative column numbers, and column numbers that don't correspond to
+      any
+      column;
+    - In our opinion, the _delete column_ should be considered since it doesn't show any
+      value;
+    - The expected output of this test is a default output. In this case, the output
+      is "wtf?". We believe the test uses a default value instead of an exception,
+      because Swing doesn't handle that.
 
-    // when
-    Object result = projectTableModel.getValueAt(row, column);
+**Test Results**: Only the invalid inputs test failed for the inputs: one project list,
+line 0, delete column. This specific test fails because of the"delete column" argument.
+It is expected that the value of the delete column of a project would be the default
+case. However, it returns whether the project is currently running or not. This does not
+make sense in the context of the project since it is expected that the user deletes
+projects whether they are running or not. For this reason, we consider this case to be a
+fault.
 
-    // then
-    assertEquals(expected, result);
-}
-```
+## Method 4
 
-**Out of bounds inputs test:**
+**Method**: `public void setSecondsOverall(int secondsOverall)` in
+`Project.java` line 178.
 
-```java 
-@ParameterizedTest
-@MethodSource("getValueAtOutOfBoundsInputs")
-public void getValueAtOutOfBoundsTest(ArrayList<Project> projects, int row, int column) {
-    // given
-    ProjectTableModel projectTableModel = new ProjectTableModel(projects);
-
-    // when + then
-    assertThrows(IndexOutOfBoundsException.class, () -> projectTableModel.getValueAt(row, column));
-}
-```
-
-**Invalid inputs test:**
-
-```java 
-@ParameterizedTest
-@MethodSource("getValueAtInvalidInputs")
-public void getValueAtInvalidTest(ArrayList<Project> projects, int row, int column) {
-    // given
-    ProjectTableModel projectTableModel = new ProjectTableModel(projects);
-
-    // when
-    Object result = projectTableModel.getValueAt(row, column);
-
-    // then
-    assertEquals("wtf?", result);
-}
-```
-
-**Test Results**:
-Only the invalid inputs test failed for the inputs: one project list, line 0,
-delete column.
-This specific test fails because of the "delete column" argument. It is expected
-that the value
-of the delete column of a project would be the default case. However, it returns
-whether
-the project is currently running or not. This does not makes sense in the
-context of the project
-since it is expected that the user deletes projects whether they are running or
-not.
-For this reason, we consider this case to be a fault.
-
-## Category-Partition - Function 4
-
-**Function**: `public void setSecondsOverall(int secondsOverall)`
-in `Project.java` line 178.
-
-**Reason for selection**: It is important that this function works as expected
-since
-other methods depend on it.
-
-**Function's purpose**: This function sets the seconds overall of a project as
-the
+**Function's purpose**: This function sets the _seconds overall_ of a project as the
 value it receives as an argument (if valid).
+
+**Reason for selection**: It is important that this function works as expected since
+other methods depend on it.
 
 ### Steps
 
@@ -357,49 +249,38 @@ value it receives as an argument (if valid).
 3. Add constraints
     - Negative time is not allowed.
 4. Generate combinations
-   | Partition | Input | Expected output |
-   |--------------------|-------|-----------------|
-   | Negative seconds | -100 | 0 |
-   | Negative seconds 2 | -1 | 0 |
-   | Zero seconds | 0 | 0 |
-   | Positive seconds | 1 | 1 |
-   | Positive seconds 2 | 100 | 100 |
 
-## Unit Test - Function 4
+| Partition          | Input | Expected output |
+|--------------------|-------|-----------------|
+| Negative seconds   | -100  | 0               |
+| Negative seconds 2 | -1    | 0               |
+| Zero seconds       | 0     | 0               |
+| Positive seconds   | 1     | 1               |
+| Positive seconds 2 | 100   | 100             |
 
-We created one test for all inputs.
-The test receives the inputs from a stream of arguments from an auxiliar method.
-The inputs tested are the same as the ones present on the previous table.
+### Unit Test
 
-**Test:**
+We created one test for all inputs. The test receives the inputs from a stream of
+arguments from an auxiliary method. The inputs tested are the same as the ones present
+on the previous table.
 
-```java 
-@ParameterizedTest
-@MethodSource("setSecondsOverallInputs")
-public void setSecondsOverallTest(int secondsOverall) {
-    // when
-    this.project.setSecondsOverall(secondsOverall);
+- We try setting the value of secondsOverall to 0 and to the values around;
+- For positive numbers (including 0), this should valid and result on the number of
+  seconds overall being adjusted to the given number of seconds;
+- For invalid inputs (negative times), the value of seconds overall should be set to 0.
 
-    // then
-    assertEquals(Math.max(secondsOverall, 0), this.project.getSecondsOverall());
-}
-```
+**Test Results**: All the tests pass successfully.
 
-`
-**Test Results**:
-All the tests pass successfully.
+## Method 5
 
-## Category-Partition - Function 5
-
-**Function**: `public void setSecondsToday(int secondsToday)` in `Project.java`
+**Method**: `public void setSecondsToday(int secondsToday)` in `Project.java`
 line 185.
 
-**Reason for selection**: It is important that this function works as expected
-since
-other methods depend on it.
+**Purpose**: This function sets the seconds today of a project as the value it receives
+as an argument (if valid).
 
-**Function's purpose**: This function sets the seconds today of a project as the
-value it receives as an argument (if valid).
+**Reason for selection**: It is important that this function works as expected
+since other methods depend on it.
 
 ### Steps
 
@@ -410,43 +291,33 @@ value it receives as an argument (if valid).
 3. Add constraints
     - Negative time is not allowed.
 4. Generate combinations
-   | Partition | Input | Expected output |
-   |--------------------|-------|-----------------|
-   | Negative seconds | -100 | 0 |
-   | Negative seconds 2 | -1 | 0 |
-   | Zero seconds | 0 | 0 |
-   | Positive seconds | 1 | 1 |
-   | Positive seconds 2 | 100 | 100 |
 
-## Unit Test - Function 5
+| Partition          | Input | Expected output |
+| ------------------ | ----- | --------------- |
+| Negative seconds   | -100  | 0               |
+| Negative seconds 2 | -1    | 0               |
+| Zero seconds       | 0     | 0               |
+| Positive seconds   | 1     | 1               |
+| Positive seconds 2 | 100   | 100             |
 
-We created one test for all inputs.
-The test receives the inputs from a stream of arguments from an auxiliar method.
-The inputs tested are the same as the ones present on the previous table.
+### Unit Test
 
-**Test:**
+We created one test for all inputs. The test receives the inputs from a stream
+of arguments from an auxiliar method. The inputs tested are the same as the ones
+present on the previous table.
 
-```java 
-@ParameterizedTest
-@MethodSource("setSecondsTodayInputs")
-public void setSecondsTodayTest(int secondsToday) {
-    // when
-    this.project.setSecondsToday(secondsToday);
+- We try setting the value of secondsToday to 0 and to the values around;
+- For positive numbers, this should valid and result on the number of seconds today
+  being adjusted to the given number of seconds;
+- For invalid inputs (negative times), the value of seconds today should be set to 0.
 
-    // then
-    assertEquals(Math.max(secondsToday, 0), this.project.getSecondsToday());
-}
-```
+**Test Results**: All the tests pass successfully.
 
-**Test Results**:
-All the tests pass successfully.
+## Note about method 4 and 5
 
-### Note about function 4 and 5
-
-We noticed that the function setSecondsToday(int secondsToday) does not update
-the value of "seconds overall" of a project. If the author of the project is
-not careful with keeping both values updated accordingly, it might lead to problems.
-For example, a task could have 10 seconds today and 0 seconds overall, which does not
-make sense.
-For this reason, we think that this function shouldn't be public, and that this update
-should have been implemented differently.
+We noticed that the function `setSecondsToday(int secondsToday)` does not update the
+value of _seconds overall_ of a project. If the author of the project is not careful
+with keeping both values updated accordingly, it might lead to problems.
+For example, a task could have 10 seconds today and 0 seconds overall, which
+does not make sense. For this reason, we think that this function shouldn't be
+publicly exposed, and that this update should have been implemented differently.
