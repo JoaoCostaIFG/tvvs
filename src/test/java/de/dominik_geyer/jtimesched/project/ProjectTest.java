@@ -73,6 +73,46 @@ public class ProjectTest {
         );
     }
 
+    @ParameterizedTest
+    @MethodSource("setSecondsOverallInputs")
+    public void setSecondsOverallTest(int secondsOverall) {
+        // when
+        this.project.setSecondsOverall(secondsOverall);
+
+        // then
+        assertEquals(Math.max(secondsOverall, 0), this.project.getSecondsOverall());
+    }
+
+    public static Stream<Arguments> setSecondsOverallInputs() {
+        return Stream.of(
+                Arguments.arguments(-100),
+                Arguments.arguments(-1),
+                Arguments.arguments(0),
+                Arguments.arguments(1),
+                Arguments.arguments(100)
+        );
+    }
+
+    @ParameterizedTest
+    @MethodSource("setSecondsTodayInputs")
+    public void setSecondsTodayTest(int secondsToday) {
+        // when
+        this.project.setSecondsToday(secondsToday);
+
+        // then
+        assertEquals(Math.max(secondsToday, 0), this.project.getSecondsToday());
+    }
+
+    public static Stream<Arguments> setSecondsTodayInputs() {
+        return Stream.of(
+                Arguments.arguments(-100),
+                Arguments.arguments(-1),
+                Arguments.arguments(0),
+                Arguments.arguments(1),
+                Arguments.arguments(100)
+        );
+    }
+
     @Test
     public void startTest() throws ProjectException {
         // given
