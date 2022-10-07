@@ -113,7 +113,7 @@ user input, so it needs to be reliable.
 | ----------------------------------------- | -------------------- | ---------------- |
 | Negative seconds                          | -1                   | 0                |
 | Immediately below secondsToday complement | - (secondsToday - 1) | 0                |
-| Negative time today                       | - secondsToday       | 0                |
+| Negative secondsToday                     | - secondsToday       | 0                |
 | Immediately above secondsToday complement | - (secondsToday + 1) | 0                |
 | Zero                                      | 0                    | 0                |
 | Immediately below secondsToday            | secondsToday - 1     | secondsToday - 1 |
@@ -259,13 +259,11 @@ since other methods depend on it.
    - Negative time is not allowed.
 4. Generate combinations
 
-| Partition          | Input | Expected output |
-| ------------------ | ----- | --------------- |
-| Negative seconds   | -100  | 0               |
-| Negative seconds 2 | -1    | 0               |
-| Zero seconds       | 0     | 0               |
-| Positive seconds   | 1     | 1               |
-| Positive seconds 2 | 100   | 100             |
+| Partition        | Input | Expected output |
+| ---------------- | ----- | --------------- |
+| Negative seconds | -1    | 0               |
+| Zero seconds     | 0     | 0               |
+| Positive seconds | 1     | 1               |
 
 ### Unit Tests
 
@@ -304,13 +302,11 @@ since other methods depend on it.
    - Negative time is not allowed.
 4. Generate combinations
 
-| Partition          | Input | Expected output |
-| ------------------ | ----- | --------------- |
-| Negative seconds   | -100  | 0               |
-| Negative seconds 2 | -1    | 0               |
-| Zero seconds       | 0     | 0               |
-| Positive seconds   | 1     | 1               |
-| Positive seconds 2 | 100   | 100             |
+| Partition        | Input | Expected output |
+| ---------------- | ----- | --------------- |
+| Negative seconds | -1    | 0               |
+| Zero seconds     | 0     | 0               |
+| Positive seconds | 1     | 1               |
 
 ### Unit Test
 
