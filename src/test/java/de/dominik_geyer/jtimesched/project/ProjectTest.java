@@ -85,11 +85,9 @@ public class ProjectTest {
 
     public static Stream<Arguments> setSecondsOverallInputs() {
         return Stream.of(
-                Arguments.arguments(-100),
                 Arguments.arguments(-1),
                 Arguments.arguments(0),
-                Arguments.arguments(1),
-                Arguments.arguments(100)
+                Arguments.arguments(1)
         );
     }
 
@@ -105,11 +103,9 @@ public class ProjectTest {
 
     public static Stream<Arguments> setSecondsTodayInputs() {
         return Stream.of(
-                Arguments.arguments(-100),
                 Arguments.arguments(-1),
                 Arguments.arguments(0),
-                Arguments.arguments(1),
-                Arguments.arguments(100)
+                Arguments.arguments(1)
         );
     }
 
