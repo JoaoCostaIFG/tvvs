@@ -13,7 +13,7 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <maven.surefire.version>2.22.2</maven.surefire.version>
+        <maven.surefire.version>3.0.0-M7</maven.surefire.version>
 
         <!-- report -->
         <site.plugin.version>3.12.1</site.plugin.version>
@@ -23,7 +23,7 @@
 
         <!-- JUnit related -->
         <junit.jupiter.version>5.9.1</junit.jupiter.version>
-        <junit.vintage.version>5.9.1</junit.vintage.version>
+        <junit.engine.version>5.9.1</junit.engine.version>
         <junit.version>5.9.1</junit.version>
     </properties>
 
@@ -35,9 +35,9 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>org.junit.vintage</groupId>
-            <artifactId>junit-vintage-engine</artifactId>
-            <version>${junit.vintage.version}</version>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-engine</artifactId>
+            <version>${junit.engine.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -123,6 +123,7 @@
             </plugin>
 
             <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>${maven.surefire.version}</version>
             </plugin>
