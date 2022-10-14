@@ -83,22 +83,14 @@ public class ProjectTest {
         assertEquals(Math.max(secondsOverall, 0), this.project.getSecondsOverall());
     }
 
-    /**
-     * Category-partition tests for setSecondsOverall
-     */
     public static Stream<Arguments> setSecondsOverallInputs() {
         return Stream.of(
+                // category partition
                 Arguments.arguments(-1),
                 Arguments.arguments(0),
-                Arguments.arguments(1)
-        );
-    }
+                Arguments.arguments(1),
 
-    /**
-     * Boundary-value tests for setSecondsOverall
-     */
-    public static Stream<Arguments> setSecondsOverallBoundaryInputs() {
-        return Stream.of(
+                // boundary-value analysis
                 Arguments.arguments(-1),    // off-point
                 Arguments.arguments(0)      // on-point
         );
@@ -114,9 +106,6 @@ public class ProjectTest {
         assertEquals(Math.max(secondsToday, 0), this.project.getSecondsToday());
     }
 
-    /**
-     * Category-partition tests for setSecondsToday
-     */
     public static Stream<Arguments> setSecondsTodayInputs() {
         return Stream.of(
                 Arguments.arguments(-1),

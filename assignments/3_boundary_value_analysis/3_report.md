@@ -31,101 +31,70 @@ In this assignment, we selected 3 methods used in the previous one.
 **Method**: `public void setSecondsOverall(int secondsOverall)` in
 `Project.java` line 178.
 
-**Function's purpose**: This function sets the _seconds overall_ of a project as
+**Method's purpose**: This function sets the _seconds overall_ of a project as
 the value it receives as an argument (if valid).
 
 **Reason for selection**: It is important that this function works as expected
 since other methods depend on it.
 
-### Steps
+### Identify the parameters:
 
-1. Identify the parameters:
-   - `secondsOverall` - integer (`int`) representing the number of seconds
-     overall.
-2. Characteristics of the parameters
-   - The integer should represent a positive number between 0 and infinity.
-3. Add constraints
-   - Negative time is not allowed - `secondsOverall >= 0`
-4. Partitions
-   - E1 -- negative number
-   - E2 -- positive number (including 0)
-5. Boundaries
-   - `secondsOverall`:
-     - On-point - `0`;
-     - Off-point - `-1`.
-6. Generate tests
+`secondsOverall` - integer (`int`) representing the number of seconds overall.
 
-| Partition                  | Input | Expected output |
-| -------------------------- | ----- | --------------- |
-| secondsOverall - On-point  | 0     | 0               |
-| secondsOverall - Off-point | -1    | 0               |
+### Characteristics of the parameters
+
+The integer should represent a positive number between 0 and infinity.
+
+### Constraints
+
+Negative time is not allowed - `secondsOverall >= 0`
+
+### Partitions
+
+- E1 - negative number
+  - `secondsOverall < 0`
+- E2 - positive number (including 0)
+  - `secondsOverall >= 0`
+
+### Boundaries
+
+- E1:
+  - On-point - `0`
+  - Off-point - `-1`
+- E2:
+  - On-point - `0`
+  - Off-point - `-1`
+
+### Generate tests
+
+| Partition      | Input | Expected output |
+| -------------- | ----- | --------------- |
+| E1 - On-point  | 0     | 0               |
+| E1 - Off-point | -1    | 0               |
+| E2 - On-point  | 0     | 0               |
+| E2 - Off-point | -1    | 0               |
+
+**4 tests.**
+
+### Filter redundant tests
+
+| Partition      | Input | Expected output |
+| -------------- | ----- | --------------- |
+| E1 - On-point  | 0     | 0               |
+| E1 - Off-point | -1    | 0               |
+
+**Filtered down to 2 tests.**
 
 ### Unit Tests
 
-We created one test with the inputs of each line on the table.
+We created one test with the inputs of each line on the table. The test function
+is the `void setSecondsOverallTest(int secondsOverall)` and the input generator
+is `Stream<Arguments> setSecondsOverallInputs()`. Both of these are present in
+the `ProjectTest.java` file of the `test` package.
 
 **Results**: all the tests pass successfully.
 
 ## Method 2
-
-**Method**: `public void adjustSecondsToday(int secondsToday)` in `Project.java`
-line 192.
-
-**Purpose:** This function receives an integer representing the number of
-seconds that it took to complete a task. Then, the function updates the number
-of seconds spent on the task today, as well as the overall time spent on it.
-
-**Reason for selection**: Throughout the usage of the application, the user is
-able to set the time spent on a task. As such, this is a method that deals with
-user input, so it needs to be reliable.
-
-### Steps
-
-1. Identify the parameters:
-   - `secondsToday` - integer representing the number of seconds.
-2. Characteristics of the parameters
-   - The integer should represent a positive number between 0 and infinity.
-3. Add constraints
-   - Negative time is not allowed - `secondsToday >= 0`
-4. Partitions
-   - E1 -- negative number
-   - E2 -- positive number (including 0)
-5. Boundaries
-   - `secondsToday`:
-     - On-point - `0`;
-     - Off-point - `-1`.
-6. Generate tests
-
-| Partition                | Input | Expected outcome |
-| ------------------------ | ----- | ---------------- |
-| secondsToday - On-point  | 0     | 0                |
-| secondsToday - Off-point | -1    | 0                |
-
-### Unit Tests
-
-We created one test with the inputs of each line on the table.
-
-We created two tests: one for valid inputs and another one for invalid inputs.
-
-- Valid inputs test:
-  - We try setting the value to 0 and to the values around the current number of
-    _seconds spent today_ on the task;
-  - This should be valid and result on the number of seconds today being
-    adjusted to the given number of seconds;
-  - Furthermore, the overall time should be adjusted accordingly;
-  - E.g. `10`.
-- Invalid inputs test:
-  - We try adjusting the time to negative values, and cause the time delta to be
-    negative;
-  - This tests whether the method can handle negative values, and negative time
-    deltas;
-  - This should result in the _seconds today_ being 0 and the overall time being
-    adjusted accordingly (consider the input as 0);
-  - E.g. `-1`.
-
-**Results**: All the test-cases pass successfully.
-
-## Method 3
 
 **Method**: `public static int parseSeconds(String strTime)` in
 `ProjectTime.java` line 36.
@@ -136,78 +105,123 @@ format, and returns the total number of seconds it represents.
 **Reason for selection**: This method deals with parsing of user input, which
 needs to be robust.
 
-### Steps
+### Identify the parameters:
 
-1. Identify the parameters:
-   - `strTime` - string representing time in 3 components:
-     - hours (hh);
-     - minutes (mm);
-     - seconds (ss).
-2. Characteristics of the parameters
-   - The string should represent a valid time in the format: `hh:mm:ss`
-   - _hh_ represents the hours
-   - _mm_ represents the minutes
-   - _ss_ represents the seconds
-   - It should be possible to pass single digits for each component
-3. Add constraints
-   - Input can't be `null`
-   - Components can't be omitted
-   - Components can only contain numbers
-   - Negative time is not allowed
-   - Seconds lie within the interval [0, 59]
-   - Minutes lie within the interval [0, 59]
-4. Boundaries
-   - `hh != ""`
-     - On-point -- any non-empty string
-     - Off-point -- `""`
-   - `mm != ""`
-     - On-point -- any non-empty string
-     - Off-point -- `""`
-   - `ss != ""`
-     - On-point -- any non-empty string
-     - Off-point -- `""`
-   - `0 <= hh`
-     - On-point -- `0`
-     - Off-point -- `-1`
-   - `0 <= mm <= 59`
-     - On-point -- `0` and `59`
-     - Off-point -- `-1` and `60`
-   - `0 <= ss <= 59`
-     - On-point -- `0` and `59`
-     - Off-point -- `-1` and `60`
-5. Generate combinations
+`strTime` is string representing time in 3 components:
 
-| Partition  | Input      | Expected outcome |
-| ---------- | ---------- | ---------------- |
-| Boundary 1 | `-1:00:00` | Thrown exception |
-| Boundary 1 | `00:-1:00` | Thrown exception |
-| Boundary 1 | `00:00:-1` | Thrown exception |
-| Boundary 1 | `00:60:00` | Thrown exception |
-| Boundary 1 | `00:00:60` | Thrown exception |
-| Boundary 1 | `a:b:c`    | Thrown exception |
-| Boundary 1 | `00:00`    | Thrown exception |
-| Boundary 1 | `00:1:00`  | 60               |
-| Boundary 1 | `00:00:01` | 1                |
-| Boundary 1 | `00:59:00` | 3540             |
-| Boundary 1 | `00:00:59` | 59               |
+- hours (hh);
+- minutes (mm);
+- seconds (ss).
+
+### Characteristics of the parameters
+
+- The string should represent a valid time in the format: `hh:mm:ss`
+- _hh_ -- represents the hour
+- _mm_ -- represents the minutes
+- _ss_ -- represents the seconds
+- It should be possible to pass single digits for each component
+
+### Constraints
+
+- Input can't be `null`
+  - `input != null`
+- String can only contain digits and the `:` char
+- Seconds lie within the interval [0, 59]
+  - `0 <= ss <= 59`
+- Minutes lie within the interval [0, 59]
+  - `0 <= mm <= 59`
+
+### Partitions
+
+- E1 - null input - `null`
+- E2 - empty input - `""`
+- E3 - non-empty string input - `"00:00:00"`
+
+E3 can be sub-divided into other categories:
+
+- E4 - input containing non-digit - `"0a:00:00"`
+- E5 - input containing only digit and the `:` char - `"00:00:00"`
+- E6 - seconds < 0 - `"00:00:-1"`
+- E7 - seconds > 59 - `"00:00:60"`
+- E8 - 0 <= seconds <= 59 - `00:00:30`
+- E9 - minutes < 0 - `"00:-1:00"`
+- E10 - minutes > 59 - `"00:60:00"`
+- E11 - 0 <= minutes <= 59 - `00:30:00`
+
+### Boundaries
+
+| Partition | On-point(s)                   | Off-point(s)               |
+| --------- | ----------------------------- | -------------------------- |
+| E1        | `null`                        | `""`, `"00:00:00"`         |
+| E2        | `""`                          | `null`, `"00:00:00"`       |
+| E3        | `"00:00:00"`                  | `""`, `null`               |
+| E4        | `"0a:00:00"`                  | `"00:00:00"`               |
+| E5        | `"00:00:00"`                  | `"0a:00:00"`               |
+| E6        | `"00:00:00"`                  | `"00:00:-1"`               |
+| E7        | `"00:00:59"`                  | `"00:00:60"`               |
+| E8        | `"00:00:00"` and `"00:00:59"` | `"00:00:-1"`, `"00:00:60"` |
+| E9        | `"00:00:00"`                  | `"00:-1:00"`               |
+| E10       | `"00:59:00"`                  | `"00:60:00"`               |
+| E11       | `"00:00:00"` and `"00:59:00"` | `"00:-1:00"`, `"00:60:00"` |
+
+### Generate combinations
+
+| Partition | Boundary    | Input        | Expected outcome |
+| --------- | ----------- | ------------ | ---------------- |
+| E1        | On-point    | `null`       | Thrown exception |
+| E1        | Off-point 1 | `""`         | Thrown exception |
+| E1        | Off-point 2 | `"00:00:00"` | Thrown exception |
+| E2        | On-point    | `""`         | Thrown exception |
+| E2        | Off-point 1 | `null`       | Thrown exception |
+| E2        | Off-point 2 | `"00:00:00"` | Thrown exception |
+| E3        | On-point    | `"00:00:00"` | Thrown exception |
+| E3        | Off-point 1 | `""`         | Thrown exception |
+| E3        | Off-point 2 | `null`       | Thrown exception |
+| E4        | On-point    | `"0a:00:00"` | Thrown exception |
+| E4        | Off-point   | `"00:00:00"` | Thrown exception |
+| E5        | On-point    | `"00:00:00"` | Thrown exception |
+| E5        | Off-point   | `"0a:00:00"` | Thrown exception |
+| E6        | On-point    | `"00:00:00"` | Thrown exception |
+| E6        | Off-point   | `"00:00:-1"` | Thrown exception |
+| E7        | On-point    | `"00:00:59"` | Thrown exception |
+| E7        | Off-point   | `"00:00:60"` | Thrown exception |
+| E8        | On-point 1  | `"00:00:00"` | Thrown exception |
+| E8        | On-point 2  | `"00:00:59"` | Thrown exception |
+| E8        | Off-point 1 | `"00:00:-1"` | Thrown exception |
+| E8        | Off-point 2 | `"00:00:60"` | Thrown exception |
+| E9        | On-point    | `"00:00:00"` | Thrown exception |
+| E9        | Off-point   | `"00:-1:00"` | Thrown exception |
+| E10       | On-point    | `"00:59:00"` | Thrown exception |
+| E10       | Off-point   | `"00:60:00"` | Thrown exception |
+| E11       | On-point 1  | `"00:00:00"` | Thrown exception |
+| E11       | On-point 2  | `"00:59:00"` | Thrown exception |
+| E11       | Off-point 1 | `"00:-1:00"` | Thrown exception |
+| E11       | Off-point 2 | `"00:60:00"` | Thrown exception |
+
+**29 tests.**
+
+### Filter redundant tests
+
+| Partition | Boundary    | Input        | Expected outcome |
+| --------- | ----------- | ------------ | ---------------- |
+| E1        | On-point    | `null`       | Thrown exception |
+| E1        | Off-point 1 | `""`         | Thrown exception |
+| E1        | Off-point 2 | `"00:00:00"` | Thrown exception |
+| E4        | On-point    | `"0a:00:00"` | Thrown exception |
+| E6        | Off-point   | `"00:00:-1"` | Thrown exception |
+| E7        | On-point    | `"00:00:59"` | Thrown exception |
+| E7        | Off-point   | `"00:00:60"` | Thrown exception |
+| E8        | Off-point 1 | `"00:00:-1"` | Thrown exception |
+| E9        | Off-point   | `"00:-1:00"` | Thrown exception |
+| E10       | On-point    | `"00:59:00"` | Thrown exception |
+| E10       | Off-point   | `"00:60:00"` | Thrown exception |
+
+**Filtered down to 11 tests.**
 
 ### Unit Tests
 
-We created three tests: one for valid inputs, one for missing components, and
-one for invalid inputs.
-
-- Valid inputs test:
-  - We pass a string that should be considered valid and result in an output;
-  - E.g. "00:59:01".
-- Missing components test:
-  - We pass a string that is missing one of that components;
-  - We noticed that the parsing fails, so we consider it the expected behaviour;
-  - The method could be adapted to accept this king of input as valid;
-  - E.g. "00:00".
-- Invalid inputs test:
-  - Test inputs that are known to be invalid: invalid characters (e.g. letters),
-    negative time, minutes/seconds out-of-range, etc...
-  - The parsing of this should always result on a failure;
-  - E.g. "00:60:00".
+We created one test with the inputs of each line on the table. The test function
+is the `XXX` and the input generator is `XXX`. Both of these are present in the
+`ProjectTest.java` file of the `test` package.
 
 **Results**: All the test-cases pass successfully.
