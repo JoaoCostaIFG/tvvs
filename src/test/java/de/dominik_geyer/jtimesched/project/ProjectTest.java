@@ -45,7 +45,10 @@ public class ProjectTest {
                 Arguments.arguments(0),
                 Arguments.arguments(ProjectTest.secondsToday - 1),
                 Arguments.arguments(ProjectTest.secondsToday),
-                Arguments.arguments(ProjectTest.secondsToday + 1)
+                Arguments.arguments(ProjectTest.secondsToday + 1),
+
+                // boundary-value analysis
+                Arguments.arguments(0)  // E1 on-point
         );
     }
 
@@ -69,7 +72,10 @@ public class ProjectTest {
                 Arguments.arguments(-1),
                 Arguments.arguments(-(ProjectTest.secondsToday - 1)),
                 Arguments.arguments(-ProjectTest.secondsToday),
-                Arguments.arguments(-(ProjectTest.secondsToday + 1))
+                Arguments.arguments(-(ProjectTest.secondsToday + 1)),
+
+                // boundary-value analysis
+                Arguments.arguments(-1)  // E1 off-point
         );
     }
 
