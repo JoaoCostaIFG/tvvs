@@ -7,10 +7,10 @@
 
 ## Function Selection Process
 
-From the previous assinment's report:
+From the previous assignment's report:
 
 > The aim of this assignment is to perform black-box testing. This is
-> problematic because none of methods in the code are documented (e.g. javadoc).
+> problematic because none of the methods in the code are documented (e.g. javadoc).
 > In order to find the purpose of each method, we needed to follow our intuition
 > about the names of the methods, arguments, and classes. Having more extensive
 > documentation would allow for better black-box testing.
@@ -32,7 +32,7 @@ In this assignment, we selected 3 methods used in the previous one.
 line 178.
 
 **Method's purpose**: This function sets the _seconds overall_ of a project as
-the value it receives as an argument (if valid).
+the value received as an argument (if valid).
 
 **Reason for selection**: It is important that this function works as expected
 since other methods depend on it.
@@ -105,7 +105,7 @@ needs to be robust.
 
 ### Identify the parameters
 
-`strTime` is string representing time in 3 components:
+`strTime` is a string representing time in 3 components:
 
 - hours (hh);
 - minutes (mm);
@@ -138,7 +138,7 @@ needs to be robust.
 E3 can be sub-divided into other categories:
 
 - E4 - input containing non-digit - `"0a:00:00"`
-- E5 - input containing only digit and the `:` char - `"00:00:00"`
+- E5 - input containing only digits and the `:` char - `"00:00:00"`
 - E6 - seconds < 0 - `"00:00:-1"`
 - E7 - seconds > 59 - `"00:00:60"`
 - E8 - 0 <= seconds <= 59 - `00:00:30`
@@ -164,37 +164,37 @@ E3 can be sub-divided into other categories:
 
 ### Generate tests
 
-| Partition | Boundary    | Input        | Expected outcome |
-| --------- | ----------- | ------------ | ---------------- |
-| E1        | On-point    | `null`       | Thrown exception |
-| E1        | Off-point 1 | `""`         | Thrown exception |
-| E1        | Off-point 2 | `"00:00:00"` | Thrown exception |
-| E2        | On-point    | `""`         | Thrown exception |
-| E2        | Off-point 1 | `null`       | Thrown exception |
-| E2        | Off-point 2 | `"00:00:00"` | Thrown exception |
-| E3        | On-point    | `"00:00:00"` | Thrown exception |
-| E3        | Off-point 1 | `""`         | Thrown exception |
-| E3        | Off-point 2 | `null`       | Thrown exception |
-| E4        | On-point    | `"0a:00:00"` | Thrown exception |
-| E4        | Off-point   | `"00:00:00"` | Thrown exception |
-| E5        | On-point    | `"00:00:00"` | Thrown exception |
-| E5        | Off-point   | `"0a:00:00"` | Thrown exception |
-| E6        | On-point    | `"00:00:00"` | Thrown exception |
-| E6        | Off-point   | `"00:00:-1"` | Thrown exception |
-| E7        | On-point    | `"00:00:59"` | Thrown exception |
-| E7        | Off-point   | `"00:00:60"` | Thrown exception |
-| E8        | On-point 1  | `"00:00:00"` | Thrown exception |
-| E8        | On-point 2  | `"00:00:59"` | Thrown exception |
-| E8        | Off-point 1 | `"00:00:-1"` | Thrown exception |
-| E8        | Off-point 2 | `"00:00:60"` | Thrown exception |
-| E9        | On-point    | `"00:00:00"` | Thrown exception |
-| E9        | Off-point   | `"00:-1:00"` | Thrown exception |
-| E10       | On-point    | `"00:59:00"` | Thrown exception |
-| E10       | Off-point   | `"00:60:00"` | Thrown exception |
-| E11       | On-point 1  | `"00:00:00"` | Thrown exception |
-| E11       | On-point 2  | `"00:59:00"` | Thrown exception |
-| E11       | Off-point 1 | `"00:-1:00"` | Thrown exception |
-| E11       | Off-point 2 | `"00:60:00"` | Thrown exception |
+| Partition | Boundary    | Input        | 
+| --------- | ----------- | ------------ | 
+| E1        | On-point    | `null`       | 
+| E1        | Off-point 1 | `""`         | 
+| E1        | Off-point 2 | `"00:00:00"` | 
+| E2        | On-point    | `""`         | 
+| E2        | Off-point 1 | `null`       | 
+| E2        | Off-point 2 | `"00:00:00"` | 
+| E3        | On-point    | `"00:00:00"` | 
+| E3        | Off-point 1 | `""`         | 
+| E3        | Off-point 2 | `null`       | 
+| E4        | On-point    | `"0a:00:00"` | 
+| E4        | Off-point   | `"00:00:00"` | 
+| E5        | On-point    | `"00:00:00"` | 
+| E5        | Off-point   | `"0a:00:00"` | 
+| E6        | On-point    | `"00:00:00"` | 
+| E6        | Off-point   | `"00:00:-1"` | 
+| E7        | On-point    | `"00:00:59"` | 
+| E7        | Off-point   | `"00:00:60"` | 
+| E8        | On-point 1  | `"00:00:00"` | 
+| E8        | On-point 2  | `"00:00:59"` | 
+| E8        | Off-point 1 | `"00:00:-1"` | 
+| E8        | Off-point 2 | `"00:00:60"` | 
+| E9        | On-point    | `"00:00:00"` | 
+| E9        | Off-point   | `"00:-1:00"` | 
+| E10       | On-point    | `"00:59:00"` |
+| E10       | Off-point   | `"00:60:00"` | 
+| E11       | On-point 1  | `"00:00:00"` |
+| E11       | On-point 2  | `"00:59:00"` |
+| E11       | Off-point 1 | `"00:-1:00"` |
+| E11       | Off-point 2 | `"00:60:00"` | 
 
 **29 tests.**
 
@@ -204,13 +204,13 @@ E3 can be sub-divided into other categories:
 | --------- | ----------- | ------------ | ---------------- |
 | E1        | On-point    | `null`       | Thrown exception |
 | E1        | Off-point 1 | `""`         | Thrown exception |
-| E1        | Off-point 2 | `"00:00:00"` | Thrown exception |
+| E1        | Off-point 2 | `"00:00:00"` | 0                |
 | E4        | On-point    | `"0a:00:00"` | Thrown exception |
 | E6        | Off-point   | `"00:00:-1"` | Thrown exception |
-| E7        | On-point    | `"00:00:59"` | Thrown exception |
+| E7        | On-point    | `"00:00:59"` | 59               |
 | E7        | Off-point   | `"00:00:60"` | Thrown exception |
 | E9        | Off-point   | `"00:-1:00"` | Thrown exception |
-| E10       | On-point    | `"00:59:00"` | Thrown exception |
+| E10       | On-point    | `"00:59:00"` | 3540             |
 | E10       | Off-point   | `"00:60:00"` | Thrown exception |
 
 **Filtered down to 10 tests.**
@@ -234,7 +234,7 @@ The input generators (respectively):
 All of these are present in the `ProjectTimeTest.java` file of the `test`
 package.
 
-**Results**: All the test-cases pass successfully.
+**Results**: All the test cases pass successfully.
 
 ## Method 3
 
