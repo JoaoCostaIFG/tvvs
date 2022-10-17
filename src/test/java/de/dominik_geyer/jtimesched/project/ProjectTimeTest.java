@@ -74,7 +74,13 @@ public class ProjectTimeTest {
 				Arguments.arguments(timeComponentsToTimeStr("00", "00", "-1")),	// E6 - off-point
 				Arguments.arguments(timeComponentsToTimeStr("00", "00", "60")),	// E7 - off-point
 				Arguments.arguments(timeComponentsToTimeStr("00", "-1", "00")),	// E9 - on-point
-				Arguments.arguments(timeComponentsToTimeStr("00", "60", "00"))	// E10 - off-point
+				Arguments.arguments(timeComponentsToTimeStr("00", "60", "00")),	// E10 - off-point
+                Arguments.arguments("00:00"),   // E12 - on-point
+                Arguments.arguments("00"),  // E13 - on-point
+                Arguments.arguments("000000"),  // E14 - on-point
+                Arguments.arguments("00:0000"),	// E15 - on-point
+                Arguments.arguments("0000:00")	// E16 - on-point
+                
         );
     }
 
