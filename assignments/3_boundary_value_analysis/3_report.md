@@ -309,13 +309,63 @@ E3 can be sub-divided into other categories:
 | E28       | On-point 2  | `"00:59:59"` |
 | E28       | Off-point 1 | `"00:60:60"` |
 | E28       | Off-point 2 | `"00:60:-1"` |  
+| E29       | On-point 1  | `"00:00:00"` |
+| E29       | On-point 2  | `"00:00:59"` |
+| E29       | On-point 3  | `"00:59:00"` |
+| E29       | On-point 4  | `"00:59:59"` |
+| E29       | Off-point 1 | `"00:-1:-1"` |
+| E29       | Off-point 2 | `"00:-1:60"` |  
+| E29       | Off-point 3 | `"00:60:-1"` |
+| E29       | Off-point 4 | `"00:60:60"` |
+| E30       | On-point 1  | `"00:00:00"` |
+| E30       | On-point 2  | `"00:00:59"` |
+| E30       | Off-point 1 | `"-1:00:-1"` |
+| E30       | Off-point 2 | `"-1:00:60"` |
+| E31       | On-point 1  | `"00:00:00"` |
+| E31       | On-point 2  | `"00:00:59"` |
+| E31       | Off-point 1 | `"-1:-1:-1"` |
+| E31       | Off-point 2 | `"-1:-1:60"` |
+| E32       | On-point 1  | `"00:59:00"` |
+| E32       | On-point 2  | `"00:59:59"` |
+| E32       | Off-point 1 | `"-1:60:-1"` |
+| E32       | Off-point 2 | `"-1:60:60"` |
+| E33       | On-point 1  | `"00:00:00"` |
+| E33       | On-point 2  | `"00:00:59"` |
+| E33       | On-point 3  | `"00:59:00"` |
+| E33       | On-point 4  | `"00:59:59"` |
+| E33       | Off-point 1 | `"-1:-1:-1"` |
+| E33       | Off-point 2 | `"-1:-1:60"` |  
+| E33       | Off-point 3 | `"-1:60:-1"` |
+| E33       | Off-point 4 | `"-1:60:60"` |
+ | E34       | On-point    | `"00:00:00"` |
+| E34       | Off-point   | `"-1:-1:-1"` |
+| E35       | On-point    | `"00:00:00"` |
+| E35       | Off-point   | `":00:00"`   |
+| E36       | On-point    | `"00:00:00"` |
+| E36       | Off-point   | `"00::00"`   |
+| E37       | On-point    | `"00:00:00"` |
+| E37       | Off-point   | `"00:00:"`   |
+| E38       | On-point    | `"00:00:00"` |
+| E38       | Off-point   | `"00::"`     |
+| E39       | On-point    | `"00:00:00"` |
+| E39       | Off-point   | `":00:"`     |
+| E40       | On-point    | `"00:00:00"` |
+| E40       | Off-point   | `"::00"`     |
+| E41       | On-point    | `"00:00:00"` |
+| E41       | Off-point   | `"::"`       |
+| E42       | On-point    | `"00:00:00"` |
+| E42       | Off-point   | `"000000"`   |
+| E43       | On-point    | `"00:00:00"` |
+| E43       | Off-point   | `"00:0000"`  |
+| E44       | On-point    | `"00:00:00"` |
+| E44       | Off-point   | `"0000:00"`  |
 
-**?? tests.**
+**124 tests.**
 
 ### Filter redundant tests
 
 | Partition | Boundary    | Input        | Expected outcome |
-|-----------|-------------|--------------| ---------------- |
+|-----------|-------------|--------------|------------------|
 | E1        | On-point    | `null`       | Thrown exception |
 | E1        | Off-point 1 | `""`         | Thrown exception |
 | E1        | Off-point 2 | `"00:00:00"` | 0                |
@@ -328,8 +378,28 @@ E3 can be sub-divided into other categories:
 | E10       | Off-point   | `"00:60:00"` | Thrown exception |
 | E12       | Off-point   | `"-1:00:00"` | Thrown exception |
 | E13       | Off-point   | `"00:-1:-1"` | Thrown exception |
+| E14       | Off-point   | `"00:60:-1"` | Thrown exception |
+| E16       | Off-point   | `"-1:60:-1"` | Thrown exception |
+| E17       | Off-point   | `"-1:-1:-1"` | Thrown exception |
+| E20       | Off-point   | `"00:-1:60"` | Thrown exception |
+| E21       | Off-point   | `"00:60:60"` | Thrown exception |
+| E23       | Off-point   | `"-1:00:60"` | Thrown exception |
+| E24       | Off-point   | `"-1:-1:60"` | Thrown exception |
+| E25       | Off-point   | `"-1:60:60"` | Thrown exception |
+| E30       | Off-point 1 | `"-1:00:-1"` | Thrown exception |
+| E32       | On-point 2  | `"00:59:59"` | Thrown exception |
+| E35       | Off-point   | `":00:00"`   | Thrown exception |
+| E36       | Off-point   | `"00::00"`   | Thrown exception |
+| E37       | Off-point   | `"00:00:"`   | Thrown exception |
+| E38       | Off-point   | `"00::"`     | Thrown exception |
+| E39       | Off-point   | `":00:"`     | Thrown exception |
+| E40       | Off-point   | `"::00"`     | Thrown exception |
+| E41       | Off-point   | `"::"`       | Thrown exception |
+| E42       | Off-point   | `"000000"`   | Thrown exception |
+| E43       | Off-point   | `"00:0000"`  | Thrown exception |
+| E44       | Off-point   | `"0000:00"`  | Thrown exception |
 
-**Filtered down to ?? tests.**
+**Filtered down to 31 tests.**
 
 ### Unit Tests
 
