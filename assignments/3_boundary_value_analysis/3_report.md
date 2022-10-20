@@ -9,33 +9,21 @@
 
 From the previous assignment's report:
 
-> The aim of this assignment is to perform black-box testing. This is
-> problematic because none of the methods in the code are documented (e.g. javadoc).
-> In order to find the purpose of each method, we needed to follow our intuition
-> about the names of the methods, arguments, and classes. Having more extensive
-> documentation would allow for better black-box testing.
->
-> Since we aren't using mocks, we tried to test methods that didn't depend on
-> other objects of the project. We discarded functions belonging to the `gui`
-> package due to its dependence on _swing_. The `misc` package was also
-> discarded since it only contains one function (not enough for the completion
-> of the assignment). Functions related to elapsed time were also ignored.
->
-> The selected package for testing was the `de.dominik_geyer.jtimesched.project`
-> package.
+> The aim of this assignment is to perform black-box testing. This is problematic because none of the methods in the code are documented (e.g. javadoc). In order to find the purpose of each method, we needed to follow our intuition about the names of the methods, arguments, and classes. Having more extensive documentation would allow for better black-box testing.
+> 
+> Since we aren't using mocks, we tried to test methods that didn't depend on other objects of the project. We discarded functions belonging to the `gui` package due to its dependence on _swing_. The `misc` package was also discarded since it only contains one function (not enough for the completion of the assignment). Functions related to elapsed time were also ignored.
+> 
+> The selected package for testing was the `de.dominik_geyer.jtimesched.project` package.
 
-In this assignment, we selected 3 methods used in the previous one.
+In this assignment, we selected 3 methods used in the previous one, but changed some of the categories based on newly acquired knowledge.
 
 ## Method 1
 
-**Method**: `void setSecondsOverall(int secondsOverall)` in `Project.java`
-line 178.
+**Method**: `void setSecondsOverall(int secondsOverall)` in `Project.java` line 178.
 
-**Method's purpose**: This function sets the _seconds overall_ of a project as
-the value received as an argument (if valid).
+**Method's purpose**: This function sets the _seconds overall_ of a project as the value received as an argument (if valid).
 
-**Reason for selection**: It is important that this function works as expected
-since other methods depend on it.
+**Reason for selection**: It is important that this function works as expected since other methods depend on it.
 
 ### Identify the parameters
 
@@ -85,23 +73,17 @@ Negative time is not allowed - `secondsOverall >= 0`
 
 ### Unit Tests
 
-We created one test with the inputs of each line on the table. The test function
-is the `void setSecondsOverallTest(int secondsOverall)` and the input generator
-is `Stream<Arguments> setSecondsOverallInputs()`. Both of these are present in
-the `ProjectTest.java` file of the `test` package.
+We created one test with the inputs of each line on the table. The test function is the `void setSecondsOverallTest(int secondsOverall)` and the input generator is `Stream<Arguments> setSecondsOverallInputs()`. Both of these are present in the `ProjectTest.java` file of the `test` package.
 
 **Results**: all the tests pass successfully.
 
 ## Method 2
 
-**Method**: `public static int parseSeconds(String strTime)` in
-`ProjectTime.java` line 36.
+**Method**: `public static int parseSeconds(String strTime)` in `ProjectTime.java` line 36.
 
-**Purpose**: This function receives a string representing time, in `hh:mm:ss`
-format, and returns the total number of seconds it represents.
+**Purpose**: This function receives a string representing time, in `hh:mm:ss` format, and returns the total number of seconds it represents.
 
-**Reason for selection**: This method deals with parsing of user input, which
-needs to be robust.
+**Reason for selection**: This method deals with parsing of user input, which needs to be robust.
 
 ### Identify the parameters
 
@@ -229,7 +211,7 @@ E3 can be sub-divided into other categories:
 | E42       | `"00:00:00"`                                           | `"000000"`                                             |
 | E43       | `"00:00:00"`                                           | `"00:0000"`                                            |
 | E44       | `"00:00:00"`                                           | `"0000:00"`                                            |
- 
+
 ### Generate tests
 
 | Partition | Boundary    | Input        |
@@ -365,7 +347,7 @@ E3 can be sub-divided into other categories:
 ### Filter redundant tests
 
 | Partition | Boundary    | Input        | Expected outcome |
-|-----------|-------------|--------------|------------------|
+| --------- | ----------- | ------------ | ---------------- |
 | E1        | On-point    | `null`       | Thrown exception |
 | E1        | Off-point 1 | `""`         | Thrown exception |
 | E1        | Off-point 2 | `"00:00:00"` | 0                |
@@ -387,7 +369,7 @@ E3 can be sub-divided into other categories:
 | E24       | Off-point   | `"-1:-1:60"` | Thrown exception |
 | E25       | Off-point   | `"-1:60:60"` | Thrown exception |
 | E30       | Off-point 1 | `"-1:00:-1"` | Thrown exception |
-| E32       | On-point 2  | `"00:59:59"` | Thrown exception |
+| E32       | On-point 2  | `"00:59:59"` | 3599             |
 | E35       | Off-point   | `":00:00"`   | Thrown exception |
 | E36       | Off-point   | `"00::00"`   | Thrown exception |
 | E37       | Off-point   | `"00:00:"`   | Thrown exception |
@@ -417,21 +399,17 @@ The input generators (respectively):
 - `parseSecondsInvalidInputs()`
 - _No input generator_
 
-All of these are present in the `ProjectTimeTest.java` file of the `test`
-package.
+All of these are present in the `ProjectTimeTest.java` file of the `test` package.
 
 **Results**: All the test cases pass successfully.
 
 ## Method 3
 
-**Method**: `void adjustSecondsToday(int secondsToday)` in `Project.java`
-line 192.
+**Method**: `void adjustSecondsToday(int secondsToday)` in `Project.java` line 192.
 
-**Method's purpose**: This function sets the _seconds overall_ of a project as
-the value it receives as an argument (if valid).
+**Method's purpose**: This function sets the _seconds overall_ of a project as the value it receives as an argument (if valid).
 
-**Reason for selection**: It is important that this function works as expected
-since other methods depend on it.
+**Reason for selection**: It is important that this function works as expected since other methods depend on it.
 
 ### Identify the parameters
 
