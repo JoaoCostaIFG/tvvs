@@ -3,13 +3,32 @@ hide empty description
 
 [*] --> Dashboard
 
-Dashboard --> NewEntry : AddEntry
-Dashboard --> EditCreatedDate : EditCreatedDate
+Dashboard --> NewEntry : ClickAddProject
+Dashboard --> EditName : EditName
+Dashboard --> EditCreated : EditCreated
+Dashboard --> EditTimeOverall : EditTimeOverall
+Dashboard --> EditTimeToday : EditTimeToday
+Dashboard --> ChangeColor : ChangeColor
+Dashboard --> Dashboard : ToggleCheck
+Dashboard --> Dashboard : PlayProject
+Dashboard --> Dashboard : DeleteProject
 Dashboard --> [*] : CloseApp
 
 NewEntry --> EditName : Є
 
-EditName --> Dashboard : ChangeName
+EditName --> Dashboard : ConfirmChangeName
 EditName --> Dashboard : CancelNameChange
+
+EditCreated --> Dashboard : ConfirmCreatedEdit
+EditCreated --> Dashboard : CancelCreatedEdit
+
+EditTimeOverall --> Dashboard : ConfirmTimeOverallEdit
+EditTimeOverall --> Dashboard : CancelTimeOverallEdit
+
+EditTimeToday --> Dashboard : ConfirmTimeTodayEdit
+EditTimeToday --> Dashboard : CancelTimeTodayEdit
+
+ChangeColor --> Dashboard : ConfirmChangeColor
+ChangeColor --> Dashboard : CancelChangeColor
 
 @enduml
