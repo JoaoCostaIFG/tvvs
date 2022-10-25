@@ -1,0 +1,15 @@
+@startuml
+hide empty description
+
+[*] --> Dashboard
+
+Dashboard --> NewEntry : AddEntry
+Dashboard --> EditCreatedDate : EditCreatedDate
+Dashboard --> [*] : CloseApp
+
+NewEntry --> EditName : Є
+
+EditName --> Dashboard : ChangeName
+EditName --> Dashboard : CancelNameChange
+
+@enduml
