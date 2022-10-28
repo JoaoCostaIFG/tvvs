@@ -174,4 +174,3 @@ According to the table, there are 22 sneak paths.
 1.
 
 All tests pass successfully.
-
