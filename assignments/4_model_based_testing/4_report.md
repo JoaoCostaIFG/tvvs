@@ -81,7 +81,7 @@ The **state diagram**:
 
 The **transition tree**:
 
-![Use-case 2's transtion tree](./transition_trees/transition_tree_2.png)
+![Use-case 2's transition tree](./transition_trees/transition_tree_2.png)
 
 The **transition table**:
 
@@ -103,6 +103,6 @@ The **state diagram**:
 
 The **transition tree**:
 
-![Use-case 3's transtion tree](./transition_trees/transition_tree_3.png)
+![Use-case 3's transition tree](./transition_trees/transition_tree_3.png)
 
 The **transition table**:
