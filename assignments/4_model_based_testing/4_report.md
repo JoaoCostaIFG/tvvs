@@ -185,8 +185,18 @@ transitions of the system.
 According to the table, there are 22 sneak paths.
 
 #### Tests
+The tests are numbered with the same order as the leaf nodes in the tree
+(left-to-right). Some tests imply some previous setup.
 
-1.
+1. Start app ⇒ minimize app ⇒ maximize app
 
+Setup: Add project 
+2. Start app ⇒ edit project color ⇒ select color
+3. Start app ⇒ edit project color ⇒ remove color
+4. Start app ⇒ edit project color ⇒ cancel color selection
+5. Start app ⇒ edit project color ⇒ go to custom color menu ⇒ select color
+6. Start app ⇒ edit project color ⇒ go to custom color menu ⇒ cancel color
+7. Start app ⇒ edit project color ⇒ go to custom color menu ⇒ reset color
+  
 All tests pass successfully.
 
