@@ -34,7 +34,7 @@ tests.
 
 ![Use-case 1's state machine](./state_machines/state_machine_1.png)
 
-#### transition tree
+#### Transition tree
 
 ![Use-case 1's transition tree](./transition_trees/transition_tree_1.png)
 
@@ -71,22 +71,38 @@ The tests are numbered with the same order as the leaf nodes in the tree
 
 All tests pass successfully.
 
-Note: As stated previously, the first test probably should be part of this
+Note: As stated previously, the first test probably shouldn't be part of this
 use-case.
 
 ### Use-case 2 - Play/pause a project
 
 This is the main function of the application.
 
-The **state diagram**:
+#### State diagram
+
+The most important aspects of this use-case are:
+
+- While a project is playing, the user can start another one (and the previous one will stop). 
+- It is possible to delete a running project.
+- If a project is running and the application is minimized, when the app is maximized, the project will continue running. 
+- It is possoble to stop and start running the selected project while the application is minimized.
 
 ![Use-case 2's state machine](./state_machines/state_machine_2.png)
 
-The **transition tree**:
+#### Transition tree
 
 ![Use-case 2's transition tree](./transition_trees/transition_tree_2.png)
 
-The **transition table**:
+In contrast with the other branches of the tree, the first branch tests
+something that doesn't appear related to the use-case: open the application,
+minimize it, and then maximize it again. This indicates that the state
+**_MinimizedToTray_** probably shouldn't exist as it is not related to the
+use-case of _play/pause a project_.
+
+With 8 leaf nodes in the tree, we need to create 8 tests to cover all states and
+transitions of the system.
+
+#### Transition table
 
 |                 | StartProject<br />[nº projects > 0] | Minimize        | Maximize<br />[current project is not playing] | Maximize<br />[current project is playing] | ToggleCurrentProject<br />[selected a current project] | PauseProject<br />[selected project == current project] | DeleteProject<br />[deleted project == current project] | StartProject<br />[selected project != current project] | DeleteProject<br />[deleted project == current project] |
 | :-------------- | :---------------------------------- | :-------------- | ---------------------------------------------- | ------------------------------------------ | ------------------------------------------------------ | ------------------------------------------------------- | ------------------------------------------------------- | ------------------------------------------------------- | ------------------------------------------------------- |
@@ -94,21 +110,37 @@ The **transition table**:
 | MinimizedToTray |                                     |                 | Dashboard                                      | PlayingProject                             | MinimizedToTray                                        |                                                         |                                                         |                                                         |                                                         |
 | PlayingProject  |                                     | MinimizedToTray |                                                |                                            |                                                        | Dashboard                                               | Dashboard                                               | Playing Project                                         | Playing Project                                         |
 
+According to the table, there are 17 sneak paths.
+
+Note: There is a transition _PauseProject_ with the condition that the running project is the project the user is currently pausing. However, there isn't any transition that pauses a project which is not running, for logical reasons. Since this transition does not exist,
+it does not appear in the transition table. This means that we won't take into account sneak paths that involve this transition. 
+
+#### Tests
+1. Start app ⇒ minimize app ⇒ maximize app
+2. 
+
+All tests pass successfully.
+
 ### Use-case 3 - Edit a project's color
 
 Color coding tasks is a common organization method for time
 scheduling/organization methods. A time scheduling application should have this
 feature.
 
-The **state diagram**:
+#### State diagram
+
+The most important aspects of this use-case are:
+
+- It is possible to choose a custom color instead of the predefined ones.
+- In contrast with other features, when the application is minimized while editing a color, maximizing it again will cancel the color selection. 
 
 ![Use-case 3's state machine](./state_machines/state_machine_3.png)
 
-The **transition tree**:
+#### Transition tree
 
 ![Use-case 3's transition tree](./transition_trees/transition_tree_3.png)
 
-The **transition table**:
+#### Transition table
 
 |                 | Minimize        | EditColor | Maximize  | SelectColor | RemoveColor | CancelColor | GoCustomColor | ResetColor  |
 | --------------- | --------------- | --------- | --------- | ----------- | ----------- | ----------- | ------------- | ----------- |
@@ -117,3 +149,7 @@ The **transition table**:
 | EditColor       |                 |           |           | Dashboard   | Dashboard   | Dashboard   | CustomColor   |             |
 | CustomColor     |                 |           |           | Dashboard   |             | Dashboard   |               | CustomColor |
 
+#### Tests
+1. 
+
+All tests pass successfully.
