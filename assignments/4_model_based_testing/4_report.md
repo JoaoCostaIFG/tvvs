@@ -82,10 +82,13 @@ This is the main function of the application.
 
 The most important aspects of this use-case are:
 
-- While a project is playing, the user can start another one (and the previous one will stop). 
+- While a project is playing, the user can start another one (and the previous
+  one will stop).
 - It is possible to delete a running project.
-- If a project is running and the application is minimized, when the app is maximized, the project will continue running. 
-- It is possoble to stop and start running the selected project while the application is minimized.
+- If a project is running and the application is minimized, when the app is
+  maximized, the project will continue running.
+- It is possoble to stop and start running the selected project while the
+  application is minimized.
 
 ![Use-case 2's state machine](./state_machines/state_machine_2.png)
 
@@ -112,12 +115,17 @@ transitions of the system.
 
 According to the table, there are 17 sneak paths.
 
-Note: There is a transition _PauseProject_ with the condition that the running project is the project the user is currently pausing. However, there isn't any transition that pauses a project which is not running, for logical reasons. Since this transition does not exist,
-it does not appear in the transition table. This means that we won't take into account sneak paths that involve this transition. 
+Note: There is a transition _PauseProject_ with the condition that the running
+project is the project the user is currently pausing. However, there isn't any
+transition that pauses a project which is not running, for logical reasons.
+Since this transition does not exist, it does not appear in the transition
+table. This means that we won't take into account sneak paths that involve this
+transition.
 
 #### Tests
+
 1. Start app ⇒ minimize app ⇒ maximize app
-2. 
+2.
 
 All tests pass successfully.
 
@@ -132,7 +140,8 @@ feature.
 The most important aspects of this use-case are:
 
 - It is possible to choose a custom color instead of the predefined ones.
-- In contrast with other features, when the application is minimized while editing a color, maximizing it again will cancel the color selection. 
+- In contrast with other features, when the application is minimized while
+  editing a color, maximizing it again will cancel the color selection.
 
 ![Use-case 3's state machine](./state_machines/state_machine_3.png)
 
@@ -150,6 +159,8 @@ The most important aspects of this use-case are:
 | CustomColor     |                 |           |           | Dashboard   |             | Dashboard   |               | CustomColor |
 
 #### Tests
-1. 
+
+1.
 
 All tests pass successfully.
+
