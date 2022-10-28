@@ -124,8 +124,23 @@ transition.
 
 #### Tests
 
+The tests are numbered with the same order as the leaf nodes in the tree
+(left-to-right). Some tests imply some previous setup.
+
 1. Start app ⇒ minimize app ⇒ maximize app
-2.
+
+Setup: Add project 
+2. Start app ⇒ minimize app ⇒ toggle project and confirm it
+4. Start app ⇒ start project ⇒ minimize
+
+Setup: Add two project 
+5. Start app ⇒ start project ⇒ pause project
+6. Start app ⇒ start project ⇒ delete project
+7. Start app ⇒ start project ⇒ start another project
+8. Start app ⇒ start project ⇒ delete another project
+
+Setup: Add project and run it 
+3. Start app ⇒ minimize app ⇒ maximize app and confirm project is running
 
 All tests pass successfully.
 
