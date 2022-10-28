@@ -169,13 +169,7 @@ The most important aspects of this use-case are:
 
 ![Use-case 3's transition tree](./transition_trees/transition_tree_3.png)
 
-In contrast with the other branches of the tree, the first branch tests
-something that doesn't appear related to the use-case: open the application,
-minimize it, and then maximize it again. This indicates that the state
-**_MinimizedToTray_** probably shouldn't exist as it is not related to the
-use-case of _play/pause a project_.
-
-With 7 leaf nodes in the tree, we need to create 7 tests to cover all states and
+With 6 leaf nodes in the tree, we need to create 6 tests to cover all states and
 transitions of the system.
 
 #### Transition table
@@ -186,20 +180,18 @@ transitions of the system.
 | EditColor   |           | Dashboard   | Dashboard   | Dashboard   | CustomColor   |             |
 | CustomColor |           | Dashboard   |             | Dashboard   |               | CustomColor |
 
-According to the table, there are 22 sneak paths.
+According to the table, there are 10 sneak paths.
 
 #### Tests
 
 The tests are numbered with the same order as the leaf nodes in the tree
-(left-to-right). Some tests imply some previous setup.
+(left-to-right). The setup of these tests involves adding a project to the list.
 
-1. Start app ⇒ minimize app ⇒ maximize app
-
-Setup: Add project 2. Start app ⇒ edit project color ⇒ select color 3. Start app
-⇒ edit project color ⇒ remove color 4. Start app ⇒ edit project color ⇒ cancel
-color selection 5. Start app ⇒ edit project color ⇒ go to custom color menu ⇒
-select color 6. Start app ⇒ edit project color ⇒ go to custom color menu ⇒
-cancel color 7. Start app ⇒ edit project color ⇒ go to custom color menu ⇒ reset
-color
+1. Start app ⇒ edit project color ⇒ select color
+2. Start app ⇒ edit project color ⇒ remove color
+3. Start app ⇒ edit project color ⇒ cancel color selection
+4. Start app ⇒ edit project color ⇒ go to custom color menu ⇒ select color
+5. Start app ⇒ edit project color ⇒ go to custom color menu ⇒ cancel color
+6. Start app ⇒ edit project color ⇒ go to custom color menu ⇒ reset color
 
 All tests pass successfully.
