@@ -71,7 +71,7 @@ All tests pass successfully.
 Note: As stated previously, the first test probably should be part of this
 use-case.
 
-### Use-case 2 - play/pause a project
+### Use-case 2 - Play/pause a project
 
 This is the main function of the application.
 
@@ -85,13 +85,13 @@ The **transition tree**:
 
 The **transition table**:
 
-|                 | StartProject<br />[nº projects > 0] | Minimize        | Maximize<br />[current project is not playing] | Maximize<br />[current project is playing] | ToggleCurrentProject<br />[selected a current project] | PauseProject<br />[selected  project == current project] | DeleteProject<br />[deleted project == current project] | StartProject<br />[selected  project != current project] | DeleteProject<br />[deleted project == current project] |
-| :-------------- | :---------------------------------- | :-------------- | ---------------------------------------------- | ------------------------------------------ | ------------------------------------------------------ | -------------------------------------------------------- | ------------------------------------------------------- | -------------------------------------------------------- | ------------------------------------------------------- |
-| Dashboard       | PlayingProject                      | MinimizedToTray |                                                |                                            |                                                        |                                                          |                                                         |                                                          |                                                         |
-| MinimizedToTray |                                     |                 | Dashboard                                      | PlayingProject                             | MinimizedToTray                                        |                                                          |                                                         |                                                          |                                                         |
-| PlayingProject  |                                     | MinimizedToTray |                                                |                                            |                                                        | Dashboard                                                | Dashboard                                               | Playing Project                                          | Playing Project                                         |
+|                 | StartProject<br />[nº projects > 0] | Minimize        | Maximize<br />[current project is not playing] | Maximize<br />[current project is playing] | ToggleCurrentProject<br />[selected a current project] | PauseProject<br />[selected project == current project] | DeleteProject<br />[deleted project == current project] | StartProject<br />[selected project != current project] | DeleteProject<br />[deleted project == current project] |
+| :-------------- | :---------------------------------- | :-------------- | ---------------------------------------------- | ------------------------------------------ | ------------------------------------------------------ | ------------------------------------------------------- | ------------------------------------------------------- | ------------------------------------------------------- | ------------------------------------------------------- |
+| Dashboard       | PlayingProject                      | MinimizedToTray |                                                |                                            |                                                        |                                                         |                                                         |                                                         |                                                         |
+| MinimizedToTray |                                     |                 | Dashboard                                      | PlayingProject                             | MinimizedToTray                                        |                                                         |                                                         |                                                         |                                                         |
+| PlayingProject  |                                     | MinimizedToTray |                                                |                                            |                                                        | Dashboard                                               | Dashboard                                               | Playing Project                                         | Playing Project                                         |
 
-### Use-case 3 - edit a project's color
+### Use-case 3 - Edit a project's color
 
 Color coding tasks is a common organization method for time
 scheduling/organization methods. A time scheduling application should have this
