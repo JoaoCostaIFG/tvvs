@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <!DOCTYPE RootStep>
 <RootStep id="_0" name="root"
-          signature="2AE5407524BF3FE2EDD0BDCA5497707963AF62F4"
+          signature="97949D158FDA12C6517D1664FC776879FB888813"
           version="6.0.3">
   <include>qfs.qft</include>
   <TestSet id="_1" name="Add project">
@@ -182,28 +182,409 @@
     </CleanupSequence>
   </TestSet>
   <TestSet id="_2q" name="Play/pause project">
-    <SetupSequence id="_2r" name="Launch jtimesched">
-      <SetGlobalStep id="_2s" varname="client">
-        <default>jtimesched</default>
-      </SetGlobalStep>
-      <ClientWaiter client="$(client)" id="_2t" local="true" raise="false"
-                    resvarname="isSUTRunning" timeout="1">
-        <comment>This node checks whether the SUT is already running. The result of this check will be stored in the variable isSUTRunning. The variable itself can contain true if SUT is already running or false if SUT is not running. This variable will be used in the following 'If' node.</comment>
-      </ClientWaiter>
-      <IfSequence id="_2u" name="Launch SUT if not running"
-                  test="not $(isSUTRunning)">
-        <JavaClientStarter client="$(client)"
-                           directory="/home/joao/Documents/UniStuff/5_1things/TVVS/jtimesched"
-                           executable="${qftest:java}" id="_2v">
-          <parameter>-jar</parameter>
-          <parameter>/home/joao/Documents/UniStuff/5_1things/TVVS/jtimesched/target/jtimesched-1.2-SNAPSHOT-jar-with-dependencies.jar</parameter>
-        </JavaClientStarter>
-        <ClientWaiter client="$(client)" id="_2w"/>
-      </IfSequence>
+    <SetupSequence id="_2r" name="Setup">
+      <BasicSequence id="_3F" name="Launch jtimesched">
+        <SetGlobalStep id="_2s" varname="client">
+          <default>jtimesched</default>
+        </SetGlobalStep>
+        <ClientWaiter client="$(client)" id="_2t" local="true" raise="false"
+                      resvarname="isSUTRunning" timeout="1">
+          <comment>This node checks whether the SUT is already running. The result of this check will be stored in the variable isSUTRunning. The variable itself can contain true if SUT is already running or false if SUT is not running. This variable will be used in the following 'If' node.</comment>
+        </ClientWaiter>
+        <IfSequence id="_2u" name="Launch SUT if not running"
+                    test="not $(isSUTRunning)">
+          <JavaClientStarter client="$(client)"
+                             directory="/home/joao/Documents/UniStuff/5_1things/TVVS/jtimesched"
+                             executable="${qftest:java}" id="_2v">
+            <parameter>-jar</parameter>
+            <parameter>/home/joao/Documents/UniStuff/5_1things/TVVS/jtimesched/target/jtimesched-1.2-SNAPSHOT-jar-with-dependencies.jar</parameter>
+          </JavaClientStarter>
+          <ClientWaiter client="$(client)" id="_2w"/>
+        </IfSequence>
+      </BasicSequence>
+      <BasicSequence id="_34" name="Add test project">
+        <MouseEventStep clicks="1" client="$(client)"
+                        component="buttonAdd_project" event="MOUSE_MPRC"
+                        id="_35" modifiers="16"/>
+        <TextInputStep clear="true" client="$(client)"
+                       component="frameJTimeSched.text" id="_36">
+          <text>test project</text>
+        </TextInputStep>
+        <KeyEventStep client="$(client)" component="frameJTimeSched.text"
+                      event="KEY_PTR" id="_37" keychar="10" keycode="10"
+                      modifiers="0"/>
+      </BasicSequence>
     </SetupSequence>
-    <CleanupSequence id="_2x" name="Close app">
-      <ClientStopper client="$(client)" id="_2y"/>
-      <ProcessWaiter client="$(client)" id="_2z"/>
+    <TestCase id="_2+" name="Play/pause project 1">
+      <BasicSequence id="_2-" name="Minimize">
+        <MouseEventStep clicks="2" client="$(client)" component="canvas"
+                        event="MOUSE_DBLCLK" id="_30" modifiers="16" x="5"
+                        y="2"/>
+      </BasicSequence>
+      <BasicSequence id="_3K" name="Maximize">
+        <MouseEventStep clicks="2" client="$(client)" component="canvas"
+                        event="MOUSE_DBLCLK" id="_3L" modifiers="16" x="8"
+                        y="3"/>
+        <ComponentEventStep client="$(client)" component="frameJTimeSched"
+                            event="COMPONENT_MOVED" id="_3M" param1="5"
+                            param2="21"/>
+      </BasicSequence>
+      <BasicSequence id="_3X" name="Check window is maximized">
+        <CheckStringStep checktype="item" client="$(client)"
+                         component="frameJTimeSched.table@Title&amp;0"
+                         id="_3Y">
+          <text>test project</text>
+        </CheckStringStep>
+      </BasicSequence>
+      <CleanupSequence id="_5z" name="Delete test project">
+        <MouseEventStep clicks="1" client="$(client)"
+                        component="frameJTimeSched.table1_project_|_0:00:00_overall_|_0:00:00_today@Title&amp;0"
+                        event="MOUSE_MPRC" id="_5+" modifiers="16"/>
+        <KeyEventStep client="$(client)"
+                      component="frameJTimeSched.table1_project_|_0:00:00_overall_|_0:00:00_today"
+                      event="KEY_PTR" id="_5-" keychar="127" keycode="127"
+                      modifiers="0"/>
+      </CleanupSequence>
+    </TestCase>
+    <TestCase id="_3N" name="Play/pause project 2">
+      <SetupSequence id="_3V" name="Play project (select it)">
+        <MouseEventStep clicks="1" client="$(client)"
+                        component="frameJTimeSched.table1_project_|_0:00:00_overall_|_0:00:00_today&amp;7&amp;0"
+                        event="MOUSE_MPRC" id="_3W" modifiers="16"/>
+      </SetupSequence>
+      <BasicSequence id="_3O" name="Minimize">
+        <MouseEventStep clicks="2" client="$(client)" component="canvas"
+                        event="MOUSE_DBLCLK" id="_3P" modifiers="16" x="5"
+                        y="2"/>
+      </BasicSequence>
+      <BasicSequence id="_3Z" name="Toggle project">
+        <MouseEventStep clicks="1" client="$(client)" component="canvas"
+                        event="MOUSE_MPRC" id="_3a" modifiers="4" popup="true"
+                        x="3" y="9"/>
+      </BasicSequence>
+      <BasicSequence id="_3b" name="Check project is paused">
+        <BasicSequence id="_3d" name="Maximize">
+          <MouseEventStep clicks="2" client="$(client)" component="canvas"
+                          event="MOUSE_DBLCLK" id="_3e" modifiers="16" x="8"
+                          y="3"/>
+          <ComponentEventStep client="$(client)" component="frameJTimeSched"
+                              event="COMPONENT_MOVED" id="_3f" param1="5"
+                              param2="21"/>
+        </BasicSequence>
+        <CheckStringStep checktype="item" client="$(client)"
+                         component="frameJTimeSched.table&amp;7&amp;0"
+                         id="_3c"/>
+      </BasicSequence>
+      <CleanupSequence id="_60" name="Delete test project">
+        <MouseEventStep clicks="1" client="$(client)"
+                        component="frameJTimeSched.table1_project_|_0:00:00_overall_|_0:00:00_today@Title&amp;0"
+                        event="MOUSE_MPRC" id="_61" modifiers="16"/>
+        <KeyEventStep client="$(client)"
+                      component="frameJTimeSched.table1_project_|_0:00:00_overall_|_0:00:00_today"
+                      event="KEY_PTR" id="_62" keychar="127" keycode="127"
+                      modifiers="0"/>
+      </CleanupSequence>
+    </TestCase>
+    <TestCase id="_3t" name="Play/pause project 3">
+      <SetupSequence id="_3u" name="Play project (select it)">
+        <MouseEventStep clicks="1" client="$(client)"
+                        component="frameJTimeSched.table1_project_|_0:00:00_overall_|_0:00:00_today&amp;7&amp;0"
+                        event="MOUSE_MPRC" id="_3v" modifiers="16"/>
+      </SetupSequence>
+      <BasicSequence id="_3w" name="Minimize">
+        <MouseEventStep clicks="2" client="$(client)" component="canvas"
+                        event="MOUSE_DBLCLK" id="_3x" modifiers="16" x="5"
+                        y="2"/>
+      </BasicSequence>
+      <BasicSequence id="_3+" name="Maximize">
+        <MouseEventStep clicks="2" client="$(client)" component="canvas"
+                        event="MOUSE_DBLCLK" id="_3-" modifiers="16" x="8"
+                        y="3"/>
+        <ComponentEventStep client="$(client)" component="frameJTimeSched"
+                            event="COMPONENT_MOVED" id="_40" param1="5"
+                            param2="21"/>
+      </BasicSequence>
+      <BasicSequence id="_43" name="Check project is playing">
+        <CheckStringStep checktype="item" client="$(client)"
+                         component="frameJTimeSched.table&amp;7&amp;0"
+                         id="_44"/>
+      </BasicSequence>
+      <CleanupSequence id="_63" name="Delete test project">
+        <MouseEventStep clicks="1" client="$(client)"
+                        component="frameJTimeSched.table1_project_|_0:00:00_overall_|_0:00:00_today@Title&amp;0"
+                        event="MOUSE_MPRC" id="_64" modifiers="16"/>
+        <KeyEventStep client="$(client)"
+                      component="frameJTimeSched.table1_project_|_0:00:00_overall_|_0:00:00_today"
+                      event="KEY_PTR" id="_65" keychar="127" keycode="127"
+                      modifiers="0"/>
+      </CleanupSequence>
+    </TestCase>
+    <TestCase id="_45" name="Play/pause project 4">
+      <BasicSequence id="_46" name="Play project">
+        <MouseEventStep clicks="1" client="$(client)"
+                        component="frameJTimeSched.table1_project_|_0:00:00_overall_|_0:00:00_today&amp;7&amp;0"
+                        event="MOUSE_MPRC" id="_47" modifiers="16"/>
+      </BasicSequence>
+      <BasicSequence id="_48" name="Minimize">
+        <MouseEventStep clicks="2" client="$(client)" component="canvas"
+                        event="MOUSE_DBLCLK" id="_49" modifiers="16" x="5"
+                        y="2"/>
+      </BasicSequence>
+      <BasicSequence id="_4D" name="Check project is playing">
+        <BasicSequence id="_4A" name="Maximize">
+          <MouseEventStep clicks="2" client="$(client)" component="canvas"
+                          event="MOUSE_DBLCLK" id="_4B" modifiers="16" x="8"
+                          y="3"/>
+          <ComponentEventStep client="$(client)" component="frameJTimeSched"
+                              event="COMPONENT_MOVED" id="_4C" param1="5"
+                              param2="21"/>
+        </BasicSequence>
+        <CheckStringStep checktype="item" client="$(client)"
+                         component="frameJTimeSched.table&amp;7&amp;0"
+                         id="_4E"/>
+      </BasicSequence>
+      <CleanupSequence id="_66" name="Delete test project">
+        <MouseEventStep clicks="1" client="$(client)"
+                        component="frameJTimeSched.table1_project_|_0:00:00_overall_|_0:00:00_today@Title&amp;0"
+                        event="MOUSE_MPRC" id="_67" modifiers="16"/>
+        <KeyEventStep client="$(client)"
+                      component="frameJTimeSched.table1_project_|_0:00:00_overall_|_0:00:00_today"
+                      event="KEY_PTR" id="_68" keychar="127" keycode="127"
+                      modifiers="0"/>
+      </CleanupSequence>
+    </TestCase>
+    <TestCase id="_4H" name="Play/pause project 5">
+      <SetupSequence id="_4R" name="Add second test project">
+        <MouseEventStep clicks="1" client="$(client)"
+                        component="buttonAdd_project" event="MOUSE_MPRC"
+                        id="_4S" modifiers="16"/>
+        <TextInputStep clear="true" client="$(client)"
+                       component="frameJTimeSched.text" id="_4T">
+          <text>test project 2</text>
+        </TextInputStep>
+        <KeyEventStep client="$(client)" component="frameJTimeSched.text"
+                      event="KEY_PTR" id="_4U" keychar="10" keycode="10"
+                      modifiers="0"/>
+        <BasicSequence id="_4k" name="Sort projects">
+          <MouseEventStep clicks="1" client="$(client)"
+                          component="frameJTimeSched.header&amp;0"
+                          event="MOUSE_MPRC" id="_4l" modifiers="16"/>
+          <MouseEventStep clicks="1" client="$(client)"
+                          component="frameJTimeSched.header@Title"
+                          event="MOUSE_MPRC" id="_4m" modifiers="16"/>
+        </BasicSequence>
+      </SetupSequence>
+      <BasicSequence id="_4I" name="Play project">
+        <MouseEventStep clicks="1" client="$(client)"
+                        component="frameJTimeSched.table1_project_|_0:00:00_overall_|_0:00:00_today&amp;7&amp;0"
+                        event="MOUSE_MPRC" id="_4J" modifiers="16"/>
+      </BasicSequence>
+      <BasicSequence id="_4X" name="Pause project">
+        <MouseEventStep clicks="1" client="$(client)"
+                        component="frameJTimeSched.table&amp;7&amp;0"
+                        event="MOUSE_MPRC" id="_4Y" modifiers="16"/>
+      </BasicSequence>
+      <BasicSequence id="_4Z" name="Check all projects paused">
+        <CheckStringStep checktype="item" client="$(client)"
+                         component="frameJTimeSched.table&amp;7&amp;0"
+                         id="_4a"/>
+        <CheckStringStep checktype="item" client="$(client)"
+                         component="frameJTimeSched.table&amp;7&amp;1"
+                         id="_4b"/>
+      </BasicSequence>
+      <CleanupSequence id="_4p" name="Teardown">
+        <BasicSequence id="_6C" name="Delete second test project">
+          <MouseEventStep clicks="1" client="$(client)"
+                          component="frameJTimeSched.table@Title&amp;1"
+                          event="MOUSE_MPRC" id="_4q" modifiers="16"/>
+          <KeyEventStep client="$(client)" component="frameJTimeSched.table"
+                        event="KEY_PTR" id="_4r" keychar="127" keycode="127"
+                        modifiers="0"/>
+        </BasicSequence>
+        <BasicSequence id="_69" name="Delete test project">
+          <MouseEventStep clicks="1" client="$(client)"
+                          component="frameJTimeSched.table1_project_|_0:00:00_overall_|_0:00:00_today@Title&amp;0"
+                          event="MOUSE_MPRC" id="_6A" modifiers="16"/>
+          <KeyEventStep client="$(client)"
+                        component="frameJTimeSched.table1_project_|_0:00:00_overall_|_0:00:00_today"
+                        event="KEY_PTR" id="_6B" keychar="127" keycode="127"
+                        modifiers="0"/>
+        </BasicSequence>
+      </CleanupSequence>
+    </TestCase>
+    <TestCase id="_4s" name="Play/pause project 6">
+      <SetupSequence id="_4t" name="Add second test project">
+        <MouseEventStep clicks="1" client="$(client)"
+                        component="buttonAdd_project" event="MOUSE_MPRC"
+                        id="_4u" modifiers="16"/>
+        <TextInputStep clear="true" client="$(client)"
+                       component="frameJTimeSched.text" id="_4v">
+          <text>test project 2</text>
+        </TextInputStep>
+        <KeyEventStep client="$(client)" component="frameJTimeSched.text"
+                      event="KEY_PTR" id="_4w" keychar="10" keycode="10"
+                      modifiers="0"/>
+        <BasicSequence id="_4x" name="Sort projects">
+          <MouseEventStep clicks="1" client="$(client)"
+                          component="frameJTimeSched.header&amp;0"
+                          event="MOUSE_MPRC" id="_4y" modifiers="16"/>
+          <MouseEventStep clicks="1" client="$(client)"
+                          component="frameJTimeSched.header@Title"
+                          event="MOUSE_MPRC" id="_4z" modifiers="16"/>
+        </BasicSequence>
+      </SetupSequence>
+      <BasicSequence id="_4+" name="Play project">
+        <MouseEventStep clicks="1" client="$(client)"
+                        component="frameJTimeSched.table1_project_|_0:00:00_overall_|_0:00:00_today&amp;7&amp;0"
+                        event="MOUSE_MPRC" id="_4-" modifiers="16"/>
+      </BasicSequence>
+      <BasicSequence id="_58" name="Delete project">
+        <MouseEventStep clicks="1" client="$(client)"
+                        component="frameJTimeSched.table@Title&amp;0"
+                        event="MOUSE_MPRC" id="_59" modifiers="16"/>
+        <KeyEventStep client="$(client)" component="frameJTimeSched.table"
+                      event="KEY_PTR" id="_5A" keychar="127" keycode="127"
+                      modifiers="0"/>
+      </BasicSequence>
+      <BasicSequence id="_5B" name="Check second test project paused">
+        <CheckStringStep checktype="item" client="$(client)"
+                         component="frameJTimeSched.table1_project_|_0:00:00_overall_|_0:00:00_today@Title&amp;0"
+                         id="_5C">
+          <text>test project 2</text>
+        </CheckStringStep>
+        <CheckStringStep checktype="item" client="$(client)"
+                         component="frameJTimeSched.table1_project_|_0:00:00_overall_|_0:00:00_today&amp;7&amp;0"
+                         id="_5D"/>
+      </BasicSequence>
+      <CleanupSequence id="_5E" name="Delete second test project">
+        <MouseEventStep clicks="1" client="$(client)"
+                        component="frameJTimeSched.table1_project_|_0:00:00_overall_|_0:00:00_today@Title&amp;0"
+                        event="MOUSE_MPRC" id="_5F" modifiers="16"/>
+        <KeyEventStep client="$(client)"
+                      component="frameJTimeSched.table1_project_|_0:00:00_overall_|_0:00:00_today"
+                      event="KEY_PTR" id="_5G" keychar="127" keycode="127"
+                      modifiers="0"/>
+      </CleanupSequence>
+    </TestCase>
+    <TestCase id="_5H" name="Play/pause project 7">
+      <SetupSequence id="_5I" name="Add second test project">
+        <MouseEventStep clicks="1" client="$(client)"
+                        component="buttonAdd_project" event="MOUSE_MPRC"
+                        id="_5J" modifiers="16"/>
+        <TextInputStep clear="true" client="$(client)"
+                       component="frameJTimeSched.text" id="_5K">
+          <text>test project 2</text>
+        </TextInputStep>
+        <KeyEventStep client="$(client)" component="frameJTimeSched.text"
+                      event="KEY_PTR" id="_5L" keychar="10" keycode="10"
+                      modifiers="0"/>
+        <BasicSequence id="_5M" name="Sort projects">
+          <MouseEventStep clicks="1" client="$(client)"
+                          component="frameJTimeSched.header&amp;0"
+                          event="MOUSE_MPRC" id="_5N" modifiers="16"/>
+          <MouseEventStep clicks="1" client="$(client)"
+                          component="frameJTimeSched.header@Title"
+                          event="MOUSE_MPRC" id="_5O" modifiers="16"/>
+        </BasicSequence>
+      </SetupSequence>
+      <BasicSequence id="_5P" name="Play project">
+        <MouseEventStep clicks="1" client="$(client)"
+                        component="frameJTimeSched.table1_project_|_0:00:00_overall_|_0:00:00_today&amp;7&amp;0"
+                        event="MOUSE_MPRC" id="_5Q" modifiers="16"/>
+      </BasicSequence>
+      <BasicSequence id="_5W" name="Delete second test project">
+        <MouseEventStep clicks="1" client="$(client)"
+                        component="frameJTimeSched.table@Title&amp;1"
+                        event="MOUSE_MPRC" id="_5X" modifiers="16"/>
+        <KeyEventStep client="$(client)" component="frameJTimeSched.table"
+                      event="KEY_PTR" id="_5Y" keychar="127" keycode="127"
+                      modifiers="0"/>
+      </BasicSequence>
+      <BasicSequence id="_5w" name="Check project is still playing">
+        <CheckStringStep checktype="item" client="$(client)"
+                         component="frameJTimeSched.table@Title&amp;0"
+                         id="_5x">
+          <text>test project</text>
+        </CheckStringStep>
+        <CheckStringStep checktype="item" client="$(client)"
+                         component="frameJTimeSched.table&amp;7&amp;0"
+                         id="_5y"/>
+      </BasicSequence>
+      <CleanupSequence id="_6D" name="Delete test project">
+        <MouseEventStep clicks="1" client="$(client)"
+                        component="frameJTimeSched.table1_project_|_0:00:00_overall_|_0:00:00_today@Title&amp;0"
+                        event="MOUSE_MPRC" id="_6E" modifiers="16"/>
+        <KeyEventStep client="$(client)"
+                      component="frameJTimeSched.table1_project_|_0:00:00_overall_|_0:00:00_today"
+                      event="KEY_PTR" id="_6F" keychar="127" keycode="127"
+                      modifiers="0"/>
+      </CleanupSequence>
+    </TestCase>
+    <TestCase id="_5e" name="Play/pause project 8">
+      <SetupSequence id="_5f" name="Add second test project">
+        <MouseEventStep clicks="1" client="$(client)"
+                        component="buttonAdd_project" event="MOUSE_MPRC"
+                        id="_5g" modifiers="16"/>
+        <TextInputStep clear="true" client="$(client)"
+                       component="frameJTimeSched.text" id="_5h">
+          <text>test project 2</text>
+        </TextInputStep>
+        <KeyEventStep client="$(client)" component="frameJTimeSched.text"
+                      event="KEY_PTR" id="_5i" keychar="10" keycode="10"
+                      modifiers="0"/>
+        <BasicSequence id="_5j" name="Sort projects">
+          <MouseEventStep clicks="1" client="$(client)"
+                          component="frameJTimeSched.header&amp;0"
+                          event="MOUSE_MPRC" id="_5k" modifiers="16"/>
+          <MouseEventStep clicks="1" client="$(client)"
+                          component="frameJTimeSched.header@Title"
+                          event="MOUSE_MPRC" id="_5l" modifiers="16"/>
+        </BasicSequence>
+      </SetupSequence>
+      <BasicSequence id="_5m" name="Play project">
+        <MouseEventStep clicks="1" client="$(client)"
+                        component="frameJTimeSched.table1_project_|_0:00:00_overall_|_0:00:00_today&amp;7&amp;0"
+                        event="MOUSE_MPRC" id="_5n" modifiers="16"/>
+      </BasicSequence>
+      <BasicSequence id="_5o" name="Play second test project">
+        <MouseEventStep clicks="1" client="$(client)"
+                        component="frameJTimeSched.table&amp;7&amp;1"
+                        event="MOUSE_MPRC" id="_5p" modifiers="16"/>
+      </BasicSequence>
+      <BasicSequence id="_5q"
+                     name="Check second project is the only one playing">
+        <CheckStringStep checktype="item" client="$(client)"
+                         component="frameJTimeSched.table&amp;7&amp;0"
+                         id="_5r"/>
+        <CheckStringStep checktype="item" client="$(client)"
+                         component="frameJTimeSched.table&amp;7&amp;1"
+                         id="_5s"/>
+      </BasicSequence>
+      <CleanupSequence id="_6G" name="Teardown">
+        <BasicSequence id="_6H" name="Delete second test project">
+          <MouseEventStep clicks="1" client="$(client)"
+                          component="frameJTimeSched.table@Title&amp;1"
+                          event="MOUSE_MPRC" id="_6I" modifiers="16"/>
+          <KeyEventStep client="$(client)" component="frameJTimeSched.table"
+                        event="KEY_PTR" id="_6J" keychar="127" keycode="127"
+                        modifiers="0"/>
+        </BasicSequence>
+        <BasicSequence id="_6K" name="Delete test project">
+          <MouseEventStep clicks="1" client="$(client)"
+                          component="frameJTimeSched.table1_project_|_0:00:00_overall_|_0:00:00_today@Title&amp;0"
+                          event="MOUSE_MPRC" id="_6L" modifiers="16"/>
+          <KeyEventStep client="$(client)"
+                        component="frameJTimeSched.table1_project_|_0:00:00_overall_|_0:00:00_today"
+                        event="KEY_PTR" id="_6M" keychar="127" keycode="127"
+                        modifiers="0"/>
+        </BasicSequence>
+      </CleanupSequence>
+    </TestCase>
+    <CleanupSequence id="_2x" name="Teardown">
+      <BasicSequence id="_3G" name="Close app">
+        <ClientStopper client="$(client)" id="_2y"/>
+        <ProcessWaiter client="$(client)" id="_2z"/>
+      </BasicSequence>
     </CleanupSequence>
   </TestSet>
   <PackageRoot id="_3"/>
@@ -295,6 +676,15 @@
                         state="0">Table</extrafeature>
           <extrafeature name="qfs:systemclass" negate="false" regexp="false"
                         state="0">javax.swing.JTable</extrafeature>
+        </ComponentStep>
+        <ComponentStep class="TableHeader" classcount="1" classindex="0"
+                       id="frameJTimeSched.header" uid="_4c">
+          <extrafeature name="qfs:class" negate="false" regexp="false"
+                        state="0">javax.swing.table.JTableHeader</extrafeature>
+          <extrafeature name="qfs:genericclass" negate="false" regexp="false"
+                        state="0">TableHeader</extrafeature>
+          <extrafeature name="qfs:systemclass" negate="false" regexp="false"
+                        state="0">javax.swing.table.JTableHeader</extrafeature>
         </ComponentStep>
       </ComponentStep>
     </WindowStep>
