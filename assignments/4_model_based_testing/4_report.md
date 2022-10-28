@@ -199,4 +199,3 @@ Setup: Add project
 7. Start app ⇒ edit project color ⇒ go to custom color menu ⇒ reset color
   
 All tests pass successfully.
-
