@@ -96,11 +96,11 @@ The most important aspects of this use-case are:
 
 ![Use-case 2's transition tree](./transition_trees/transition_tree_2.png)
 
-In contrast with the other branches of the tree, the first branch tests
-something that doesn't appear related to the use-case: open the application,
-minimize it, and then maximize it again. This indicates that the state
-**_MinimizedToTray_** probably shouldn't exist as it is not related to the
-use-case of _play/pause a project_.
+Similarly to the first use-case, we have the first branch of tree that just
+tests opening the application, minimizing it to the tray area, and then
+maximizing it. Again, this doesn't seem related to the use-case at hand. This
+time, the state should be kept, because it is clearly part of the use-case:
+projects can be started/paused from the tray area.
 
 With 8 leaf nodes in the tree, we need to create 8 tests to cover all states and
 transitions of the system.
@@ -116,11 +116,10 @@ transitions of the system.
 According to the table, there are 17 sneak paths.
 
 Note: There is a transition _PauseProject_ with the condition that the running
-project is the project the user is currently pausing. However, there isn't any
-transition that pauses a project which is not running, for logical reasons.
-Since this transition does not exist, it does not appear in the transition
-table. This means that we won't take into account sneak paths that involve this
-transition.
+project is the project the user is currently pausing. However, given the user
+interface of application, there isn't any transition that pauses a project which
+is not running (for logical reasons). Since this transition does not exist, it
+does not appear in the transition table.
 
 #### Tests
 
@@ -128,21 +127,26 @@ The tests are numbered with the same order as the leaf nodes in the tree
 (left-to-right). Some tests imply some previous setup.
 
 1. Start app ⇒ minimize app ⇒ maximize app
-
-Setup: Add project 
 2. Start app ⇒ minimize app ⇒ toggle project and confirm it
-4. Start app ⇒ start project ⇒ minimize
-
-Setup: Add two project 
-5. Start app ⇒ start project ⇒ pause project
-6. Start app ⇒ start project ⇒ delete project
-7. Start app ⇒ start project ⇒ start another project
-8. Start app ⇒ start project ⇒ delete another project
-
-Setup: Add project and run it 
+   - Setup: Add project
 3. Start app ⇒ minimize app ⇒ maximize app and confirm project is running
+   - Setup: Add project and start it
+4. Start app ⇒ start project ⇒ minimize
+   - Setup: Add project
+5. Start app ⇒ start project ⇒ pause project
+   - Setup: Add two project
+6. Start app ⇒ start project ⇒ delete project
+   - Setup: Add two project
+7. Start app ⇒ start project ⇒ start another project
+   - Setup: Add two project
+8. Start app ⇒ start project ⇒ delete another project
+   - Setup: Add two project
 
 All tests pass successfully.
+
+Note: the second test uses the right-click menu of the application's tray icon.
+For some reason, this test sometimes bugs and isn't able to complete before
+timing-out. We believe this might be a limitation of **QF-Test**.
 
 ### Use-case 3 - Edit a project's color
 
@@ -155,8 +159,9 @@ feature.
 The most important aspects of this use-case are:
 
 - It is possible to choose a custom color instead of the predefined ones.
-- In contrast with other features, when the application is minimized while
-  editing a color, maximizing it again will cancel the color selection.
+- We omitted the states around the custom color selection menu: there are 5 tabs
+  reachable from all other tabs. This leads to _explosion of states_ that
+  doesn't add anything to the analysis.
 
 ![Use-case 3's state machine](./state_machines/state_machine_3.png)
 
@@ -175,27 +180,26 @@ transitions of the system.
 
 #### Transition table
 
-|                 | Minimize        | EditColor | Maximize  | SelectColor | RemoveColor | CancelColor | GoCustomColor | ResetColor  |
-| --------------- | --------------- | --------- | --------- | ----------- | ----------- | ----------- | ------------- | ----------- |
-| Dashboard       | MinimizedToTray | EditColor |           |             |             |             |               |             |
-| MinimizedToTray |                 |           | Dashboard |             |             |             |               |             |
-| EditColor       |                 |           |           | Dashboard   | Dashboard   | Dashboard   | CustomColor   |             |
-| CustomColor     |                 |           |           | Dashboard   |             | Dashboard   |               | CustomColor |
+|             | EditColor | SelectColor | RemoveColor | CancelColor | GoCustomColor | ResetColor  |
+| ----------- | --------- | ----------- | ----------- | ----------- | ------------- | ----------- |
+| Dashboard   | EditColor |             |             |             |               |             |
+| EditColor   |           | Dashboard   | Dashboard   | Dashboard   | CustomColor   |             |
+| CustomColor |           | Dashboard   |             | Dashboard   |               | CustomColor |
 
 According to the table, there are 22 sneak paths.
 
 #### Tests
+
 The tests are numbered with the same order as the leaf nodes in the tree
 (left-to-right). Some tests imply some previous setup.
 
 1. Start app ⇒ minimize app ⇒ maximize app
 
-Setup: Add project 
-2. Start app ⇒ edit project color ⇒ select color
-3. Start app ⇒ edit project color ⇒ remove color
-4. Start app ⇒ edit project color ⇒ cancel color selection
-5. Start app ⇒ edit project color ⇒ go to custom color menu ⇒ select color
-6. Start app ⇒ edit project color ⇒ go to custom color menu ⇒ cancel color
-7. Start app ⇒ edit project color ⇒ go to custom color menu ⇒ reset color
-  
+Setup: Add project 2. Start app ⇒ edit project color ⇒ select color 3. Start app
+⇒ edit project color ⇒ remove color 4. Start app ⇒ edit project color ⇒ cancel
+color selection 5. Start app ⇒ edit project color ⇒ go to custom color menu ⇒
+select color 6. Start app ⇒ edit project color ⇒ go to custom color menu ⇒
+cancel color 7. Start app ⇒ edit project color ⇒ go to custom color menu ⇒ reset
+color
+
 All tests pass successfully.

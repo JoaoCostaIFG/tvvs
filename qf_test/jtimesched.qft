@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <!DOCTYPE RootStep>
 <RootStep id="_0" name="root"
-          signature="D5C40E2FA02175C4F98C1356DC2D6E6170EAFBC9"
+          signature="47740EC0B86C99442FA85879F94911F989285A4B"
           version="6.0.3">
   <include>qfs.qft</include>
   <TestSet id="_1" name="Add project">
@@ -646,29 +646,7 @@
                       modifiers="0"/>
       </BasicSequence>
     </SetupSequence>
-    <TestCase id="_6g" name="Play/pause project 1">
-      <BasicSequence id="_6h" name="Minimize">
-        <MouseEventStep clicks="2" client="$(client)" component="canvas"
-                        event="MOUSE_DBLCLK" id="_6i" modifiers="16" x="5"
-                        y="2"/>
-      </BasicSequence>
-      <BasicSequence id="_6j" name="Maximize">
-        <MouseEventStep clicks="2" client="$(client)" component="canvas"
-                        event="MOUSE_DBLCLK" id="_6k" modifiers="16" x="8"
-                        y="3"/>
-        <ComponentEventStep client="$(client)" component="frameJTimeSched"
-                            event="COMPONENT_MOVED" id="_6l" param1="5"
-                            param2="21"/>
-      </BasicSequence>
-      <BasicSequence id="_6m" name="Check window is maximized">
-        <CheckStringStep checktype="item" client="$(client)"
-                         component="frameJTimeSched.table@Title&amp;0"
-                         id="_6n">
-          <text>test project</text>
-        </CheckStringStep>
-      </BasicSequence>
-    </TestCase>
-    <TestCase id="_6t" name="Play/pause project 2">
+    <TestCase id="_6t" name="Play/pause project 1">
       <BasicSequence id="_7E" name="Open color edit dialog">
         <MouseEventStep clicks="1" client="$(client)"
                         component="frameJTimeSched.table1_project_|_0:00:00_overall_|_0:00:00_today&amp;3&amp;0"
@@ -685,7 +663,7 @@
                          id="_7L"/>
       </BasicSequence>
     </TestCase>
-    <TestCase id="_7M" name="Play/pause project 3">
+    <TestCase id="_7M" name="Play/pause project 2">
       <SetupSequence id="_7U" name="Make project green">
         <BasicSequence id="_7W" name="Open color edit dialog">
           <MouseEventStep clicks="1" client="$(client)"
@@ -713,7 +691,7 @@
                          id="_7h"/>
       </BasicSequence>
     </TestCase>
-    <TestCase id="_7i" name="Play/pause project 4">
+    <TestCase id="_7i" name="Play/pause project 3">
       <SetupSequence id="_7j" name="Make project green">
         <BasicSequence id="_7k" name="Open color edit dialog">
           <MouseEventStep clicks="1" client="$(client)"
@@ -740,7 +718,7 @@
                          id="_7+"/>
       </BasicSequence>
     </TestCase>
-    <TestCase id="_7-" name="Play/pause project 5">
+    <TestCase id="_7-" name="Play/pause project 4">
       <BasicSequence id="_85" name="Open color edit dialog">
         <MouseEventStep clicks="1" client="$(client)"
                         component="frameJTimeSched.table1_project_|_0:00:00_overall_|_0:00:00_today&amp;3&amp;0"
@@ -769,7 +747,7 @@
                          id="_8S"/>
       </BasicSequence>
     </TestCase>
-    <TestCase id="_8T" name="Play/pause project 6">
+    <TestCase id="_8T" name="Play/pause project 5">
       <BasicSequence id="_8U" name="Open color edit dialog">
         <MouseEventStep clicks="1" client="$(client)"
                         component="frameJTimeSched.table1_project_|_0:00:00_overall_|_0:00:00_today&amp;3&amp;0"
@@ -798,7 +776,7 @@
                          id="_8k"/>
       </BasicSequence>
     </TestCase>
-    <TestCase id="_8l" name="Play/pause project 7">
+    <TestCase id="_8l" name="Play/pause project 6">
       <BasicSequence id="_8m" name="Open color edit dialog">
         <MouseEventStep clicks="1" client="$(client)"
                         component="frameJTimeSched.table1_project_|_0:00:00_overall_|_0:00:00_today&amp;3&amp;0"
