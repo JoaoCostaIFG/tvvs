@@ -2,10 +2,8 @@
 skinparam linetype polyline
 
 [Dashboard 0] -d-> [MinimizedToTray 0] : Minimize
-[Dashboard 0] -d-> [EndState 0] : Close
 [Dashboard 0] -d-> [EditColor 0] : EditColor
 
-[MinimizedToTray 0] -d-> [EndState 1] : Close
 [MinimizedToTray 0] -d-> [Dashboard 1] : Maximize
 
 [EditColor 0] -d-> [Dashboard 2] : SelectColor
