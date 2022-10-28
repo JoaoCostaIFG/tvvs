@@ -14,19 +14,40 @@ the application and the most interesting to test/draw a model for:
 - Play/pause a project;
 - Edit a project's color;
 
-### Use-case 1 - add a new project
+### Use-case 1 -- Add a new project
 
 Adding a new project is fundamental for using the application.
 
-The **state diagram**:
+#### State diagram
+
+The most important aspects of this use-case are:
+
+- When a user **adds** a project while **adding another one** i.e., still
+  editing its name, the name change is confirmed and the user is prompted for
+  the name of the new project;
+- When a user minimizes the application to the tray area while setting a new
+  project's name, the process is resumed upon maximizing the application window.
+
+We decided to represent the application's end-state as the moment the
+application is closed. This state and the transitions to it are not part of the
+tests.
 
 ![Use-case 1's state machine](./state_machines/state_machine_1.png)
 
-The **transition tree**:
+#### transition tree
 
-![Use-case 1's transtion tree](./transition_trees/transition_tree_1.png)
+![Use-case 1's transition tree](./transition_trees/transition_tree_1.png)
 
-The **transition table**:
+In contrast with the other branches of the tree, the first branch tests
+something that doesn't appear related to the use-case: open the application,
+minimize it, and then maximize it again. This indicates that the state
+**_MinimizedToTray_** probably shouldn't exist as it is not related to the
+use-case of _adding a new project_.
+
+With 5 leaf nodes in the tree, we need to create 5 tests to cover all states and
+transitions of the system.
+
+#### Transition table
 
 |                          | Add          | CancelNameChange | ConfirmNameChange | Maximize     | Minimize             |
 | ------------------------ | ------------ | ---------------- | ----------------- | ------------ | -------------------- |
@@ -34,6 +55,21 @@ The **transition table**:
 | **_Dashboard_**          | _AddProject_ |                  |                   |              | _MinimizedToTray_    |
 | **_MinimizedToTray_**    |              |                  |                   | _Dashboard_  |                      |
 | **_MinimizedToTrayAdd_** |              |                  |                   | _AddProject_ |                      |
+
+According to the table, there are 12 sneak paths.
+
+#### Tests
+
+1. Start app ⇒ minimize app ⇒ maximize app
+2. Start app ⇒ add project ⇒ change name and confirm it
+3. Start app ⇒ add project ⇒ cancel name change
+4. Start app ⇒ add project ⇒ add another project
+5. Start app ⇒ add project ⇒ minimize app ⇒ maximize app
+
+All tests pass successfully.
+
+Note: As stated previously, the first test probably should be part of this
+use-case.
 
 ### Use-case 2 - play/pause a project
 
