@@ -45,28 +45,7 @@ The **state diagram**:
 
 The **transition tree**:
 
-```plantuml
-@startuml
-skinparam linetype polyline
-
-[Dashboard 0] -d-> [MinimizedToTray 0] : Minimize
-[Dashboard 0] -d-> [EndState 0] : Close
-[Dashboard 0] -d-> [PlayingProject 0] : StartProject
-
-[MinimizedToTray 0] -d-> [Dashboard 1] : Maximize
-[MinimizedToTray 0] -d-> [EndState 1] : Close
-[MinimizedToTray 0] -d-> [MinimizedToTray 1] : ToggleCurrentProject
-[MinimizedToTray 0] -d-> [PlayingProject 1] : Maximize 
-
-[PlayingProject 0] -d-> [EndState 2] : Close
-[PlayingProject 0] -d-> [MinimizedToTray 2] : Minimize 
-[PlayingProject 0] -d-> [Dashboard 2] : PauseProject
-[PlayingProject 0] -d-> [Dashboard 3] : DeleteProject 
-[PlayingProject 0] -d-> [PlayingProject 2] : StartProject 
-[PlayingProject 0] -d-> [PlayingProject 2] : DeleteProject 
-
-@enduml
-```
+![Use-case 2's transtion tree](./transition_trees/transition_tree_2.png)
 
 The **transition table**:
 
