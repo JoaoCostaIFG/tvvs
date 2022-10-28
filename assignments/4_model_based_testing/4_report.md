@@ -39,7 +39,42 @@ The **transition table**:
 
 This is the main function of the application.
 
+The **state diagram**:
+
 ![Use-case 2's state machine](./state_machines/state_machine_2.png)
+
+The **transition tree**:
+
+```plantuml
+@startuml
+skinparam linetype polyline
+
+[Dashboard 0] -d-> [MinimizedToTray 0] : Minimize
+[Dashboard 0] -d-> [EndState 0] : Close
+[Dashboard 0] -d-> [PlayingProject 0] : StartProject
+
+[MinimizedToTray 0] -d-> [Dashboard 1] : Maximize
+[MinimizedToTray 0] -d-> [EndState 1] : Close
+[MinimizedToTray 0] -d-> [MinimizedToTray 1] : ToggleCurrentProject
+[MinimizedToTray 0] -d-> [PlayingProject 1] : Maximize 
+
+[PlayingProject 0] -d-> [EndState 2] : Close
+[PlayingProject 0] -d-> [MinimizedToTray 2] : Minimize 
+[PlayingProject 0] -d-> [Dashboard 2] : PauseProject
+[PlayingProject 0] -d-> [Dashboard 3] : DeleteProject 
+[PlayingProject 0] -d-> [PlayingProject 2] : StartProject 
+[PlayingProject 0] -d-> [PlayingProject 2] : DeleteProject 
+
+@enduml
+```
+
+The **transition table**:
+
+|                 | StartProject<br />[nº projects > 0] | Minimize        | Maximize<br />[current project is not playing] | Maximize<br />[current project is playing] | ToggleCurrentProject<br />[selected a current project] | PauseProject<br />[selected  project == current project] | DeleteProject<br />[deleted project == current project] | StartProject<br />[selected  project != current project] | DeleteProject<br />[deleted project == current project] |
+| :-------------- | :---------------------------------- | :-------------- | ---------------------------------------------- | ------------------------------------------ | ------------------------------------------------------ | -------------------------------------------------------- | ------------------------------------------------------- | -------------------------------------------------------- | ------------------------------------------------------- |
+| Dashboard       | PlayingProject                      | MinimizedToTray |                                                |                                            |                                                        |                                                          |                                                         |                                                          |                                                         |
+| MinimizedToTray |                                     |                 | Dashboard                                      | PlayingProject                             | MinimizedToTray                                        |                                                          |                                                         |                                                          |                                                         |
+| PlayingProject  |                                     | MinimizedToTray |                                                |                                            |                                                        | Dashboard                                                | Dashboard                                               | Playing Project                                          | Playing Project                                         |
 
 ### Use-case 3 - edit a project's color
 
