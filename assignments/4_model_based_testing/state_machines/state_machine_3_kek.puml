@@ -1,0 +1,58 @@
+@startuml
+hide empty description
+
+[*] --> Dashboard
+
+Dashboard --> [*] : Close
+Dashboard --> MinimizedToTray : Minimize
+Dashboard --> ColorSelect : EditColor
+
+EditColor --> Dashboard : SelectColor
+EditColor --> Dashboard : RemoveColor
+EditColor --> Dashboard : CancelColor
+EditColor --> ColorSwatches : GoColorSwatches
+
+ColorSwatches --> HSV : GoHSV
+ColorSwatches --> HSL : GoHSL
+ColorSwatches --> RGB : GoRGB
+ColorSwatches --> CMYK : GoCMYK
+ColorSwatches --> Dashboard : SelectColor
+ColorSwatches --> Dashboard : CancelColor
+ColorSwatches --> ColorSwatches : ResetColor
+
+HSV --> ColorSwatches : GoColorSwatches
+HSV --> HSL : GoHSL
+HSV --> RGB : GoRGB
+HSV --> CMYK : GoCMYK
+HSV --> Dashboard : SelectColor
+HSV --> Dashboard : CancelColor
+HSV --> HSV : ResetColor
+
+HSL --> ColorSwatches : GoColorSwatches
+HSL --> HSV : GoHSV
+HSL --> RGB : GoRGB
+HSL --> CMYK : GoCMYK
+HSL --> Dashboard : SelectColor
+HSL --> Dashboard : CancelColor
+HSL --> HSL : ResetColor
+
+RGB --> ColorSwatches : GoColorSwatches
+RGB --> HSV : GoHSV
+RGB --> HSL : GoHSL
+RGB --> CMYK : GoCMYK
+RGB --> Dashboard : SelectColor
+RGB --> Dashboard : CancelColor
+RGB --> RGB : ResetColor
+
+CMYK --> ColorSwatches : GoColorSwatches
+CMYK --> HSV : GoHSV
+CMYK --> HSL : GoHSL
+CMYK --> RGB : GoRGB
+CMYK --> Dashboard : SelectColor
+CMYK --> Dashboard : CancelColor
+CMYK --> CMYK : ResetColor
+
+MinimizedToTray --> Dashboard : Maximize
+MinimizedToTray --> [*] : Close
+
+@enduml

@@ -1,0 +1,22 @@
+@startuml
+hide empty description
+
+[*] -d-> Dashboard
+
+Dashboard --> [*] : Close
+Dashboard --> MinimizedToTray : Minimize
+Dashboard --> EditColor : EditColor
+
+EditColor --> Dashboard : SelectColor
+EditColor --> Dashboard : RemoveColor
+EditColor --> Dashboard : CancelColor
+EditColor --> CustomColor : GoCustomColor
+
+CustomColor --> Dashboard : SelectColor
+CustomColor --> Dashboard : CancelColor
+CustomColor --> CustomColor : ResetColor
+
+MinimizedToTray --> Dashboard : Maximize
+MinimizedToTray -l-> [*] : Close
+
+@enduml

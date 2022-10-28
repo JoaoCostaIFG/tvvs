@@ -1,0 +1,21 @@
+@startuml
+hide empty description
+
+[*] --> Dashboard
+
+Dashboard --> MinimizedToTray : Minimize
+Dashboard --> [*] : Close
+Dashboard --> AddProject : Add
+
+AddProject --> MinimizedToTrayAdd : Minimize
+AddProject --> Dashboard : ConfirmNameChange
+AddProject --> Dashboard : CancelNameChange
+AddProject --> AddProject : Add
+
+MinimizedToTrayAdd --> AddProject : Maximize
+MinimizedToTrayAdd --> [*] : Close
+
+MinimizedToTray --> Dashboard : Maximize
+MinimizedToTray --> [*] : Close
+
+@enduml

@@ -1,0 +1,22 @@
+@startuml
+hide empty description
+
+[*] --> Dashboard
+
+Dashboard --> [*] : Close
+Dashboard --> MinimizedToTray : Minimize
+Dashboard --> PlayingProject : StartProject\n[nº projects > 0]
+
+PlayingProject --> [*] : Close
+PlayingProject --> MinimizedToTray : Minimize
+PlayingProject --> Dashboard : PauseProject\n[selected project == current project]
+PlayingProject --> PlayingProject : StartProject\n[selected project != current project]
+PlayingProject --> Dashboard : DeleteProject\n[deleted project == current project]
+PlayingProject --> PlayingProject : DeleteProject\n[deleted project != current project]
+
+MinimizedToTray --> Dashboard : Maximize\n[current project is not playing]
+MinimizedToTray --> PlayingProject : Maximize\n[current project is playing]
+MinimizedToTray --> MinimizedToTray : ToggleCurrentProject\n[selected a current project]
+MinimizedToTray --> [*] : Close
+
+@enduml
