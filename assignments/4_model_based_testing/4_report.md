@@ -61,4 +61,12 @@ Color coding tasks is a common organization method for time
 scheduling/organization methods. A time scheduling application should have this
 feature.
 
+The **state diagram**:
+
 ![Use-case 3's state machine](./state_machines/state_machine_3.png)
+
+The **transition tree**:
+
+![Use-case 3's transtion tree](./transition_trees/transition_tree_3.png)
+
+The **transition table**:
