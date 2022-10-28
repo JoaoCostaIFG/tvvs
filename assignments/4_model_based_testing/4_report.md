@@ -140,6 +140,15 @@ The most important aspects of this use-case are:
 
 ![Use-case 3's transition tree](./transition_trees/transition_tree_3.png)
 
+In contrast with the other branches of the tree, the first branch tests
+something that doesn't appear related to the use-case: open the application,
+minimize it, and then maximize it again. This indicates that the state
+**_MinimizedToTray_** probably shouldn't exist as it is not related to the
+use-case of _play/pause a project_.
+
+With 7 leaf nodes in the tree, we need to create 7 tests to cover all states and
+transitions of the system.
+
 #### Transition table
 
 |                 | Minimize        | EditColor | Maximize  | SelectColor | RemoveColor | CancelColor | GoCustomColor | ResetColor  |
@@ -148,6 +157,8 @@ The most important aspects of this use-case are:
 | MinimizedToTray |                 |           | Dashboard |             |             |             |               |             |
 | EditColor       |                 |           |           | Dashboard   | Dashboard   | Dashboard   | CustomColor   |             |
 | CustomColor     |                 |           |           | Dashboard   |             | Dashboard   |               | CustomColor |
+
+According to the table, there are 22 sneak paths.
 
 #### Tests
 1. 
