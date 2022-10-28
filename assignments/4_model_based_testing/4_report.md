@@ -60,6 +60,9 @@ According to the table, there are 12 sneak paths.
 
 #### Tests
 
+The tests are numbered with the same order as the leaf nodes in the tree
+(left-to-right).
+
 1. Start app ⇒ minimize app ⇒ maximize app
 2. Start app ⇒ add project ⇒ change name and confirm it
 3. Start app ⇒ add project ⇒ cancel name change
@@ -106,3 +109,4 @@ The **transition tree**:
 ![Use-case 3's transition tree](./transition_trees/transition_tree_3.png)
 
 The **transition table**:
+

@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <!DOCTYPE RootStep>
 <RootStep id="_0" name="root"
-          signature="5F307FD80424CEDDC2B08AE6D3F065CDABDD281A"
+          signature="2AE5407524BF3FE2EDD0BDCA5497707963AF62F4"
           version="6.0.3">
   <include>qfs.qft</include>
-  <TestSet id="_1" name="add project">
+  <TestSet id="_1" name="Add project">
     <SetupSequence id="_6" name="Launch jtimesched">
       <SetGlobalStep id="_7" varname="client">
         <default>jtimesched</default>
@@ -179,6 +179,31 @@
     <CleanupSequence id="_16" name="Close app">
       <ClientStopper client="$(client)" id="_17"/>
       <ProcessWaiter client="$(client)" id="_18"/>
+    </CleanupSequence>
+  </TestSet>
+  <TestSet id="_2q" name="Play/pause project">
+    <SetupSequence id="_2r" name="Launch jtimesched">
+      <SetGlobalStep id="_2s" varname="client">
+        <default>jtimesched</default>
+      </SetGlobalStep>
+      <ClientWaiter client="$(client)" id="_2t" local="true" raise="false"
+                    resvarname="isSUTRunning" timeout="1">
+        <comment>This node checks whether the SUT is already running. The result of this check will be stored in the variable isSUTRunning. The variable itself can contain true if SUT is already running or false if SUT is not running. This variable will be used in the following 'If' node.</comment>
+      </ClientWaiter>
+      <IfSequence id="_2u" name="Launch SUT if not running"
+                  test="not $(isSUTRunning)">
+        <JavaClientStarter client="$(client)"
+                           directory="/home/joao/Documents/UniStuff/5_1things/TVVS/jtimesched"
+                           executable="${qftest:java}" id="_2v">
+          <parameter>-jar</parameter>
+          <parameter>/home/joao/Documents/UniStuff/5_1things/TVVS/jtimesched/target/jtimesched-1.2-SNAPSHOT-jar-with-dependencies.jar</parameter>
+        </JavaClientStarter>
+        <ClientWaiter client="$(client)" id="_2w"/>
+      </IfSequence>
+    </SetupSequence>
+    <CleanupSequence id="_2x" name="Close app">
+      <ClientStopper client="$(client)" id="_2y"/>
+      <ProcessWaiter client="$(client)" id="_2z"/>
     </CleanupSequence>
   </TestSet>
   <PackageRoot id="_3"/>
