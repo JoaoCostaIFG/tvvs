@@ -24,24 +24,7 @@ The **state diagram**:
 
 The **transition tree**:
 
-```plantuml
-@startuml
-skinparam linetype polyline
-
-[Dashboard 0] -d-> [MinimizedToTray 0] : Minimize
-[Dashboard 0] -d-> [AddProject 0] : Add
-
-[MinimizedToTray 0] -d-> [Dashboard 1] : Maximize
-
-[AddProject 0] -d-> [Dashboard 2] : ConfirmNameChange
-[AddProject 0] -d-> [Dashboard 3] : CancelNameChange
-[AddProject 0] -d-> [AddProject 1] : Add
-[AddProject 0] -d-> [MinimizedToTrayAdd 0] : Minimize
-
-[MinimizedToTrayAdd 0] -d-> [AddProject 2] : Maximize
-
-@enduml
-```
+![Use-case 1's transtion tree](./transition_trees/transition_tree_1.png)
 
 The **transition table**:
 
