@@ -110,3 +110,10 @@ The **transition tree**:
 
 The **transition table**:
 
+|                 | Minimize        | EditColor | Maximize  | SelectColor | RemoveColor | CancelColor | GoCustomColor | ResetColor  |
+| --------------- | --------------- | --------- | --------- | ----------- | ----------- | ----------- | ------------- | ----------- |
+| Dashboard       | MinimizedToTray | EditColor |           |             |             |             |               |             |
+| MinimizedToTray |                 |           | Dashboard |             |             |             |               |             |
+| EditColor       |                 |           |           | Dashboard   | Dashboard   | Dashboard   | CustomColor   |             |
+| CustomColor     |                 |           |           | Dashboard   |             | Dashboard   |               | CustomColor |
+
