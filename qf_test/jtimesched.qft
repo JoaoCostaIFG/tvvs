@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <!DOCTYPE RootStep>
 <RootStep id="_0" name="root"
-          signature="97949D158FDA12C6517D1664FC776879FB888813"
+          signature="D5C40E2FA02175C4F98C1356DC2D6E6170EAFBC9"
           version="6.0.3">
   <include>qfs.qft</include>
   <TestSet id="_1" name="Add project">
@@ -37,6 +37,13 @@
         <ComponentEventStep client="$(client)" component="frameJTimeSched"
                             event="COMPONENT_MOVED" id="_1G" param1="5"
                             param2="21"/>
+      </BasicSequence>
+      <BasicSequence id="_6r" name="Check window is maximized">
+        <CheckStringStep checktype="item" client="$(client)"
+                         component="frameJTimeSched.table@Title&amp;0"
+                         id="_6s">
+          <text>test project</text>
+        </CheckStringStep>
       </BasicSequence>
     </TestCase>
     <TestCase id="_2" name="Add project 2">
@@ -247,11 +254,6 @@
       </CleanupSequence>
     </TestCase>
     <TestCase id="_3N" name="Play/pause project 2">
-      <SetupSequence id="_3V" name="Play project (select it)">
-        <MouseEventStep clicks="1" client="$(client)"
-                        component="frameJTimeSched.table1_project_|_0:00:00_overall_|_0:00:00_today&amp;7&amp;0"
-                        event="MOUSE_MPRC" id="_3W" modifiers="16"/>
-      </SetupSequence>
       <BasicSequence id="_3O" name="Minimize">
         <MouseEventStep clicks="2" client="$(client)" component="canvas"
                         event="MOUSE_DBLCLK" id="_3P" modifiers="16" x="5"
@@ -262,18 +264,41 @@
                         event="MOUSE_MPRC" id="_3a" modifiers="4" popup="true"
                         x="3" y="9"/>
       </BasicSequence>
-      <BasicSequence id="_3b" name="Check project is paused">
-        <BasicSequence id="_3d" name="Maximize">
+      <BasicSequence id="_74" name="Check project is playing">
+        <BasicSequence id="_76" name="Maximize">
           <MouseEventStep clicks="2" client="$(client)" component="canvas"
-                          event="MOUSE_DBLCLK" id="_3e" modifiers="16" x="8"
+                          event="MOUSE_DBLCLK" id="_77" modifiers="16" x="8"
                           y="3"/>
           <ComponentEventStep client="$(client)" component="frameJTimeSched"
-                              event="COMPONENT_MOVED" id="_3f" param1="5"
+                              event="COMPONENT_MOVED" id="_78" param1="5"
                               param2="21"/>
         </BasicSequence>
         <CheckStringStep checktype="item" client="$(client)"
                          component="frameJTimeSched.table&amp;7&amp;0"
-                         id="_3c"/>
+                         id="_75"/>
+      </BasicSequence>
+      <BasicSequence id="_79" name="Minimize">
+        <MouseEventStep clicks="2" client="$(client)" component="canvas"
+                        event="MOUSE_DBLCLK" id="_7A" modifiers="16" x="5"
+                        y="2"/>
+      </BasicSequence>
+      <BasicSequence id="_7B" name="Toggle project">
+        <MouseEventStep clicks="1" client="$(client)" component="canvas"
+                        event="MOUSE_MPRC" id="_7C" modifiers="4" popup="true"
+                        x="3" y="9"/>
+      </BasicSequence>
+      <BasicSequence id="_6-" name="Check project is paused">
+        <BasicSequence id="_70" name="Maximize">
+          <MouseEventStep clicks="2" client="$(client)" component="canvas"
+                          event="MOUSE_DBLCLK" id="_71" modifiers="16" x="8"
+                          y="3"/>
+          <ComponentEventStep client="$(client)" component="frameJTimeSched"
+                              event="COMPONENT_MOVED" id="_72" param1="5"
+                              param2="21"/>
+        </BasicSequence>
+        <CheckStringStep checktype="item" client="$(client)"
+                         component="frameJTimeSched.table&amp;7&amp;0"
+                         id="_73"/>
       </BasicSequence>
       <CleanupSequence id="_60" name="Delete test project">
         <MouseEventStep clicks="1" client="$(client)"
@@ -587,6 +612,242 @@
       </BasicSequence>
     </CleanupSequence>
   </TestSet>
+  <TestSet id="_6N" name="Edit a project's color">
+    <SetupSequence id="_6O" name="Setup">
+      <BasicSequence id="_6P" name="Launch jtimesched">
+        <SetGlobalStep id="_6Q" varname="client">
+          <default>jtimesched</default>
+        </SetGlobalStep>
+        <ClientWaiter client="$(client)" id="_6R" local="true" raise="false"
+                      resvarname="isSUTRunning" timeout="1">
+          <comment>This node checks whether the SUT is already running. The result of this check will be stored in the variable isSUTRunning. The variable itself can contain true if SUT is already running or false if SUT is not running. This variable will be used in the following 'If' node.</comment>
+        </ClientWaiter>
+        <IfSequence id="_6S" name="Launch SUT if not running"
+                    test="not $(isSUTRunning)">
+          <JavaClientStarter client="$(client)"
+                             directory="/home/joao/Documents/UniStuff/5_1things/TVVS/jtimesched"
+                             executable="${qftest:java}" id="_6T">
+            <parameter>-jar</parameter>
+            <parameter>/home/joao/Documents/UniStuff/5_1things/TVVS/jtimesched/target/jtimesched-1.2-SNAPSHOT-jar-with-dependencies.jar</parameter>
+          </JavaClientStarter>
+          <ClientWaiter client="$(client)" id="_6U"/>
+        </IfSequence>
+      </BasicSequence>
+      <BasicSequence id="_6V" name="Add test project">
+        <MouseEventStep clicks="1" client="$(client)"
+                        component="buttonAdd_project" event="MOUSE_MPRC"
+                        id="_6W" modifiers="16"/>
+        <TextInputStep clear="true" client="$(client)"
+                       component="frameJTimeSched.text" id="_6X">
+          <text>test project</text>
+        </TextInputStep>
+        <KeyEventStep client="$(client)" component="frameJTimeSched.text"
+                      event="KEY_PTR" id="_6Y" keychar="10" keycode="10"
+                      modifiers="0"/>
+      </BasicSequence>
+    </SetupSequence>
+    <TestCase id="_6g" name="Play/pause project 1">
+      <BasicSequence id="_6h" name="Minimize">
+        <MouseEventStep clicks="2" client="$(client)" component="canvas"
+                        event="MOUSE_DBLCLK" id="_6i" modifiers="16" x="5"
+                        y="2"/>
+      </BasicSequence>
+      <BasicSequence id="_6j" name="Maximize">
+        <MouseEventStep clicks="2" client="$(client)" component="canvas"
+                        event="MOUSE_DBLCLK" id="_6k" modifiers="16" x="8"
+                        y="3"/>
+        <ComponentEventStep client="$(client)" component="frameJTimeSched"
+                            event="COMPONENT_MOVED" id="_6l" param1="5"
+                            param2="21"/>
+      </BasicSequence>
+      <BasicSequence id="_6m" name="Check window is maximized">
+        <CheckStringStep checktype="item" client="$(client)"
+                         component="frameJTimeSched.table@Title&amp;0"
+                         id="_6n">
+          <text>test project</text>
+        </CheckStringStep>
+      </BasicSequence>
+    </TestCase>
+    <TestCase id="_6t" name="Play/pause project 2">
+      <BasicSequence id="_7E" name="Open color edit dialog">
+        <MouseEventStep clicks="1" client="$(client)"
+                        component="frameJTimeSched.table1_project_|_0:00:00_overall_|_0:00:00_today&amp;3&amp;0"
+                        event="MOUSE_MPRC" id="_7F" modifiers="16"/>
+        <ComponentWaiter client="$(client)" component="dialog2" id="_7G"/>
+      </BasicSequence>
+      <BasicSequence id="_7I" name="Select green color">
+        <MouseEventStep clicks="1" client="$(client)" component="button"
+                        event="MOUSE_MPRC" id="_7J" modifiers="16"/>
+      </BasicSequence>
+      <BasicSequence id="_7K" name="Check project color is green">
+        <CheckStringStep checktype="item" client="$(client)"
+                         component="frameJTimeSched.table1_project_|_0:00:00_overall_|_0:00:00_today&amp;3&amp;0"
+                         id="_7L"/>
+      </BasicSequence>
+    </TestCase>
+    <TestCase id="_7M" name="Play/pause project 3">
+      <SetupSequence id="_7U" name="Make project green">
+        <BasicSequence id="_7W" name="Open color edit dialog">
+          <MouseEventStep clicks="1" client="$(client)"
+                          component="frameJTimeSched.table1_project_|_0:00:00_overall_|_0:00:00_today&amp;3&amp;0"
+                          event="MOUSE_MPRC" id="_7X" modifiers="16"/>
+          <ComponentWaiter client="$(client)" component="dialog2" id="_7Y"/>
+        </BasicSequence>
+        <MouseEventStep clicks="1" client="$(client)" component="button"
+                        event="MOUSE_MPRC" id="_7V" modifiers="16"/>
+      </SetupSequence>
+      <BasicSequence id="_7Z" name="Open color edit dialog">
+        <MouseEventStep clicks="1" client="$(client)"
+                        component="frameJTimeSched.table1_project_|_0:00:00_overall_|_0:00:00_today&amp;3&amp;0"
+                        event="MOUSE_MPRC" id="_7a" modifiers="16"/>
+        <ComponentWaiter client="$(client)" component="dialog2" id="_7b"/>
+      </BasicSequence>
+      <BasicSequence id="_7e" name="Remove project's color">
+        <MouseEventStep clicks="1" client="$(client)"
+                        component="buttonTipReset_color2" event="MOUSE_MPRC"
+                        id="_7f" modifiers="16"/>
+      </BasicSequence>
+      <BasicSequence id="_7g" name="Check project doesn't have color">
+        <CheckStringStep checktype="item" client="$(client)"
+                         component="frameJTimeSched.table1_project_|_0:00:00_overall_|_0:00:00_today&amp;3&amp;0"
+                         id="_7h"/>
+      </BasicSequence>
+    </TestCase>
+    <TestCase id="_7i" name="Play/pause project 4">
+      <SetupSequence id="_7j" name="Make project green">
+        <BasicSequence id="_7k" name="Open color edit dialog">
+          <MouseEventStep clicks="1" client="$(client)"
+                          component="frameJTimeSched.table1_project_|_0:00:00_overall_|_0:00:00_today&amp;3&amp;0"
+                          event="MOUSE_MPRC" id="_7l" modifiers="16"/>
+          <ComponentWaiter client="$(client)" component="dialog2" id="_7m"/>
+        </BasicSequence>
+        <MouseEventStep clicks="1" client="$(client)" component="button"
+                        event="MOUSE_MPRC" id="_7n" modifiers="16"/>
+      </SetupSequence>
+      <BasicSequence id="_7o" name="Open color edit dialog">
+        <MouseEventStep clicks="1" client="$(client)"
+                        component="frameJTimeSched.table1_project_|_0:00:00_overall_|_0:00:00_today&amp;3&amp;0"
+                        event="MOUSE_MPRC" id="_7p" modifiers="16"/>
+        <ComponentWaiter client="$(client)" component="dialog2" id="_7q"/>
+      </BasicSequence>
+      <BasicSequence id="_7x" name="Cancel color change">
+        <KeyEventStep client="$(client)" component="button2" event="KEY_PTR"
+                      id="_7y" keychar="27" keycode="27" modifiers="0"/>
+      </BasicSequence>
+      <BasicSequence id="_7z" name="Check project color is green">
+        <CheckStringStep checktype="item" client="$(client)"
+                         component="frameJTimeSched.table1_project_|_0:00:00_overall_|_0:00:00_today&amp;3&amp;0"
+                         id="_7+"/>
+      </BasicSequence>
+    </TestCase>
+    <TestCase id="_7-" name="Play/pause project 5">
+      <BasicSequence id="_85" name="Open color edit dialog">
+        <MouseEventStep clicks="1" client="$(client)"
+                        component="frameJTimeSched.table1_project_|_0:00:00_overall_|_0:00:00_today&amp;3&amp;0"
+                        event="MOUSE_MPRC" id="_86" modifiers="16"/>
+        <ComponentWaiter client="$(client)" component="dialog2" id="_87"/>
+      </BasicSequence>
+      <BasicSequence id="_8F" name="Open custom color dialog">
+        <MouseEventStep clicks="1" client="$(client)"
+                        component="buttonTipChoose_custom_color"
+                        event="MOUSE_MPRC" id="_8G" modifiers="16"/>
+        <ComponentWaiter client="$(client)"
+                         component="dialogChoose_a_custom_color" id="_8H"/>
+      </BasicSequence>
+      <BasicSequence id="_8M" name="Select custom color">
+        <MouseEventStep clicks="1" client="$(client)"
+                        component="panelSwatches.panel" event="MOUSE_MPRC"
+                        id="_8N" modifiers="16" x="150" y="51"/>
+      </BasicSequence>
+      <BasicSequence id="_8P" name="Set custom color">
+        <MouseEventStep clicks="1" client="$(client)" component="buttonOK"
+                        event="MOUSE_MPRC" id="_8Q" modifiers="16"/>
+      </BasicSequence>
+      <BasicSequence id="_8R" name="Check custom color is set">
+        <CheckStringStep checktype="item" client="$(client)"
+                         component="frameJTimeSched.table1_project_|_0:00:00_overall_|_0:00:00_today&amp;3&amp;0"
+                         id="_8S"/>
+      </BasicSequence>
+    </TestCase>
+    <TestCase id="_8T" name="Play/pause project 6">
+      <BasicSequence id="_8U" name="Open color edit dialog">
+        <MouseEventStep clicks="1" client="$(client)"
+                        component="frameJTimeSched.table1_project_|_0:00:00_overall_|_0:00:00_today&amp;3&amp;0"
+                        event="MOUSE_MPRC" id="_8V" modifiers="16"/>
+        <ComponentWaiter client="$(client)" component="dialog2" id="_8W"/>
+      </BasicSequence>
+      <BasicSequence id="_8X" name="Open custom color dialog">
+        <MouseEventStep clicks="1" client="$(client)"
+                        component="buttonTipChoose_custom_color"
+                        event="MOUSE_MPRC" id="_8Y" modifiers="16"/>
+        <ComponentWaiter client="$(client)"
+                         component="dialogChoose_a_custom_color" id="_8Z"/>
+      </BasicSequence>
+      <BasicSequence id="_8a" name="Select custom color">
+        <MouseEventStep clicks="1" client="$(client)"
+                        component="panelSwatches.panel" event="MOUSE_MPRC"
+                        id="_8b" modifiers="16" x="150" y="51"/>
+      </BasicSequence>
+      <BasicSequence id="_8h" name="Cancel color change">
+        <MouseEventStep clicks="1" client="$(client)" component="buttonCancel"
+                        event="MOUSE_MPRC" id="_8i" modifiers="16"/>
+      </BasicSequence>
+      <BasicSequence id="_8j" name="Check project remains uncolored">
+        <CheckStringStep checktype="item" client="$(client)"
+                         component="frameJTimeSched.table1_project_|_0:00:00_overall_|_0:00:00_today&amp;3&amp;0"
+                         id="_8k"/>
+      </BasicSequence>
+    </TestCase>
+    <TestCase id="_8l" name="Play/pause project 7">
+      <BasicSequence id="_8m" name="Open color edit dialog">
+        <MouseEventStep clicks="1" client="$(client)"
+                        component="frameJTimeSched.table1_project_|_0:00:00_overall_|_0:00:00_today&amp;3&amp;0"
+                        event="MOUSE_MPRC" id="_8n" modifiers="16"/>
+        <ComponentWaiter client="$(client)" component="dialog2" id="_8o"/>
+      </BasicSequence>
+      <BasicSequence id="_8p" name="Open custom color dialog">
+        <MouseEventStep clicks="1" client="$(client)"
+                        component="buttonTipChoose_custom_color"
+                        event="MOUSE_MPRC" id="_8q" modifiers="16"/>
+        <ComponentWaiter client="$(client)"
+                         component="dialogChoose_a_custom_color" id="_8r"/>
+      </BasicSequence>
+      <BasicSequence id="_8s" name="Select custom color">
+        <MouseEventStep clicks="1" client="$(client)"
+                        component="panelSwatches.panel" event="MOUSE_MPRC"
+                        id="_8t" modifiers="16" x="150" y="51"/>
+      </BasicSequence>
+      <BasicSequence id="_8z"
+                     name="Reset custom color selection (goes white)">
+        <MouseEventStep clicks="1" client="$(client)" component="buttonReset"
+                        event="MOUSE_MPRC" id="_8+" modifiers="16"/>
+      </BasicSequence>
+      <BasicSequence id="_95" name="Set custom color (white) (for check)">
+        <MouseEventStep clicks="1" client="$(client)" component="buttonOK"
+                        event="MOUSE_MPRC" id="_96" modifiers="16"/>
+      </BasicSequence>
+      <BasicSequence id="_97" name="Check white is selected">
+        <CheckStringStep checktype="item" client="$(client)"
+                         component="frameJTimeSched.table1_project_|_0:00:00_overall_|_0:00:00_today&amp;3&amp;0"
+                         id="_98"/>
+      </BasicSequence>
+    </TestCase>
+    <CleanupSequence id="_6Z" name="Teardown">
+      <BasicSequence id="_6d" name="Delete test project">
+        <MouseEventStep clicks="1" client="$(client)"
+                        component="frameJTimeSched.table1_project_|_0:00:00_overall_|_0:00:00_today@Title&amp;0"
+                        event="MOUSE_MPRC" id="_6e" modifiers="16"/>
+        <KeyEventStep client="$(client)"
+                      component="frameJTimeSched.table1_project_|_0:00:00_overall_|_0:00:00_today"
+                      event="KEY_PTR" id="_6f" keychar="127" keycode="127"
+                      modifiers="0"/>
+      </BasicSequence>
+      <BasicSequence id="_6a" name="Close app">
+        <ClientStopper client="$(client)" id="_6b"/>
+        <ProcessWaiter client="$(client)" id="_6c"/>
+      </BasicSequence>
+    </CleanupSequence>
+  </TestSet>
   <PackageRoot id="_3"/>
   <ExtraSequence id="_4"/>
   <WindowList id="_5">
@@ -724,6 +985,203 @@
                       state="0">Button</extrafeature>
         <extrafeature name="qfs:label" negate="false" regexp="false"
                       state="1">color-reset</extrafeature>
+        <extrafeature name="qfs:systemclass" negate="false" regexp="false"
+                      state="0">javax.swing.JButton</extrafeature>
+      </ComponentStep>
+    </WindowStep>
+    <WindowStep class="Dialog" height="42" id="dialog2" modal="true" uid="_7D"
+                width="301" x="651" y="51">
+      <extrafeature name="qfs:class" negate="false" regexp="false" state="0">de.dominik_geyer.jtimesched.gui.ColorDialog</extrafeature>
+      <extrafeature name="qfs:genericclass" negate="false" regexp="false"
+                    state="0">Dialog</extrafeature>
+      <extrafeature name="qfs:systemclass" negate="false" regexp="false"
+                    state="0">javax.swing.JDialog</extrafeature>
+      <extrafeature name="qfs:type" negate="false" regexp="false" state="0">Window:Dialog</extrafeature>
+      <ComponentStep class="Button" classcount="8" classindex="2" height="32"
+                     id="button" uid="_7H" width="32" x="79" y="5">
+        <extrafeature name="qfs:class" negate="false" regexp="false"
+                      state="0">javax.swing.JButton</extrafeature>
+        <extrafeature name="qfs:genericclass" negate="false" regexp="false"
+                      state="0">Button</extrafeature>
+        <extrafeature name="qfs:systemclass" negate="false" regexp="false"
+                      state="0">javax.swing.JButton</extrafeature>
+      </ComponentStep>
+    </WindowStep>
+    <WindowStep class="Dialog" height="42" id="dialog3" modal="true" uid="_7c"
+                width="301" x="642" y="54">
+      <extrafeature name="qfs:class" negate="false" regexp="false" state="0">de.dominik_geyer.jtimesched.gui.ColorDialog</extrafeature>
+      <extrafeature name="qfs:genericclass" negate="false" regexp="false"
+                    state="0">Dialog</extrafeature>
+      <extrafeature name="qfs:systemclass" negate="false" regexp="false"
+                    state="0">javax.swing.JDialog</extrafeature>
+      <extrafeature name="qfs:type" negate="false" regexp="false" state="0">Window:Dialog</extrafeature>
+      <ComponentStep class="Button" classcount="8" classindex="7"
+                     feature="ToolTip: reset color" height="32"
+                     id="buttonTipReset_color2" uid="_7d" width="32" x="264"
+                     y="5">
+        <extrafeature name="imagehash" negate="false" regexp="false"
+                      state="1">-1343031015</extrafeature>
+        <extrafeature name="qfs:class" negate="false" regexp="false"
+                      state="0">javax.swing.JButton</extrafeature>
+        <extrafeature name="qfs:genericclass" negate="false" regexp="false"
+                      state="0">Button</extrafeature>
+        <extrafeature name="qfs:label" negate="false" regexp="false"
+                      state="1">color-reset</extrafeature>
+        <extrafeature name="qfs:systemclass" negate="false" regexp="false"
+                      state="0">javax.swing.JButton</extrafeature>
+      </ComponentStep>
+    </WindowStep>
+    <WindowStep class="Dialog" height="42" id="dialog4" modal="true" uid="_7v"
+                width="301" x="646" y="59">
+      <extrafeature name="qfs:class" negate="false" regexp="false" state="0">de.dominik_geyer.jtimesched.gui.ColorDialog</extrafeature>
+      <extrafeature name="qfs:genericclass" negate="false" regexp="false"
+                    state="0">Dialog</extrafeature>
+      <extrafeature name="qfs:systemclass" negate="false" regexp="false"
+                    state="0">javax.swing.JDialog</extrafeature>
+      <extrafeature name="qfs:type" negate="false" regexp="false" state="0">Window:Dialog</extrafeature>
+      <ComponentStep class="Button" classcount="8" classindex="0" height="32"
+                     id="button2" uid="_7w" width="32" x="5" y="5">
+        <extrafeature name="qfs:class" negate="false" regexp="false"
+                      state="0">javax.swing.JButton</extrafeature>
+        <extrafeature name="qfs:genericclass" negate="false" regexp="false"
+                      state="0">Button</extrafeature>
+        <extrafeature name="qfs:systemclass" negate="false" regexp="false"
+                      state="0">javax.swing.JButton</extrafeature>
+      </ComponentStep>
+    </WindowStep>
+    <WindowStep class="Dialog" height="42" id="dialog5" modal="true" uid="_8C"
+                width="301" x="655" y="53">
+      <extrafeature name="qfs:class" negate="false" regexp="false" state="0">de.dominik_geyer.jtimesched.gui.ColorDialog</extrafeature>
+      <extrafeature name="qfs:genericclass" negate="false" regexp="false"
+                    state="0">Dialog</extrafeature>
+      <extrafeature name="qfs:systemclass" negate="false" regexp="false"
+                    state="0">javax.swing.JDialog</extrafeature>
+      <extrafeature name="qfs:type" negate="false" regexp="false" state="0">Window:Dialog</extrafeature>
+      <ComponentStep class="Button" classcount="8" classindex="6"
+                     feature="ToolTip: choose custom color" height="32"
+                     id="buttonTipChoose_custom_color" uid="_8D" width="32"
+                     x="227" y="5">
+        <extrafeature name="imagehash" negate="false" regexp="false"
+                      state="1">-1471575199</extrafeature>
+        <extrafeature name="qfs:class" negate="false" regexp="false"
+                      state="0">javax.swing.JButton</extrafeature>
+        <extrafeature name="qfs:genericclass" negate="false" regexp="false"
+                      state="0">Button</extrafeature>
+        <extrafeature name="qfs:label" negate="false" regexp="false"
+                      state="1">color-custom</extrafeature>
+        <extrafeature name="qfs:systemclass" negate="false" regexp="false"
+                      state="0">javax.swing.JButton</extrafeature>
+      </ComponentStep>
+    </WindowStep>
+    <WindowStep class="Dialog" feature="Choose a custom color" height="369"
+                id="dialogChoose_a_custom_color" modal="true" uid="_8E"
+                width="613" x="494" y="0">
+      <extrafeature name="qfs:class" negate="false" regexp="false" state="0">javax.swing.ColorChooserDialog</extrafeature>
+      <extrafeature name="qfs:genericclass" negate="false" regexp="false"
+                    state="0">Dialog</extrafeature>
+      <extrafeature name="qfs:label" negate="false" regexp="false" state="1">Choose a custom color</extrafeature>
+      <extrafeature name="qfs:systemclass" negate="false" regexp="false"
+                    state="0">javax.swing.ColorChooserDialog</extrafeature>
+      <extrafeature name="qfs:type" negate="false" regexp="false" state="0">Window:Dialog</extrafeature>
+      <ComponentStep class="ColorPicker" classcount="1" classindex="0"
+                     height="331"
+                     id="dialogChoose_a_custom_color.colorChooser" uid="_8I"
+                     width="613" x="0" y="0">
+        <extrafeature name="qfs:class" negate="false" regexp="false"
+                      state="0">javax.swing.JColorChooser</extrafeature>
+        <extrafeature name="qfs:genericclass" negate="false" regexp="false"
+                      state="0">ColorPicker</extrafeature>
+        <extrafeature name="qfs:systemclass" negate="false" regexp="false"
+                      state="0">javax.swing.JColorChooser</extrafeature>
+        <ComponentStep class="TabPanel" classcount="1" classindex="0"
+                       height="237" id="dialogChoose_a_custom_color.tabbed"
+                       uid="_8J" width="613" x="0" y="0">
+          <extrafeature name="qfs:class" negate="false" regexp="false"
+                        state="0">javax.swing.JTabbedPane</extrafeature>
+          <extrafeature name="qfs:genericclass" negate="false" regexp="false"
+                        state="0">TabPanel</extrafeature>
+          <extrafeature name="qfs:systemclass" negate="false" regexp="false"
+                        state="0">javax.swing.JTabbedPane</extrafeature>
+          <ComponentStep class="Panel" classcount="39" classindex="0"
+                         feature="Tab: Swatches" height="207"
+                         id="panelSwatches" uid="_8K" width="608" x="2"
+                         y="27">
+            <extrafeature name="qfs:class" negate="false" regexp="false"
+                          state="0">javax.swing.JPanel</extrafeature>
+            <extrafeature name="qfs:genericclass" negate="false"
+                          regexp="false" state="0">Panel</extrafeature>
+            <extrafeature name="qfs:systemclass" negate="false" regexp="false"
+                          state="0">javax.swing.JPanel</extrafeature>
+            <extrafeature name="qfs:type" negate="false" regexp="false"
+                          state="0">Panel:TabPanelContent</extrafeature>
+            <ComponentStep class="Panel" classcount="6" classindex="3"
+                           height="98" id="panelSwatches.panel" uid="_8L"
+                           width="340" x="99" y="54">
+              <extrafeature name="qfs:class" negate="false" regexp="false"
+                            state="0">javax.swing.colorchooser.MainSwatchPanel</extrafeature>
+              <extrafeature name="qfs:genericclass" negate="false"
+                            regexp="false" state="0">Panel</extrafeature>
+              <extrafeature name="qfs:systemclass" negate="false"
+                            regexp="false" state="0">javax.swing.colorchooser.MainSwatchPanel</extrafeature>
+            </ComponentStep>
+          </ComponentStep>
+        </ComponentStep>
+        <ComponentStep class="Panel" classcount="41" classindex="39"
+                       feature="Preview" height="94" id="panelPreview"
+                       uid="_8-" width="613" x="0" y="237">
+          <extrafeature name="qfs:class" negate="false" regexp="false"
+                        state="0">javax.swing.JPanel</extrafeature>
+          <extrafeature name="qfs:genericclass" negate="false" regexp="false"
+                        state="0">Panel</extrafeature>
+          <extrafeature name="qfs:systemclass" negate="false" regexp="false"
+                        state="0">javax.swing.JPanel</extrafeature>
+          <extrafeature name="qfs:type" negate="false" regexp="false"
+                        state="0">Panel:TitledPanel</extrafeature>
+          <ComponentStep class="Panel" classcount="1" classindex="0"
+                         height="69" id="panelPreview.panel" uid="_90"
+                         width="276" x="168" y="20">
+            <extrafeature name="qfs:class" negate="false" regexp="false"
+                          state="0">javax.swing.colorchooser.DefaultPreviewPanel</extrafeature>
+            <extrafeature name="qfs:genericclass" negate="false"
+                          regexp="false" state="0">Panel</extrafeature>
+            <extrafeature name="qfs:systemclass" negate="false" regexp="false"
+                          state="0">javax.swing.colorchooser.DefaultPreviewPanel</extrafeature>
+          </ComponentStep>
+        </ComponentStep>
+      </ComponentStep>
+      <ComponentStep class="Button" classcount="43" classindex="40"
+                     feature="OK" height="28" id="buttonOK" uid="_8O"
+                     width="49" x="211" y="336">
+        <extrafeature name="qfs:class" negate="false" regexp="false"
+                      state="0">javax.swing.JButton</extrafeature>
+        <extrafeature name="qfs:genericclass" negate="false" regexp="false"
+                      state="0">Button</extrafeature>
+        <extrafeature name="qfs:label" negate="false" regexp="false"
+                      state="1">OK</extrafeature>
+        <extrafeature name="qfs:systemclass" negate="false" regexp="false"
+                      state="0">javax.swing.JButton</extrafeature>
+      </ComponentStep>
+      <ComponentStep class="Button" classcount="43" classindex="41"
+                     feature="Cancel" height="28" id="buttonCancel" uid="_8g"
+                     width="69" x="265" y="336">
+        <extrafeature name="qfs:class" negate="false" regexp="false"
+                      state="0">javax.swing.JButton</extrafeature>
+        <extrafeature name="qfs:genericclass" negate="false" regexp="false"
+                      state="0">Button</extrafeature>
+        <extrafeature name="qfs:label" negate="false" regexp="false"
+                      state="1">Cancel</extrafeature>
+        <extrafeature name="qfs:systemclass" negate="false" regexp="false"
+                      state="0">javax.swing.JButton</extrafeature>
+      </ComponentStep>
+      <ComponentStep class="Button" classcount="43" classindex="42"
+                     feature="Reset" height="28" id="buttonReset" uid="_8y"
+                     width="63" x="339" y="336">
+        <extrafeature name="qfs:class" negate="false" regexp="false"
+                      state="0">javax.swing.JButton</extrafeature>
+        <extrafeature name="qfs:genericclass" negate="false" regexp="false"
+                      state="0">Button</extrafeature>
+        <extrafeature name="qfs:label" negate="false" regexp="false"
+                      state="1">Reset</extrafeature>
         <extrafeature name="qfs:systemclass" negate="false" regexp="false"
                       state="0">javax.swing.JButton</extrafeature>
       </ComponentStep>
