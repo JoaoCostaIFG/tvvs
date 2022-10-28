@@ -1,21 +1,24 @@
 @startuml
 hide empty description
 
+state EndState #brown
+
 [*] --> Dashboard
 
 Dashboard --> MinimizedToTray : Minimize
-Dashboard --> [*] : Close
+Dashboard --> EndState : Close
 Dashboard --> AddProject : Add
 
 AddProject --> MinimizedToTrayAdd : Minimize
+AddProject --> EndState : Close
 AddProject --> Dashboard : ConfirmNameChange
 AddProject --> Dashboard : CancelNameChange
 AddProject --> AddProject : Add
 
 MinimizedToTrayAdd --> AddProject : Maximize
-MinimizedToTrayAdd --> [*] : Close
+MinimizedToTrayAdd --> EndState : Close
 
 MinimizedToTray --> Dashboard : Maximize
-MinimizedToTray --> [*] : Close
+MinimizedToTray --> EndState : Close
 
 @enduml
