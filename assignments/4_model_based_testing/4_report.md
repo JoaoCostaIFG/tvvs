@@ -30,32 +30,27 @@ skinparam linetype polyline
 
 [Dashboard 0] -d-> [MinimizedToTray 0] : Minimize
 [Dashboard 0] -d-> [AddProject 0] : Add
-[Dashboard 0] -d-> [EndState 0] : Close
 
 [MinimizedToTray 0] -d-> [Dashboard 1] : Maximize
-[MinimizedToTray 0] -d-> [EndState 1] : Close
 
 [AddProject 0] -d-> [Dashboard 2] : ConfirmNameChange
 [AddProject 0] -d-> [Dashboard 3] : CancelNameChange
 [AddProject 0] -d-> [AddProject 1] : Add
 [AddProject 0] -d-> [MinimizedToTrayAdd 0] : Minimize
-[AddProject 0] -d-> [EndState 2] : Close
 
 [MinimizedToTrayAdd 0] -d-> [AddProject 2] : Maximize
-[MinimizedToTrayAdd 0] -d-> [EndState 3] : Close
 
 @enduml
 ```
 
 The **transition table**:
 
-|                        | Add        | CancelNameChange | Close | ConfirmNameChange | Maximize | Minimize |
-|------------------------|------------|------------------|-------|-------------------|----------|----------|
-| **AddProject**         | AddProject | Dashboard        |       |                   |          |          |
-| **Dashboard**          |            |                  |       |                   |          |          |
-| **MinimizedToTray**    |            |                  |       |                   |          |          |
-| **MinimizedToTrayAdd** |            |                  |       |                   |          |          |
-
+|                          | Add          | CancelNameChange | ConfirmNameChange | Maximize     | Minimize             |
+| ------------------------ | ------------ | ---------------- | ----------------- | ------------ | -------------------- |
+| **_AddProject_**         | _AddProject_ | _Dashboard_      | _Dashboard_       |              | _MinimizedToTrayAdd_ |
+| **_Dashboard_**          | _AddProject_ |                  |                   |              | _MinimizedToTray_    |
+| **_MinimizedToTray_**    |              |                  |                   | _Dashboard_  |                      |
+| **_MinimizedToTrayAdd_** |              |                  |                   | _AddProject_ |                      |
 
 ### Use-case 2 - play/pause a project
 

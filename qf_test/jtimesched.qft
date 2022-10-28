@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <!DOCTYPE RootStep>
 <RootStep id="_0" name="root"
-          signature="CCC647D7984171C0620B75D00F4E39584DCEA10D"
+          signature="5F307FD80424CEDDC2B08AE6D3F065CDABDD281A"
           version="6.0.3">
   <include>qfs.qft</include>
-  <TestSet id="_1" name="unnamed">
+  <TestSet id="_1" name="add project">
     <SetupSequence id="_6" name="Launch jtimesched">
       <SetGlobalStep id="_7" varname="client">
         <default>jtimesched</default>
@@ -24,31 +24,162 @@
         <ClientWaiter client="$(client)" id="_B"/>
       </IfSequence>
     </SetupSequence>
-    <TestCase id="_2" name="testCreateProject">
-      <BasicSequence id="_T" name="Create project">
+    <TestCase id="_12" name="Add project 1">
+      <BasicSequence id="_1H" name="Minimize">
+        <MouseEventStep clicks="2" client="$(client)" component="canvas"
+                        event="MOUSE_DBLCLK" id="_1I" modifiers="16" x="5"
+                        y="2"/>
+      </BasicSequence>
+      <BasicSequence id="_1E" name="Maximize">
+        <MouseEventStep clicks="2" client="$(client)" component="canvas"
+                        event="MOUSE_DBLCLK" id="_1F" modifiers="16" x="8"
+                        y="3"/>
+        <ComponentEventStep client="$(client)" component="frameJTimeSched"
+                            event="COMPONENT_MOVED" id="_1G" param1="5"
+                            param2="21"/>
+      </BasicSequence>
+    </TestCase>
+    <TestCase id="_2" name="Add project 2">
+      <BasicSequence id="_1L" name="Create project">
         <MouseEventStep clicks="1" client="$(client)"
                         component="buttonAdd_project" event="MOUSE_MPRC"
-                        id="_U" modifiers="16"/>
+                        id="_1M" modifiers="16"/>
+      </BasicSequence>
+      <BasicSequence id="_1N" name="Confirm name change">
+        <KeyEventStep client="$(client)" component="frameJTimeSched.text"
+                      event="KEY_PTR" id="_1O" keychar="8" keycode="8"
+                      modifiers="0"/>
         <TextInputStep clear="true" client="$(client)"
-                       component="frameJTimeSched.text" id="_V">
-          <text>Um projeto</text>
+                       component="frameJTimeSched.text" id="_1P">
+          <text>test project</text>
         </TextInputStep>
         <KeyEventStep client="$(client)" component="frameJTimeSched.text"
-                      event="KEY_PTR" id="_W" keychar="10" keycode="10"
+                      event="KEY_PTR" id="_1Q" keychar="10" keycode="10"
                       modifiers="0"/>
       </BasicSequence>
-      <BasicSequence id="_X" name="Project exists">
+      <BasicSequence id="_1Y" name="Check project existance">
         <CheckStringStep checktype="item" client="$(client)"
                          component="frameJTimeSched.table1_project_|_0:00:00_overall_|_0:00:00_today@Title&amp;0"
-                         id="_Y">
-          <text>Um projeto</text>
+                         id="_1Z">
+          <text>test project</text>
         </CheckStringStep>
       </BasicSequence>
-      <CleanupSequence id="_b" name="Teardown">
-        <ClientStopper client="$(client)" id="_u"/>
-        <ProcessWaiter client="$(client)" id="_v"/>
+      <CleanupSequence id="_1c" name="Delete test project">
+        <MouseEventStep clicks="1" client="$(client)"
+                        component="frameJTimeSched.table1_project_|_0:00:00_overall_|_0:00:00_today@Title&amp;0"
+                        event="MOUSE_MPRC" id="_1d" modifiers="16"/>
+        <KeyEventStep client="$(client)"
+                      component="frameJTimeSched.table1_project_|_0:00:00_overall_|_0:00:00_today"
+                      event="KEY_PTR" id="_1e" keychar="127" keycode="127"
+                      modifiers="0"/>
       </CleanupSequence>
     </TestCase>
+    <TestCase id="_1h" name="Add project 3">
+      <BasicSequence id="_1i" name="Create project">
+        <MouseEventStep clicks="1" client="$(client)"
+                        component="buttonAdd_project" event="MOUSE_MPRC"
+                        id="_1j" modifiers="16"/>
+      </BasicSequence>
+      <BasicSequence id="_1t" name="Cancel name change">
+        <TextInputStep clear="true" client="$(client)"
+                       component="frameJTimeSched.text" id="_1u">
+          <text>test project</text>
+        </TextInputStep>
+        <KeyEventStep client="$(client)" component="frameJTimeSched.text"
+                      event="KEY_PTR" id="_1v" keychar="27" keycode="27"
+                      modifiers="0"/>
+      </BasicSequence>
+      <BasicSequence id="_1w" name="Check project existance">
+        <CheckStringStep checktype="item" client="$(client)"
+                         component="frameJTimeSched.table1_project_|_0:00:00_overall_|_0:00:00_today@Title&amp;0"
+                         id="_1x">
+          <text>New project</text>
+        </CheckStringStep>
+      </BasicSequence>
+      <CleanupSequence id="_1q" name="Delete test project">
+        <MouseEventStep clicks="1" client="$(client)"
+                        component="frameJTimeSched.table1_project_|_0:00:00_overall_|_0:00:00_today@Title&amp;0"
+                        event="MOUSE_MPRC" id="_1r" modifiers="16"/>
+        <KeyEventStep client="$(client)"
+                      component="frameJTimeSched.table1_project_|_0:00:00_overall_|_0:00:00_today"
+                      event="KEY_PTR" id="_1s" keychar="127" keycode="127"
+                      modifiers="0"/>
+      </CleanupSequence>
+    </TestCase>
+    <TestCase id="_1y" name="Add project 4">
+      <BasicSequence id="_1z" name="Create project">
+        <MouseEventStep clicks="1" client="$(client)"
+                        component="buttonAdd_project" event="MOUSE_MPRC"
+                        id="_1+" modifiers="16"/>
+      </BasicSequence>
+      <BasicSequence id="_29" name="Create project">
+        <MouseEventStep clicks="1" client="$(client)"
+                        component="buttonAdd_project" event="MOUSE_MPRC"
+                        id="_2A" modifiers="16"/>
+      </BasicSequence>
+      <BasicSequence id="_2H" name="Check project existance">
+        <CheckStringStep checktype="item" client="$(client)"
+                         component="frameJTimeSched.table1_project_|_0:00:00_overall_|_0:00:00_today@Title&amp;0"
+                         id="_2I">
+          <text>New project</text>
+        </CheckStringStep>
+      </BasicSequence>
+      <CleanupSequence id="_2Q" name="Delete test projects">
+        <KeyEventStep client="$(client)" component="frameJTimeSched.text"
+                      event="KEY_PTR" id="_2R" keychar="27" keycode="27"
+                      modifiers="0"/>
+        <KeyEventStep client="$(client)"
+                      component="frameJTimeSched.table2_projects_|_0:00:00_overall_|_0:00:00_today"
+                      event="KEY_PTR" id="_2S" keychar="127" keycode="127"
+                      modifiers="0"/>
+        <MouseEventStep clicks="1" client="$(client)"
+                        component="frameJTimeSched.table1_project_|_0:00:00_overall_|_0:00:00_today@Title&amp;0"
+                        event="MOUSE_MPRC" id="_2T" modifiers="16"/>
+        <KeyEventStep client="$(client)"
+                      component="frameJTimeSched.table1_project_|_0:00:00_overall_|_0:00:00_today"
+                      event="KEY_PTR" id="_2U" keychar="127" keycode="127"
+                      modifiers="0"/>
+      </CleanupSequence>
+    </TestCase>
+    <TestCase id="_2b" name="Add project 5">
+      <BasicSequence id="_2h" name="Create project">
+        <MouseEventStep clicks="1" client="$(client)"
+                        component="buttonAdd_project" event="MOUSE_MPRC"
+                        id="_2i" modifiers="16"/>
+      </BasicSequence>
+      <BasicSequence id="_2c" name="Minimize">
+        <MouseEventStep clicks="2" client="$(client)" component="canvas"
+                        event="MOUSE_DBLCLK" id="_2d" modifiers="16" x="5"
+                        y="2"/>
+      </BasicSequence>
+      <BasicSequence id="_2e" name="Maximize">
+        <MouseEventStep clicks="2" client="$(client)" component="canvas"
+                        event="MOUSE_DBLCLK" id="_2f" modifiers="16" x="8"
+                        y="3"/>
+        <ComponentEventStep client="$(client)" component="frameJTimeSched"
+                            event="COMPONENT_MOVED" id="_2g" param1="5"
+                            param2="21"/>
+      </BasicSequence>
+      <BasicSequence id="_2l" name="Check project's name still editable">
+        <CheckStringStep client="$(client)" component="frameJTimeSched.text"
+                         id="_2m">
+          <text>New project</text>
+        </CheckStringStep>
+      </BasicSequence>
+      <CleanupSequence id="_2n" name="Delete test project">
+        <MouseEventStep clicks="1" client="$(client)"
+                        component="frameJTimeSched.table1_project_|_0:00:00_overall_|_0:00:00_today@Title&amp;0"
+                        event="MOUSE_MPRC" id="_2o" modifiers="16"/>
+        <KeyEventStep client="$(client)"
+                      component="frameJTimeSched.table1_project_|_0:00:00_overall_|_0:00:00_today"
+                      event="KEY_PTR" id="_2p" keychar="127" keycode="127"
+                      modifiers="0"/>
+      </CleanupSequence>
+    </TestCase>
+    <CleanupSequence id="_16" name="Close app">
+      <ClientStopper client="$(client)" id="_17"/>
+      <ProcessWaiter client="$(client)" id="_18"/>
+    </CleanupSequence>
   </TestSet>
   <PackageRoot id="_3"/>
   <ExtraSequence id="_4"/>
@@ -156,6 +287,30 @@
                       state="0">sun.awt.X11.XTrayIconPeer$$TrayIconCanvas</extrafeature>
         <extrafeature name="qfs:systemclass" negate="false" regexp="false"
                       state="0">java.awt.Canvas</extrafeature>
+      </ComponentStep>
+    </WindowStep>
+    <WindowStep class="Dialog" height="42" id="dialog" modal="true" uid="_2J"
+                width="301" x="641" y="80">
+      <extrafeature name="qfs:class" negate="false" regexp="false" state="0">de.dominik_geyer.jtimesched.gui.ColorDialog</extrafeature>
+      <extrafeature name="qfs:genericclass" negate="false" regexp="false"
+                    state="0">Dialog</extrafeature>
+      <extrafeature name="qfs:systemclass" negate="false" regexp="false"
+                    state="0">javax.swing.JDialog</extrafeature>
+      <extrafeature name="qfs:type" negate="false" regexp="false" state="0">Window:Dialog</extrafeature>
+      <ComponentStep class="Button" classcount="8" classindex="7"
+                     feature="ToolTip: reset color" height="32"
+                     id="buttonTipReset_color" uid="_2K" width="32" x="264"
+                     y="5">
+        <extrafeature name="imagehash" negate="false" regexp="false"
+                      state="1">-1343031015</extrafeature>
+        <extrafeature name="qfs:class" negate="false" regexp="false"
+                      state="0">javax.swing.JButton</extrafeature>
+        <extrafeature name="qfs:genericclass" negate="false" regexp="false"
+                      state="0">Button</extrafeature>
+        <extrafeature name="qfs:label" negate="false" regexp="false"
+                      state="1">color-reset</extrafeature>
+        <extrafeature name="qfs:systemclass" negate="false" regexp="false"
+                      state="0">javax.swing.JButton</extrafeature>
       </ComponentStep>
     </WindowStep>
   </WindowList>
