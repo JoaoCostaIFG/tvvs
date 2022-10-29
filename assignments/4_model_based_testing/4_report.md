@@ -107,11 +107,11 @@ transitions of the system.
 
 #### Transition table
 
-|                 | StartProject<br />[nº projects > 0] | Minimize        | Maximize<br />[current project is not playing] | Maximize<br />[current project is playing] | ToggleCurrentProject<br />[selected a current project] | PauseProject<br />[selected project == current project] | DeleteProject<br />[deleted project == current project] | StartProject<br />[selected project != current project] | DeleteProject<br />[deleted project == current project] |
-| :-------------- | :---------------------------------- | :-------------- | ---------------------------------------------- | ------------------------------------------ | ------------------------------------------------------ | ------------------------------------------------------- | ------------------------------------------------------- | ------------------------------------------------------- | ------------------------------------------------------- |
-| Dashboard       | PlayingProject                      | MinimizedToTray |                                                |                                            |                                                        |                                                         |                                                         |                                                         |                                                         |
-| MinimizedToTray |                                     |                 | Dashboard                                      | PlayingProject                             | MinimizedToTray                                        |                                                         |                                                         |                                                         |                                                         |
-| PlayingProject  |                                     | MinimizedToTray |                                                |                                            |                                                        | Dashboard                                               | Dashboard                                               | Playing Project                                         | Playing Project                                         |
+|                       | StartProject<br />[nº projects > 0] | Minimize          | Maximize<br />[current project is not playing] | Maximize<br />[current project is playing] | ToggleCurrentProject<br />[selected a current project] | PauseProject<br />[selected project == current project] | DeleteProject<br />[deleted project == current project] | StartProject<br />[selected project != current project] | DeleteProject<br />[deleted project == current project] |
+| :-------------------- | :---------------------------------- | :---------------- | ---------------------------------------------- | ------------------------------------------ | ------------------------------------------------------ | ------------------------------------------------------- | ------------------------------------------------------- | ------------------------------------------------------- | ------------------------------------------------------- |
+| **_Dashboard_**       | _PlayingProject_                    | _MinimizedToTray_ |                                                |                                            |                                                        |                                                         |                                                         |                                                         |                                                         |
+| **_MinimizedToTray_** |                                     |                   | _Dashboard_                                    | _PlayingProject_                           | _MinimizedToTray_                                      |                                                         |                                                         |                                                         |                                                         |
+| **_PlayingProject_**  |                                     | _MinimizedToTray_ |                                                |                                            |                                                        | Dashboard                                               | _Dashboard_                                             | _Playing Project_                                       | _Playing Project_                                       |
 
 According to the table, there are 17 sneak paths.
 
@@ -195,3 +195,24 @@ The tests are numbered with the same order as the leaf nodes in the tree
 6. Start app ⇒ edit project color ⇒ go to custom color menu ⇒ reset color
 
 All tests pass successfully.
+
+## Sneak paths
+
+We decided to test one sneak path from each use-case.
+
+### Use-case 1's sneak path
+
+Cancel a name change while on the dashboard. This corresponds to being in the
+_Dashboard_ state and receiving a **CancelNameChange** event.
+
+The test fails, because **QF-Test** isn't able to deliver the event.
+
+### Use-case 2's sneak path
+
+### Use-case 3's sneak path
+
+Remove a project's color while on the dashboard (color edit menu not open). This
+corresponds to being in the _Dashboard_ state and receiving a **RemoveColor**
+event.
+
+The test fails, because **QF-Test** isn't able to deliver the event.

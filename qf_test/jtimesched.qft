@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <!DOCTYPE RootStep>
 <RootStep id="_0" name="root"
-          signature="DA937EBE2E07033CB954D946F0E1599EB9EEC493"
+          signature="4E952F603B804C5D3AC015633BD4064029D25103"
           version="6.0.3">
   <include>qfs.qft</include>
   <TestSet id="_1" name="Add project">
@@ -161,6 +161,26 @@
         <KeyEventStep client="$(client)"
                       component="frameJTimeSched.table1_project_|_0:00:00_overall_|_0:00:00_today"
                       event="KEY_PTR" id="_2p" keychar="127" keycode="127"
+                      modifiers="0"/>
+      </CleanupSequence>
+    </TestCase>
+    <TestCase id="_9b" name="Sneak path 1">
+      <ProcedureCall id="_9+" procedure="Add test project"/>
+      <BasicSequence id="_A1" name="Cancel name change">
+        <MouseEventStep clicks="1" client="$(client)"
+                        component="frameJTimeSched.text" event="MOUSE_MPRC"
+                        id="_A2" modifiers="16" x="240" y="14"/>
+        <KeyEventStep client="$(client)" component="frameJTimeSched.text"
+                      event="KEY_PTR" id="_A3" keychar="27" keycode="27"
+                      modifiers="0"/>
+      </BasicSequence>
+      <CleanupSequence id="_A4" name="Delete test project">
+        <MouseEventStep clicks="1" client="$(client)"
+                        component="frameJTimeSched.table1_project_|_0:00:00_overall_|_0:00:00_today@Title&amp;0"
+                        event="MOUSE_MPRC" id="_A5" modifiers="16"/>
+        <KeyEventStep client="$(client)"
+                      component="frameJTimeSched.table1_project_|_0:00:00_overall_|_0:00:00_today"
+                      event="KEY_PTR" id="_A6" keychar="127" keycode="127"
                       modifiers="0"/>
       </CleanupSequence>
     </TestCase>
@@ -363,7 +383,7 @@
                          component="frameJTimeSched.table&amp;7&amp;1"
                          id="_4b"/>
       </BasicSequence>
-      <CleanupSequence id="_4p" name="Teardown">
+      <CleanupSequence id="_4p" name="Delete the 2 projects">
         <BasicSequence id="_6C" name="Delete second test project">
           <MouseEventStep clicks="1" client="$(client)"
                           component="frameJTimeSched.table@Title&amp;1"
@@ -531,7 +551,7 @@
                          component="frameJTimeSched.table&amp;7&amp;1"
                          id="_5s"/>
       </BasicSequence>
-      <CleanupSequence id="_6G" name="Teardown">
+      <CleanupSequence id="_6G" name="Delete the 2 projects">
         <BasicSequence id="_6H" name="Delete second test project">
           <MouseEventStep clicks="1" client="$(client)"
                           component="frameJTimeSched.table@Title&amp;1"
@@ -773,8 +793,38 @@
                       modifiers="0"/>
       </CleanupSequence>
     </TestCase>
+    <TestCase id="_A7" name="Sneak path 3">
+      <BasicSequence id="_AH" name="Remove color">
+        <MouseEventStep clicks="1" client="$(client)"
+                        component="buttonTipReset_color3" event="MOUSE_MPRC"
+                        id="_AI" modifiers="16"/>
+      </BasicSequence>
+      <CleanupSequence id="_AC" name="Delete test project">
+        <MouseEventStep clicks="1" client="$(client)"
+                        component="frameJTimeSched.table1_project_|_0:00:00_overall_|_0:00:00_today@Title&amp;0"
+                        event="MOUSE_MPRC" id="_AD" modifiers="16"/>
+        <KeyEventStep client="$(client)"
+                      component="frameJTimeSched.table1_project_|_0:00:00_overall_|_0:00:00_today"
+                      event="KEY_PTR" id="_AE" keychar="127" keycode="127"
+                      modifiers="0"/>
+      </CleanupSequence>
+    </TestCase>
   </TestSet>
   <PackageRoot id="_3">
+    <Procedure id="_9x" name="Add test project">
+      <BasicSequence id="_34" name="Add test project">
+        <MouseEventStep clicks="1" client="$(client)"
+                        component="buttonAdd_project" event="MOUSE_MPRC"
+                        id="_35" modifiers="16"/>
+        <TextInputStep clear="true" client="$(client)"
+                       component="frameJTimeSched.text" id="_36">
+          <text>test project</text>
+        </TextInputStep>
+        <KeyEventStep client="$(client)" component="frameJTimeSched.text"
+                      event="KEY_PTR" id="_37" keychar="10" keycode="10"
+                      modifiers="0"/>
+      </BasicSequence>
+    </Procedure>
     <Dependency id="_99" name="Setup + Teardown">
       <SetupSequence id="_6" name="Launch jtimesched">
         <SetGlobalStep id="_7" varname="client">
@@ -821,18 +871,7 @@
             <ClientWaiter client="$(client)" id="_2w"/>
           </IfSequence>
         </BasicSequence>
-        <BasicSequence id="_34" name="Add test project">
-          <MouseEventStep clicks="1" client="$(client)"
-                          component="buttonAdd_project" event="MOUSE_MPRC"
-                          id="_35" modifiers="16"/>
-          <TextInputStep clear="true" client="$(client)"
-                         component="frameJTimeSched.text" id="_36">
-            <text>test project</text>
-          </TextInputStep>
-          <KeyEventStep client="$(client)" component="frameJTimeSched.text"
-                        event="KEY_PTR" id="_37" keychar="10" keycode="10"
-                        modifiers="0"/>
-        </BasicSequence>
+        <ProcedureCall id="_9z" procedure="Add test project"/>
       </SetupSequence>
       <CleanupSequence id="_2x" name="Teardown">
         <BasicSequence id="_3G" name="Close app">
@@ -1175,6 +1214,39 @@
                       state="0">Button</extrafeature>
         <extrafeature name="qfs:label" negate="false" regexp="false"
                       state="1">Reset</extrafeature>
+        <extrafeature name="qfs:systemclass" negate="false" regexp="false"
+                      state="0">javax.swing.JButton</extrafeature>
+      </ComponentStep>
+    </WindowStep>
+    <WindowStep class="Dialog" height="42" id="dialog6" modal="true" uid="_9c"
+                width="301" x="644" y="60">
+      <extrafeature name="qfs:class" negate="false" regexp="false" state="0">de.dominik_geyer.jtimesched.gui.ColorDialog</extrafeature>
+      <extrafeature name="qfs:genericclass" negate="false" regexp="false"
+                    state="0">Dialog</extrafeature>
+      <extrafeature name="qfs:systemclass" negate="false" regexp="false"
+                    state="0">javax.swing.JDialog</extrafeature>
+      <extrafeature name="qfs:type" negate="false" regexp="false" state="0">Window:Dialog</extrafeature>
+    </WindowStep>
+    <WindowStep class="Dialog" height="42" id="dialog7" modal="true" uid="_AF"
+                width="301" x="650" y="54">
+      <extrafeature name="qfs:class" negate="false" regexp="false" state="0">de.dominik_geyer.jtimesched.gui.ColorDialog</extrafeature>
+      <extrafeature name="qfs:genericclass" negate="false" regexp="false"
+                    state="0">Dialog</extrafeature>
+      <extrafeature name="qfs:systemclass" negate="false" regexp="false"
+                    state="0">javax.swing.JDialog</extrafeature>
+      <extrafeature name="qfs:type" negate="false" regexp="false" state="0">Window:Dialog</extrafeature>
+      <ComponentStep class="Button" classcount="8" classindex="7"
+                     feature="ToolTip: reset color" height="32"
+                     id="buttonTipReset_color3" uid="_AG" width="32" x="264"
+                     y="5">
+        <extrafeature name="imagehash" negate="false" regexp="false"
+                      state="1">-1343031015</extrafeature>
+        <extrafeature name="qfs:class" negate="false" regexp="false"
+                      state="0">javax.swing.JButton</extrafeature>
+        <extrafeature name="qfs:genericclass" negate="false" regexp="false"
+                      state="0">Button</extrafeature>
+        <extrafeature name="qfs:label" negate="false" regexp="false"
+                      state="1">color-reset</extrafeature>
         <extrafeature name="qfs:systemclass" negate="false" regexp="false"
                       state="0">javax.swing.JButton</extrafeature>
       </ComponentStep>
