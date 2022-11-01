@@ -3,20 +3,11 @@ hide empty description
 
 [*] --> Dashboard
 
-Dashboard --> MinimizedToTray : Minimize
-Dashboard --> [*] : Close
-Dashboard --> AddProject : Add
+Dashboard --> CreateProject : AddProject
 
-AddProject --> MinimizedToTrayAdd : Minimize
-AddProject --> [*] : Close
-AddProject --> Dashboard : ConfirmNameChange
-AddProject --> Dashboard : CancelNameChange
-AddProject --> AddProject : Add
+CreateProject --> EditName : EditProjectName
 
-MinimizedToTrayAdd --> AddProject : Maximize
-MinimizedToTrayAdd --> [*] : Close
-
-MinimizedToTray --> Dashboard : Maximize
-MinimizedToTray --> [*] : Close
+EditName --> Dashboard : ConfirmNameChange
+EditName --> Dashboard : CancelNameChange
 
 @enduml
