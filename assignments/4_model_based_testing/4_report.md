@@ -32,6 +32,8 @@ We decided to represent the application's end-state as the moment the
 application is closed. This state and the transitions to it are not part of the
 tests.
 
+The state that represents the "closed application" (the final state) is ommitted since every state has a transition to it. 
+
 ![Use-case 1's state machine](./state_machines/state_machine_1.png)
 
 #### Transition tree
@@ -216,3 +218,8 @@ corresponds to being in the _Dashboard_ state and receiving a **RemoveColor**
 event.
 
 The test fails, because **QF-Test** isn't able to deliver the event.
+
+## QF-Test tool feedback
+
+This feedback was written for the QF-Test tool usage under Arch linux. 
+Overall, using QF-Test tool was a positive experience. 
