@@ -31,7 +31,7 @@ the project's name. However, there is the possibility to cancel this action
 
 We decided that the application's end-state is the moment the
 application is closed. However, we chose to ommit it since every 
-state has a transition to it. 
+state would have a transition to it. 
 
 ![Use-case 1's state machine](./state_machines/state_machine_1.png)
 
@@ -44,32 +44,30 @@ transitions of the system.
 
 #### Transition table
 
-|                          | Add          | CancelNameChange | ConfirmNameChange | Maximize     | Minimize             |
-| ------------------------ | ------------ | ---------------- | ----------------- | ------------ | -------------------- |
-| **_AddProject_**         | _AddProject_ | _Dashboard_      | _Dashboard_       |              | _MinimizedToTrayAdd_ |
-| **_Dashboard_**          | _AddProject_ |                  |                   |              | _MinimizedToTray_    |
-| **_MinimizedToTray_**    |              |                  |                   | _Dashboard_  |                      |
-| **_MinimizedToTrayAdd_** |              |                  |                   | _AddProject_ |                      |
+|                     | ClickAddProjectButton | EditProjectName | ConfirmNameChange | BackToIdle  | CancelNameChange |
+| ------------------- | --------------------- | --------------- | ----------------- | ----------- | ---------------- |
+| **_Dashboard_**     | _CreateProject_       |                 |                   |             |                  |
+| **_CreateProject_** |                       | _EditName_      |                   |             |                  |
+| **_EditName_**      | _CreateProject_       |                 | _SaveName_        |             | _Dashboard_      |
+| **_SaveName_**      |                       |                 |                   | _Dashboard_ |                  |
 
-According to the table, there are 12 sneak paths.
+According to the table, there are 14 sneak paths.
 
 #### Tests
 
 The tests are numbered with the same order as the leaf nodes in the tree
 (left-to-right).
 
-1. Start app ⇒ minimize app ⇒ maximize app
-2. Start app ⇒ add project ⇒ change name and confirm it
-3. Start app ⇒ add project ⇒ cancel name change
-4. Start app ⇒ add project ⇒ add another project
-5. Start app ⇒ add project ⇒ minimize app ⇒ maximize app
+1. Start app ⇒ Create project ⇒ Edit name ⇒ Confirm name change
+   - **Verification**: verify project exists and is called "test project".
+2. Start app ⇒ Create project ⇒ Edit name ⇒ Cancel name change
+   - **Verification**: verify project exists and is called "New project" (default name).
+3. Start app ⇒ Create project ⇒ Create new project  ⇒ Cancel name change
+   - **Verification**: verify both project exist.
 
 All tests pass successfully.
 
-Note: As stated previously, the first test probably shouldn't be part of this
-use-case.
-
-### Use-case 2 - Play/pause a project
+### Use-case 2 - Delete a project
 
 This is the main function of the application.
 
@@ -77,13 +75,13 @@ This is the main function of the application.
 
 The most important aspects of this use-case are:
 
-- While a project is playing, the user can start another one (and the previous
-  one will stop).
-- It is possible to delete a running project.
-- If a project is running and the application is minimized, when the app is
-  maximized, the project will continue running.
-- It is possoble to stop and start running the selected project while the
-  application is minimized.
+- It is possible to delete any created project (even if it is running).
+- The user can only shave one selected project at a time.
+- While having one selected project, the only way to have no selected projects is to delete the current project.
+
+We decided that the application's end-state is the moment the
+application is closed. However, we chose to ommit it since every 
+state would have a transition to it. 
 
 ![Use-case 2's state machine](./state_machines/state_machine_2.png)
 
@@ -91,57 +89,36 @@ The most important aspects of this use-case are:
 
 ![Use-case 2's transition tree](./transition_trees/transition_tree_2.png)
 
-Similarly to the first use-case, we have the first branch of tree that just
-tests opening the application, minimizing it to the tray area, and then
-maximizing it. Again, this doesn't seem related to the use-case at hand. This
-time, the state should be kept, because it is clearly part of the use-case:
-projects can be started/paused from the tray area.
-
-With 8 leaf nodes in the tree, we need to create 8 tests to cover all states and
+With 2 leaf nodes in the tree, we need to create 2 tests to cover all states and
 transitions of the system.
 
 #### Transition table
 
-|                       | StartProject<br />[nº projects > 0] | Minimize          | Maximize<br />[current project is not playing] | Maximize<br />[current project is playing] | ToggleCurrentProject<br />[selected a current project] | PauseProject<br />[selected project == current project] | DeleteProject<br />[deleted project == current project] | StartProject<br />[selected project != current project] | DeleteProject<br />[deleted project == current project] |
-| :-------------------- | :---------------------------------- | :---------------- | ---------------------------------------------- | ------------------------------------------ | ------------------------------------------------------ | ------------------------------------------------------- | ------------------------------------------------------- | ------------------------------------------------------- | ------------------------------------------------------- |
-| **_Dashboard_**       | _PlayingProject_                    | _MinimizedToTray_ |                                                |                                            |                                                        |                                                         |                                                         |                                                         |                                                         |
-| **_MinimizedToTray_** |                                     |                   | _Dashboard_                                    | _PlayingProject_                           | _MinimizedToTray_                                      |                                                         |                                                         |                                                         |                                                         |
-| **_PlayingProject_**  |                                     | _MinimizedToTray_ |                                                |                                            |                                                        | Dashboard                                               | _Dashboard_                                             | _Playing Project_                                       | _Playing Project_                                       |
+|                       | SelectProject<br />[nº projects > 0] | SelectProject     | ClickDeleteButton | BackToIdle  |
+| :-------------------- | :----------------------------------- | :---------------- | ----------------- | ----------- |
+| **_Dashboard_**       | *SelectedProject*                    |                   |                   |             |
+| **_SelectedProject_** |                                      | _SelectedProject_ | _DeleteProject_   |             |
+| **DeleteProject**     |                                      |                   |                   | _Dashboard_ |
 
-According to the table, there are 17 sneak paths.
-
-Note: There is a transition _PauseProject_ with the condition that the running
-project is the project the user is currently pausing. However, given the user
-interface of application, there isn't any transition that pauses a project which
-is not running (for logical reasons). Since this transition does not exist, it
-does not appear in the transition table.
+According to the table, there are 8 sneak paths.
 
 #### Tests
 
 The tests are numbered with the same order as the leaf nodes in the tree
-(left-to-right). Some tests imply some previous setup.
+(left-to-right). Each test implies some previous setup.
 
-1. Start app ⇒ minimize app ⇒ maximize app
-2. Start app ⇒ minimize app ⇒ toggle project and confirm it
-   - Setup: Add project
-3. Start app ⇒ minimize app ⇒ maximize app and confirm project is running
-   - Setup: Add project and start it
-4. Start app ⇒ start project ⇒ minimize
-   - Setup: Add project
-5. Start app ⇒ start project ⇒ pause project
-   - Setup: Add two project
-6. Start app ⇒ start project ⇒ delete project
-   - Setup: Add two project
-7. Start app ⇒ start project ⇒ start another project
-   - Setup: Add two project
-8. Start app ⇒ start project ⇒ delete another project
-   - Setup: Add two project
+1. Start app ⇒ Select one project ⇒ Select another project 
+
+   - **Setup:** Create two projects.
+   - **Verification:** Check if the correct project is selected.
+
+2. Start app ⇒ Select project ⇒ Delete project 
+
+   - **Setup:** Create one project.
+
+   - **Verification:** Check if project no longer exists.
 
 All tests pass successfully.
-
-Note: the second test uses the right-click menu of the application's tray icon.
-For some reason, this test sometimes bugs and isn't able to complete before
-timing-out. We believe this might be a limitation of **QF-Test**.
 
 ### Use-case 3 - Edit a project's color
 
@@ -158,6 +135,10 @@ The most important aspects of this use-case are:
   reachable from all other tabs. This leads to _explosion of states_ that
   doesn't add anything to the analysis.
 
+We decided that the application's end-state is the moment the
+application is closed. However, we chose to ommit it since every 
+state would have a transition to it. 
+
 ![Use-case 3's state machine](./state_machines/state_machine_3.png)
 
 #### Transition tree
@@ -167,27 +148,46 @@ The most important aspects of this use-case are:
 With 6 leaf nodes in the tree, we need to create 6 tests to cover all states and
 transitions of the system.
 
+
+
 #### Transition table
 
-|             | EditColor | SelectColor | RemoveColor | CancelColor | GoCustomColor | ResetColor  |
-| ----------- | --------- | ----------- | ----------- | ----------- | ------------- | ----------- |
-| Dashboard   | EditColor |             |             |             |               |             |
-| EditColor   |           | Dashboard   | Dashboard   | Dashboard   | CustomColor   |             |
-| CustomColor |           | Dashboard   |             | Dashboard   |               | CustomColor |
+|                     | SelectProject<br />[nº projects > 0] | SelectProject     | ClickEditColorButton | CancelColorEdit   | SelectColor | RemoveColor | OpenCustomColorMenu | ResetColor    | BackToIdle        |
+| ------------------- | ------------------------------------ | ----------------- | -------------------- | ----------------- | ----------- | ----------- | ------------------- | ------------- | ----------------- |
+| **Dashboard**       | _SelectedProject_                    |                   |                      |                   |             |             |                     |               |                   |
+| **SelectedProject** |                                      | _SelectedProject_ | _EditColor_          |                   |             |             |                     |               |                   |
+| **EditColor**       |                                      |                   |                      | _SelectedProject_ | _SaveColor_ | _SaveColor_ | _CustomColor_       |               |                   |
+| **CustomColor**     |                                      |                   |                      | _SelectedProject_ |             |             |                     | _CustomColor_ |                   |
+| **SaveColor**       |                                      |                   |                      |                   |             |             |                     |               | _SelectedProject_ |
 
-According to the table, there are 10 sneak paths.
+According to the table, there are 35 sneak paths.
 
 #### Tests
 
 The tests are numbered with the same order as the leaf nodes in the tree
-(left-to-right). The setup of these tests involves adding a project to the list.
+(left-to-right). The setup of all tests involves adding a project to the list.
 
-1. Start app ⇒ edit project color ⇒ select color
-2. Start app ⇒ edit project color ⇒ remove color
-3. Start app ⇒ edit project color ⇒ cancel color selection
-4. Start app ⇒ edit project color ⇒ go to custom color menu ⇒ select color
-5. Start app ⇒ edit project color ⇒ go to custom color menu ⇒ cancel color
-6. Start app ⇒ edit project color ⇒ go to custom color menu ⇒ reset color
+1. Start app ⇒ Select one project ⇒ Select another project 
+   - **Setup:** Create two projects.
+   - **Verification:** Check if the correct project is selected.
+2. Start app ⇒ Select one project ⇒ Edit color ⇒ Cancel color edit.
+   - **Setup:** Create one projects.
+   - **Verification:** Check if the project remains colorless.
+3. Start app ⇒ Select one project ⇒ Edit color ⇒ Open custom color menu ⇒ Cancel color edit
+   - **Setup:** Create one project.
+   - **Verification:** Check if the project remains colorless.
+4. Start app ⇒ Select one project ⇒ Edit color ⇒ Open custom color menu ⇒ Reset color selection
+   - **Setup:** Create one project.
+   - **Verification:** Check if the project has is white (we set the color in order to test it).
+5. Start app ⇒ Select one project ⇒ Edit color ⇒ Open custom color menu ⇒ Select custom color (pink) ⇒ Set custom color
+   - **Setup:** Create one project.
+   - **Verification:** Check if the project's color is pink.
+6. Start app ⇒ Select one project ⇒ Edit color ⇒ Remove color 
+   - **Setup:** Create one project with color green.
+   - **Verification:** Check if the project became colorless.
+7. Start app ⇒ Select one project ⇒ Edit color ⇒ Select color (green) 
+   - **Setup:** Create one project.
+   - **Verification:** Check if the project became green.
 
 All tests pass successfully.
 
@@ -215,4 +215,6 @@ The test fails, because **QF-Test** isn't able to deliver the event.
 ## QF-Test tool feedback
 
 This feedback was written for the QF-Test tool usage under Arch linux. 
-Overall, using QF-Test tool was a positive experience. 
+Overall, using QF-Test tool was a positive experience. It was easy to learn how to start using the tool by making simple tests. The application has an intuitive interface, but in order to take the most advantage of the tool and to find out all features, we had to read the documentation and watch some tutorials.
+
+The tool was really useful for Model-based testing, but there were some problems along the way that mainly due to bugs. The application we were testing had some features that involved the icon tray menu. Recorded actions that involved interaction with the tray icon were not reliable since they would only work sometimes. Another difficulty that arose was the verification of visual clues. We wanted to test whether some item was selected or with a different color, but it took a bit of time to understand that the tool was not working as intended. We had to go through a comple
