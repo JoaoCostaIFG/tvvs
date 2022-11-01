@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <!DOCTYPE RootStep>
 <RootStep id="_0" name="root"
-          signature="F04A905B6B81500332A2AE5894331B1C038AD026"
+          signature="EC630753721E3E598FC092A95714B139BAE68643"
           version="6.0.3">
   <include>qfs.qft</include>
   <TestSet id="_1" name="Add project">
@@ -105,25 +105,25 @@
           <text>New project</text>
         </CheckStringStep>
       </BasicSequence>
-      <CleanupSequence id="_2Q" name="Delete test projects">
-        <KeyEventStep client="$(client)" component="frameJTimeSched.text"
-                      event="KEY_PTR" id="_2R" keychar="27" keycode="27"
-                      modifiers="0"/>
+      <CleanupSequence id="_FP" name="Delete 2 test projects">
+        <MouseEventStep clicks="1" client="$(client)"
+                        component="frameJTimeSched.table2_projects_|_0:00:00_overall_|_0:00:00_today@Title&amp;1"
+                        event="MOUSE_MPRC" id="_FQ" modifiers="16"/>
         <KeyEventStep client="$(client)"
                       component="frameJTimeSched.table2_projects_|_0:00:00_overall_|_0:00:00_today"
-                      event="KEY_PTR" id="_2S" keychar="127" keycode="127"
+                      event="KEY_PTR" id="_FR" keychar="127" keycode="127"
                       modifiers="0"/>
         <MouseEventStep clicks="1" client="$(client)"
                         component="frameJTimeSched.table1_project_|_0:00:00_overall_|_0:00:00_today@Title&amp;0"
-                        event="MOUSE_MPRC" id="_2T" modifiers="16"/>
+                        event="MOUSE_MPRC" id="_FS" modifiers="16"/>
         <KeyEventStep client="$(client)"
                       component="frameJTimeSched.table1_project_|_0:00:00_overall_|_0:00:00_today"
-                      event="KEY_PTR" id="_2U" keychar="127" keycode="127"
+                      event="KEY_PTR" id="_FT" keychar="127" keycode="127"
                       modifiers="0"/>
       </CleanupSequence>
     </TestCase>
     <TestCase id="_9b" name="Sneak path 1">
-      <ProcedureCall id="_9+" procedure="Add test project 2"/>
+      <ProcedureCall id="_FX" procedure="Add test project 2"/>
       <BasicSequence id="_A1" name="Cancel name change">
         <MouseEventStep clicks="1" client="$(client)"
                         component="frameJTimeSched.text" event="MOUSE_MPRC"
@@ -552,25 +552,30 @@
                       modifiers="0"/>
       </BasicSequence>
     </Procedure>
-    <Dependency id="_99" name="Setup + Teardown">
-      <SetupSequence id="_6" name="Launch jtimesched">
-        <SetGlobalStep id="_7" varname="client">
-          <default>jtimesched</default>
+    <Procedure id="_FM" name="start jtimesched">
+      <BasicSequence id="_FE" name="start jtimesched">
+        <SetGlobalStep id="_FF" varname="client">
+          <default>jtimesched-1</default>
         </SetGlobalStep>
-        <ClientWaiter client="$(client)" id="_8" local="true" raise="false"
+        <ClientWaiter client="$(client)" id="_FG" local="true" raise="false"
                       resvarname="isSUTRunning" timeout="1">
           <comment>This node checks whether the SUT is already running. The result of this check will be stored in the variable isSUTRunning. The variable itself can contain true if SUT is already running or false if SUT is not running. This variable will be used in the following 'If' node.</comment>
         </ClientWaiter>
-        <IfSequence id="_9" name="Launch SUT if not running"
+        <IfSequence id="_FH" name="Launch SUT if not running"
                     test="not $(isSUTRunning)">
           <JavaClientStarter client="$(client)"
-                             directory="/home/joao/Documents/UniStuff/5_1things/TVVS/jtimesched"
-                             executable="${qftest:java}" id="_A">
+                             directory="C:\Users\anaio\Documents\FEUP\tvvs"
+                             executable="${qftest:java}" id="_FI">
             <parameter>-jar</parameter>
-            <parameter>/home/joao/Documents/UniStuff/5_1things/TVVS/jtimesched/target/jtimesched-1.2-SNAPSHOT-jar-with-dependencies.jar</parameter>
+            <parameter>C:\Users\anaio\Documents\FEUP\tvvs\target\jtimesched-1.2-SNAPSHOT-jar-with-dependencies.jar</parameter>
           </JavaClientStarter>
-          <ClientWaiter client="$(client)" id="_B"/>
+          <ClientWaiter client="$(client)" id="_FJ"/>
         </IfSequence>
+      </BasicSequence>
+    </Procedure>
+    <Dependency id="_99" name="Setup + Teardown">
+      <SetupSequence id="_6" name="Launch jtimesched">
+        <ProcedureCall id="_FN" procedure="start jtimesched"/>
       </SetupSequence>
       <CleanupSequence id="_16" name="Close app">
         <ClientStopper client="$(client)" id="_17"/>
@@ -579,25 +584,7 @@
     </Dependency>
     <Dependency id="_9C" name="Setup(+ add test project) + Teardown">
       <SetupSequence id="_2r" name="Setup">
-        <BasicSequence id="_3F" name="Launch jtimesched">
-          <SetGlobalStep id="_2s" varname="client">
-            <default>jtimesched</default>
-          </SetGlobalStep>
-          <ClientWaiter client="$(client)" id="_2t" local="true" raise="false"
-                        resvarname="isSUTRunning" timeout="1">
-            <comment>This node checks whether the SUT is already running. The result of this check will be stored in the variable isSUTRunning. The variable itself can contain true if SUT is already running or false if SUT is not running. This variable will be used in the following 'If' node.</comment>
-          </ClientWaiter>
-          <IfSequence id="_2u" name="Launch SUT if not running"
-                      test="not $(isSUTRunning)">
-            <JavaClientStarter client="$(client)"
-                               directory="/home/joao/Documents/UniStuff/5_1things/TVVS/jtimesched"
-                               executable="${qftest:java}" id="_2v">
-              <parameter>-jar</parameter>
-              <parameter>/home/joao/Documents/UniStuff/5_1things/TVVS/jtimesched/target/jtimesched-1.2-SNAPSHOT-jar-with-dependencies.jar</parameter>
-            </JavaClientStarter>
-            <ClientWaiter client="$(client)" id="_2w"/>
-          </IfSequence>
-        </BasicSequence>
+        <ProcedureCall id="_FO" procedure="start jtimesched"/>
         <ProcedureCall id="_Ck" procedure="Add test project"/>
       </SetupSequence>
       <CleanupSequence id="_2x" name="Teardown">
