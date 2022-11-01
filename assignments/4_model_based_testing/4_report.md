@@ -204,10 +204,13 @@ The test fails, because **QF-Test** isn't able to deliver the event.
 
 ### Use-case 2's sneak path
 
+Delete a project while on the dashboard (without selecting a project). This 
+corresponds to being in the _Dashboard_ state and receiving a **RemoveColor**
+event.
 ### Use-case 3's sneak path
 
 Remove a project's color while on the dashboard (color edit menu not open). This
-corresponds to being in the _Dashboard_ state and receiving a **RemoveColor**
+corresponds to being in the _Dashboard_ state and receiving a **ClickDeleteButton**
 event.
 
 The test fails, because **QF-Test** isn't able to deliver the event.
