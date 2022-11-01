@@ -3,8 +3,7 @@ hide empty description
 
 [*] -d-> Dashboard
 
-Dashboard --> [*] : Close
-Dashboard --> EditColor : EditColor
+Dashboard --> EditColor : EditProjectColor
 
 EditColor --> Dashboard : SelectColor
 EditColor --> Dashboard : RemoveColor
