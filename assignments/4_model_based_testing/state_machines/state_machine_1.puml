@@ -7,6 +7,7 @@ Dashboard --> CreateProject : AddProject
 
 CreateProject --> EditName : EditProjectName
 
+EditName --> CreateProject : AddProject
 EditName --> Dashboard : ConfirmNameChange
 EditName --> Dashboard : CancelNameChange
 
