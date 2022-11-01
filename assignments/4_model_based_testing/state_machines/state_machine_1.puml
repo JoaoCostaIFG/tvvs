@@ -3,12 +3,14 @@ hide empty description
 
 [*] --> Dashboard
 
-Dashboard --> CreateProject : AddProject
+Dashboard -d-> CreateProject : ClickAddProjectButton
 
-CreateProject --> EditName : EditProjectName
+CreateProject -d-> EditName : EditProjectName
 
-EditName --> CreateProject : AddProject
-EditName --> Dashboard : ConfirmNameChange
-EditName --> Dashboard : CancelNameChange
+EditName -u-> CreateProject : ClickAddProjectButton
+EditName -d-> SaveName : ConfirmNameChange
+EditName -u-> Dashboard : CancelNameChange
+
+SaveName -u-> Dashboard : BackToIdle
 
 @enduml
