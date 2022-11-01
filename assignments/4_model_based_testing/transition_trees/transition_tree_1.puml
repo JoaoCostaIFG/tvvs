@@ -1,12 +1,12 @@
 @startuml
 skinparam linetype polyline
 
-[Dashboard 0] -d-> [CreateProject 0] : AddProject
+[Dashboard 0] -d-> [CreateProject 0]
 
-[CreateProject 0] -d-> [EditName 0] : EditProjectName
+[CreateProject 0] -d-> [EditName 0]
 
-[EditName 0] -d-> [Dashboard 1] : ConfirmNameChange
-[EditName 0] -d-> [Dashboard 2] : CancelNameChange
-[EditName 0] -d-> [CreateProject 1] : AddProject
+[EditName 0] -d-> [Dashboard 1]
+[EditName 0] -d-> [Dashboard 2]
+[EditName 0] -d-> [CreateProject 1]
 
 @enduml
