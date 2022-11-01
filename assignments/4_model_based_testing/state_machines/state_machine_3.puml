@@ -3,7 +3,10 @@ hide empty description
 
 [*] -d-> Dashboard
 
-Dashboard --> EditColor : EditProjectColor
+Dashboard --> SelectedProject : SelectProject\n[nº projects > 0]
+
+SelectedProject --> SelectedProject : SelectProject
+SelectedProject --> EditColor : EditProjectColor
 
 EditColor --> Dashboard : SelectColor
 EditColor --> Dashboard : RemoveColor
