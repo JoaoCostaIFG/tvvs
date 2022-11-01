@@ -1,16 +1,12 @@
 @startuml
 skinparam linetype polyline
 
-[Dashboard 0] -d-> [MinimizedToTray 0] : Minimize
-[Dashboard 0] -d-> [AddProject 0] : Add
+[Dashboard 0] -d-> [CreateProject 0] : AddProject
 
-[MinimizedToTray 0] -d-> [Dashboard 1] : Maximize
+[CreateProject 0] -d-> [EditName 0] : EditProjectName
 
-[AddProject 0] -d-> [Dashboard 2] : ConfirmNameChange
-[AddProject 0] -d-> [Dashboard 3] : CancelNameChange
-[AddProject 0] -d-> [AddProject 1] : Add
-[AddProject 0] -d-> [MinimizedToTrayAdd 0] : Minimize
-
-[MinimizedToTrayAdd 0] -d-> [AddProject 2] : Maximize
+[EditName 0] -d-> [Dashboard 1] : ConfirmNameChange
+[EditName 0] -d-> [Dashboard 2] : CancelNameChange
+[EditName 0] -d-> [CreateProject 1] : AddProject
 
 @enduml
