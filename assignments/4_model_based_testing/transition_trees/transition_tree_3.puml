@@ -1,13 +1,19 @@
 @startuml
 skinparam linetype polyline
-[Dashboard 0] -d-> [EditColor 0] : EditColor
+[Dashboard 0] -d-> [SelectedProject 0]
 
-[EditColor 0] -d-> [Dashboard 2] : SelectColor
-[EditColor 0] -d-> [Dashboard 3] : RemoveColor
-[EditColor 0] -d-> [Dashboard 4] : CancelColor
-[EditColor 0] -d-> [CustomColor 0] : GoCustomColor
+[SelectedProject 0] -d-> [SelectedProject 1]
+[SelectedProject 0] -d-> [EditColor 0]
 
-[CustomColor 0] -d-> [Dashboard 5] : SelectColor
-[CustomColor 0] -d-> [Dashboard 6] : CancelColor
-[CustomColor 0] -d-> [CustomColor 1] : ResetColor
+[EditColor 0] -d-> [SelectedProject 2]
+[EditColor 0] -d-> [CustomColor 0]
+[EditColor 0] -d-> [SaveColor 0]
+[EditColor 0] -d-> [SaveColor 1]
+
+[CustomColor 0] -d-> [SelectedProject 3]
+[CustomColor 0] -d-> [CustomColor 1]
+[CustomColor 0] -d-> [SaveColor 2]
+
+[SaveColor 0] -d-> [SelectedProject 4]
+
 @enduml
