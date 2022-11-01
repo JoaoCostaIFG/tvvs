@@ -6,14 +6,16 @@ hide empty description
 Dashboard --> SelectedProject : SelectProject\n[nº projects > 0]
 
 SelectedProject --> SelectedProject : SelectProject
-SelectedProject --> EditColor : EditProjectColor
+SelectedProject --> EditColor : ClickEditColorButton
 
-EditColor --> Dashboard : CancelColorChange
-EditColor --> SaveColor : SelectColorChange
-EditColor --> SaveColor : RemoveColorChange
-EditColor --> CustomColor : GoCustomColor
+EditColor --> SelectedProject : CancelColorEdit
+EditColor --> SaveColor : SelectColor
+EditColor --> SaveColor : RemoveColor
+EditColor --> CustomColor : OpenCustomColorMenu
 
-CustomColor --> Dashboard : SelectColor
-CustomColor --> Dashboard : CancelColor
+CustomColor --> SelectedProject : CancelColorEdit
+CustomColor --> SaveColor : SelectColor
 CustomColor --> CustomColor : ResetColor
+
+SaveColor --> SelectedProject : BackToIdle
 @enduml
