@@ -1,33 +1,12 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <!DOCTYPE RootStep>
 <RootStep id="_0" name="root"
-          signature="4E952F603B804C5D3AC015633BD4064029D25103"
+          signature="F04A905B6B81500332A2AE5894331B1C038AD026"
           version="6.0.3">
   <include>qfs.qft</include>
   <TestSet id="_1" name="Add project">
     <DependencyReference id="_9a" reference="Setup + Teardown"/>
-    <TestCase id="_12" name="Add project 1">
-      <BasicSequence id="_1H" name="Minimize">
-        <MouseEventStep clicks="2" client="$(client)" component="canvas"
-                        event="MOUSE_DBLCLK" id="_1I" modifiers="16" x="5"
-                        y="2"/>
-      </BasicSequence>
-      <BasicSequence id="_1E" name="Maximize">
-        <MouseEventStep clicks="2" client="$(client)" component="canvas"
-                        event="MOUSE_DBLCLK" id="_1F" modifiers="16" x="8"
-                        y="3"/>
-        <ComponentEventStep client="$(client)" component="frameJTimeSched"
-                            event="COMPONENT_MOVED" id="_1G" param1="5"
-                            param2="21"/>
-      </BasicSequence>
-      <BasicSequence id="_9A" name="Check window is maximized">
-        <CheckStringStep checktype="item" client="$(client)"
-                         component="frameJTimeSched.header@Title" id="_9B">
-          <text>Title</text>
-        </CheckStringStep>
-      </BasicSequence>
-    </TestCase>
-    <TestCase id="_2" name="Add project 2">
+    <TestCase id="_2" name="Add project 1">
       <BasicSequence id="_1L" name="Create project">
         <MouseEventStep clicks="1" client="$(client)"
                         component="buttonAdd_project" event="MOUSE_MPRC"
@@ -62,7 +41,7 @@
                       modifiers="0"/>
       </CleanupSequence>
     </TestCase>
-    <TestCase id="_1h" name="Add project 3">
+    <TestCase id="_1h" name="Add project 2">
       <BasicSequence id="_1i" name="Create project">
         <MouseEventStep clicks="1" client="$(client)"
                         component="buttonAdd_project" event="MOUSE_MPRC"
@@ -94,7 +73,7 @@
                       modifiers="0"/>
       </CleanupSequence>
     </TestCase>
-    <TestCase id="_1y" name="Add project 4">
+    <TestCase id="_1y" name="Add project 3">
       <BasicSequence id="_1z" name="Create project">
         <MouseEventStep clicks="1" client="$(client)"
                         component="buttonAdd_project" event="MOUSE_MPRC"
@@ -105,10 +84,24 @@
                         component="buttonAdd_project" event="MOUSE_MPRC"
                         id="_2A" modifiers="16"/>
       </BasicSequence>
-      <BasicSequence id="_2H" name="Check project existance">
+      <BasicSequence id="_Dd" name="Cancel name change">
+        <TextInputStep clear="true" client="$(client)"
+                       component="frameJTimeSched.text" id="_De">
+          <text>test project</text>
+        </TextInputStep>
+        <KeyEventStep client="$(client)" component="frameJTimeSched.text"
+                      event="KEY_PTR" id="_Df" keychar="27" keycode="27"
+                      modifiers="0"/>
+      </BasicSequence>
+      <BasicSequence id="_Dg" name="Check both projects exist">
         <CheckStringStep checktype="item" client="$(client)"
-                         component="frameJTimeSched.table1_project_|_0:00:00_overall_|_0:00:00_today@Title&amp;0"
-                         id="_2I">
+                         component="frameJTimeSched.table2_projects_|_0:00:00_overall_|_0:00:00_today@Title&amp;0"
+                         id="_Dh">
+          <text>New project</text>
+        </CheckStringStep>
+        <CheckStringStep checktype="item" client="$(client)"
+                         component="frameJTimeSched.table2_projects_|_0:00:00_overall_|_0:00:00_today@Title&amp;1"
+                         id="_Di">
           <text>New project</text>
         </CheckStringStep>
       </BasicSequence>
@@ -129,43 +122,8 @@
                       modifiers="0"/>
       </CleanupSequence>
     </TestCase>
-    <TestCase id="_2b" name="Add project 5">
-      <BasicSequence id="_2h" name="Create project">
-        <MouseEventStep clicks="1" client="$(client)"
-                        component="buttonAdd_project" event="MOUSE_MPRC"
-                        id="_2i" modifiers="16"/>
-      </BasicSequence>
-      <BasicSequence id="_2c" name="Minimize">
-        <MouseEventStep clicks="2" client="$(client)" component="canvas"
-                        event="MOUSE_DBLCLK" id="_2d" modifiers="16" x="5"
-                        y="2"/>
-      </BasicSequence>
-      <BasicSequence id="_2e" name="Maximize">
-        <MouseEventStep clicks="2" client="$(client)" component="canvas"
-                        event="MOUSE_DBLCLK" id="_2f" modifiers="16" x="8"
-                        y="3"/>
-        <ComponentEventStep client="$(client)" component="frameJTimeSched"
-                            event="COMPONENT_MOVED" id="_2g" param1="5"
-                            param2="21"/>
-      </BasicSequence>
-      <BasicSequence id="_2l" name="Check project's name still editable">
-        <CheckStringStep client="$(client)" component="frameJTimeSched.text"
-                         id="_2m">
-          <text>New project</text>
-        </CheckStringStep>
-      </BasicSequence>
-      <CleanupSequence id="_2n" name="Delete test project">
-        <MouseEventStep clicks="1" client="$(client)"
-                        component="frameJTimeSched.table1_project_|_0:00:00_overall_|_0:00:00_today@Title&amp;0"
-                        event="MOUSE_MPRC" id="_2o" modifiers="16"/>
-        <KeyEventStep client="$(client)"
-                      component="frameJTimeSched.table1_project_|_0:00:00_overall_|_0:00:00_today"
-                      event="KEY_PTR" id="_2p" keychar="127" keycode="127"
-                      modifiers="0"/>
-      </CleanupSequence>
-    </TestCase>
     <TestCase id="_9b" name="Sneak path 1">
-      <ProcedureCall id="_9+" procedure="Add test project"/>
+      <ProcedureCall id="_9+" procedure="Add test project 2"/>
       <BasicSequence id="_A1" name="Cancel name change">
         <MouseEventStep clicks="1" client="$(client)"
                         component="frameJTimeSched.text" event="MOUSE_MPRC"
@@ -185,412 +143,160 @@
       </CleanupSequence>
     </TestCase>
   </TestSet>
-  <TestSet id="_2q" name="Play/pause project">
-    <DependencyReference id="_9E"
+  <TestSet id="_AM" name="Delete project">
+    <DependencyReference id="_AN"
                          reference="Setup(+ add test project) + Teardown"/>
-    <TestCase id="_2+" name="Play/pause project 1">
-      <BasicSequence id="_2-" name="Minimize">
-        <MouseEventStep clicks="2" client="$(client)" component="canvas"
-                        event="MOUSE_DBLCLK" id="_30" modifiers="16" x="5"
-                        y="2"/>
+    <TestCase id="_AO" name="Delete project 1">
+      <SetupSequence id="_DL" name="Setup 2ndtest project">
+        <ProcedureCall id="_Cj" procedure="Add test project 2"/>
+      </SetupSequence>
+      <BasicSequence id="_AP" name="Select test project">
+        <MouseEventStep clicks="1" client="$(client)"
+                        component="frameJTimeSched.table1_project_|_0:00:00_overall_|_0:00:00_today@Title&amp;0"
+                        event="MOUSE_MPRC" id="_AQ" modifiers="16"/>
       </BasicSequence>
-      <BasicSequence id="_3K" name="Maximize">
-        <MouseEventStep clicks="2" client="$(client)" component="canvas"
-                        event="MOUSE_DBLCLK" id="_3L" modifiers="16" x="8"
-                        y="3"/>
-        <ComponentEventStep client="$(client)" component="frameJTimeSched"
-                            event="COMPONENT_MOVED" id="_3M" param1="5"
-                            param2="21"/>
+      <BasicSequence id="_Cl" name="Select test project 2">
+        <MouseEventStep clicks="1" client="$(client)"
+                        component="frameJTimeSched.table2_projects_|_0:00:00_overall_|_0:00:00_today@Title&amp;1"
+                        event="MOUSE_MPRC" id="_Cm" modifiers="16"/>
       </BasicSequence>
-      <BasicSequence id="_3X" name="Check window is maximized">
+      <BasicSequence id="_Cn" name="Check test project 2  is selected">
         <CheckStringStep checktype="item" client="$(client)"
-                         component="frameJTimeSched.table@Title&amp;0"
-                         id="_3Y">
-          <text>test project</text>
+                         component="frameJTimeSched.table2_projects_|_0:00:00_overall_|_0:00:00_today@Title&amp;1"
+                         id="_Co">
+          <text>test project 2</text>
         </CheckStringStep>
       </BasicSequence>
-      <CleanupSequence id="_5z" name="Delete test project">
+      <CleanupSequence id="_El" name="Delete 2 test projects">
+        <MouseEventStep clicks="1" client="$(client)"
+                        component="frameJTimeSched.table2_projects_|_0:00:00_overall_|_0:00:00_today@Title&amp;1"
+                        event="MOUSE_MPRC" id="_Em" modifiers="16"/>
+        <KeyEventStep client="$(client)"
+                      component="frameJTimeSched.table2_projects_|_0:00:00_overall_|_0:00:00_today"
+                      event="KEY_PTR" id="_En" keychar="127" keycode="127"
+                      modifiers="0"/>
         <MouseEventStep clicks="1" client="$(client)"
                         component="frameJTimeSched.table1_project_|_0:00:00_overall_|_0:00:00_today@Title&amp;0"
-                        event="MOUSE_MPRC" id="_5+" modifiers="16"/>
+                        event="MOUSE_MPRC" id="_Eo" modifiers="16"/>
         <KeyEventStep client="$(client)"
                       component="frameJTimeSched.table1_project_|_0:00:00_overall_|_0:00:00_today"
-                      event="KEY_PTR" id="_5-" keychar="127" keycode="127"
+                      event="KEY_PTR" id="_Ep" keychar="127" keycode="127"
                       modifiers="0"/>
       </CleanupSequence>
     </TestCase>
-    <TestCase id="_3N" name="Play/pause project 2">
-      <BasicSequence id="_3O" name="Minimize">
-        <MouseEventStep clicks="2" client="$(client)" component="canvas"
-                        event="MOUSE_DBLCLK" id="_3P" modifiers="16" x="5"
-                        y="2"/>
-      </BasicSequence>
-      <BasicSequence id="_3Z" name="Toggle project">
-        <MouseEventStep clicks="1" client="$(client)" component="canvas"
-                        event="MOUSE_MPRC" id="_3a" modifiers="4" popup="true"
-                        x="3" y="9"/>
-      </BasicSequence>
-      <BasicSequence id="_74" name="Check project is playing">
-        <BasicSequence id="_76" name="Maximize">
-          <MouseEventStep clicks="2" client="$(client)" component="canvas"
-                          event="MOUSE_DBLCLK" id="_77" modifiers="16" x="8"
-                          y="3"/>
-          <ComponentEventStep client="$(client)" component="frameJTimeSched"
-                              event="COMPONENT_MOVED" id="_78" param1="5"
-                              param2="21"/>
-        </BasicSequence>
-        <CheckStringStep checktype="item" client="$(client)"
-                         component="frameJTimeSched.table&amp;7&amp;0"
-                         id="_75"/>
-      </BasicSequence>
-      <BasicSequence id="_79" name="Minimize">
-        <MouseEventStep clicks="2" client="$(client)" component="canvas"
-                        event="MOUSE_DBLCLK" id="_7A" modifiers="16" x="5"
-                        y="2"/>
-      </BasicSequence>
-      <BasicSequence id="_7B" name="Toggle project">
-        <MouseEventStep clicks="1" client="$(client)" component="canvas"
-                        event="MOUSE_MPRC" id="_7C" modifiers="4" popup="true"
-                        x="3" y="9"/>
-      </BasicSequence>
-      <BasicSequence id="_6-" name="Check project is paused">
-        <BasicSequence id="_70" name="Maximize">
-          <MouseEventStep clicks="2" client="$(client)" component="canvas"
-                          event="MOUSE_DBLCLK" id="_71" modifiers="16" x="8"
-                          y="3"/>
-          <ComponentEventStep client="$(client)" component="frameJTimeSched"
-                              event="COMPONENT_MOVED" id="_72" param1="5"
-                              param2="21"/>
-        </BasicSequence>
-        <CheckStringStep checktype="item" client="$(client)"
-                         component="frameJTimeSched.table&amp;7&amp;0"
-                         id="_73"/>
-      </BasicSequence>
-      <CleanupSequence id="_60" name="Delete test project">
+    <TestCase id="_Cr" name="Delete project 2">
+      <BasicSequence id="_Ct" name="Select test project">
         <MouseEventStep clicks="1" client="$(client)"
                         component="frameJTimeSched.table1_project_|_0:00:00_overall_|_0:00:00_today@Title&amp;0"
-                        event="MOUSE_MPRC" id="_61" modifiers="16"/>
+                        event="MOUSE_MPRC" id="_Cu" modifiers="16"/>
+      </BasicSequence>
+      <BasicSequence id="_C-" name="Delete test project">
+        <MouseEventStep clicks="1" client="$(client)"
+                        component="frameJTimeSched.table1_project_|_0:00:00_overall_|_0:00:00_today@Title&amp;0"
+                        event="MOUSE_MPRC" id="_D0" modifiers="16"/>
         <KeyEventStep client="$(client)"
                       component="frameJTimeSched.table1_project_|_0:00:00_overall_|_0:00:00_today"
-                      event="KEY_PTR" id="_62" keychar="127" keycode="127"
+                      event="KEY_PTR" id="_D1" keychar="127" keycode="127"
                       modifiers="0"/>
-      </CleanupSequence>
+      </BasicSequence>
     </TestCase>
-    <TestCase id="_3t" name="Play/pause project 3">
-      <SetupSequence id="_3u" name="Play project (select it)">
-        <MouseEventStep clicks="1" client="$(client)"
-                        component="frameJTimeSched.table1_project_|_0:00:00_overall_|_0:00:00_today&amp;7&amp;0"
-                        event="MOUSE_MPRC" id="_3v" modifiers="16"/>
+    <TestCase id="_Ev" name="Sneak path 2">
+      <SetupSequence id="_E-" name="Setup 2ndtest project">
+        <ProcedureCall id="_F0" procedure="Add test project 2"/>
       </SetupSequence>
-      <BasicSequence id="_3w" name="Minimize">
-        <MouseEventStep clicks="2" client="$(client)" component="canvas"
-                        event="MOUSE_DBLCLK" id="_3x" modifiers="16" x="5"
-                        y="2"/>
-      </BasicSequence>
-      <BasicSequence id="_3+" name="Maximize">
-        <MouseEventStep clicks="2" client="$(client)" component="canvas"
-                        event="MOUSE_DBLCLK" id="_3-" modifiers="16" x="8"
-                        y="3"/>
-        <ComponentEventStep client="$(client)" component="frameJTimeSched"
-                            event="COMPONENT_MOVED" id="_40" param1="5"
-                            param2="21"/>
-      </BasicSequence>
-      <BasicSequence id="_43" name="Check project is playing">
-        <CheckStringStep checktype="item" client="$(client)"
-                         component="frameJTimeSched.table&amp;7&amp;0"
-                         id="_44"/>
-      </BasicSequence>
-      <CleanupSequence id="_63" name="Delete test project">
+      <BasicSequence id="_F1" name="Select test project 2">
         <MouseEventStep clicks="1" client="$(client)"
-                        component="frameJTimeSched.table1_project_|_0:00:00_overall_|_0:00:00_today@Title&amp;0"
-                        event="MOUSE_MPRC" id="_64" modifiers="16"/>
+                        component="frameJTimeSched.table2_projects_|_0:00:00_overall_|_0:00:00_today@Title&amp;1"
+                        event="MOUSE_MPRC" id="_F2" modifiers="16"/>
+      </BasicSequence>
+      <BasicSequence id="_F3" name="Delete project 2">
+        <MouseEventStep clicks="1" client="$(client)"
+                        component="frameJTimeSched.table2_projects_|_0:00:00_overall_|_0:00:00_today@Title&amp;1"
+                        event="MOUSE_MPRC" id="_F4" modifiers="16"/>
+        <KeyEventStep client="$(client)"
+                      component="frameJTimeSched.table2_projects_|_0:00:00_overall_|_0:00:00_today"
+                      event="KEY_PTR" id="_F5" keychar="127" keycode="127"
+                      modifiers="0"/>
+      </BasicSequence>
+      <BasicSequence id="_F6"
+                     name="Delete test project (without selecting it)">
         <KeyEventStep client="$(client)"
                       component="frameJTimeSched.table1_project_|_0:00:00_overall_|_0:00:00_today"
-                      event="KEY_PTR" id="_65" keychar="127" keycode="127"
-                      modifiers="0"/>
-      </CleanupSequence>
-    </TestCase>
-    <TestCase id="_45" name="Play/pause project 4">
-      <BasicSequence id="_46" name="Play project">
-        <MouseEventStep clicks="1" client="$(client)"
-                        component="frameJTimeSched.table1_project_|_0:00:00_overall_|_0:00:00_today&amp;7&amp;0"
-                        event="MOUSE_MPRC" id="_47" modifiers="16"/>
-      </BasicSequence>
-      <BasicSequence id="_48" name="Minimize">
-        <MouseEventStep clicks="2" client="$(client)" component="canvas"
-                        event="MOUSE_DBLCLK" id="_49" modifiers="16" x="5"
-                        y="2"/>
-      </BasicSequence>
-      <BasicSequence id="_4D" name="Check project is playing">
-        <BasicSequence id="_4A" name="Maximize">
-          <MouseEventStep clicks="2" client="$(client)" component="canvas"
-                          event="MOUSE_DBLCLK" id="_4B" modifiers="16" x="8"
-                          y="3"/>
-          <ComponentEventStep client="$(client)" component="frameJTimeSched"
-                              event="COMPONENT_MOVED" id="_4C" param1="5"
-                              param2="21"/>
-        </BasicSequence>
-        <CheckStringStep checktype="item" client="$(client)"
-                         component="frameJTimeSched.table&amp;7&amp;0"
-                         id="_4E"/>
-      </BasicSequence>
-      <CleanupSequence id="_66" name="Delete test project">
-        <MouseEventStep clicks="1" client="$(client)"
-                        component="frameJTimeSched.table1_project_|_0:00:00_overall_|_0:00:00_today@Title&amp;0"
-                        event="MOUSE_MPRC" id="_67" modifiers="16"/>
-        <KeyEventStep client="$(client)"
-                      component="frameJTimeSched.table1_project_|_0:00:00_overall_|_0:00:00_today"
-                      event="KEY_PTR" id="_68" keychar="127" keycode="127"
-                      modifiers="0"/>
-      </CleanupSequence>
-    </TestCase>
-    <TestCase id="_4H" name="Play/pause project 5">
-      <SetupSequence id="_4R" name="Add second test project">
-        <MouseEventStep clicks="1" client="$(client)"
-                        component="buttonAdd_project" event="MOUSE_MPRC"
-                        id="_4S" modifiers="16"/>
-        <TextInputStep clear="true" client="$(client)"
-                       component="frameJTimeSched.text" id="_4T">
-          <text>test project 2</text>
-        </TextInputStep>
-        <KeyEventStep client="$(client)" component="frameJTimeSched.text"
-                      event="KEY_PTR" id="_4U" keychar="10" keycode="10"
-                      modifiers="0"/>
-        <BasicSequence id="_4k" name="Sort projects">
-          <MouseEventStep clicks="1" client="$(client)"
-                          component="frameJTimeSched.header&amp;0"
-                          event="MOUSE_MPRC" id="_4l" modifiers="16"/>
-          <MouseEventStep clicks="1" client="$(client)"
-                          component="frameJTimeSched.header@Title"
-                          event="MOUSE_MPRC" id="_4m" modifiers="16"/>
-        </BasicSequence>
-      </SetupSequence>
-      <BasicSequence id="_4I" name="Play project">
-        <MouseEventStep clicks="1" client="$(client)"
-                        component="frameJTimeSched.table1_project_|_0:00:00_overall_|_0:00:00_today&amp;7&amp;0"
-                        event="MOUSE_MPRC" id="_4J" modifiers="16"/>
-      </BasicSequence>
-      <BasicSequence id="_4X" name="Pause project">
-        <MouseEventStep clicks="1" client="$(client)"
-                        component="frameJTimeSched.table&amp;7&amp;0"
-                        event="MOUSE_MPRC" id="_4Y" modifiers="16"/>
-      </BasicSequence>
-      <BasicSequence id="_4Z" name="Check all projects paused">
-        <CheckStringStep checktype="item" client="$(client)"
-                         component="frameJTimeSched.table&amp;7&amp;0"
-                         id="_4a"/>
-        <CheckStringStep checktype="item" client="$(client)"
-                         component="frameJTimeSched.table&amp;7&amp;1"
-                         id="_4b"/>
-      </BasicSequence>
-      <CleanupSequence id="_4p" name="Delete the 2 projects">
-        <BasicSequence id="_6C" name="Delete second test project">
-          <MouseEventStep clicks="1" client="$(client)"
-                          component="frameJTimeSched.table@Title&amp;1"
-                          event="MOUSE_MPRC" id="_4q" modifiers="16"/>
-          <KeyEventStep client="$(client)" component="frameJTimeSched.table"
-                        event="KEY_PTR" id="_4r" keychar="127" keycode="127"
-                        modifiers="0"/>
-        </BasicSequence>
-        <BasicSequence id="_69" name="Delete test project">
-          <MouseEventStep clicks="1" client="$(client)"
-                          component="frameJTimeSched.table1_project_|_0:00:00_overall_|_0:00:00_today@Title&amp;0"
-                          event="MOUSE_MPRC" id="_6A" modifiers="16"/>
-          <KeyEventStep client="$(client)"
-                        component="frameJTimeSched.table1_project_|_0:00:00_overall_|_0:00:00_today"
-                        event="KEY_PTR" id="_6B" keychar="127" keycode="127"
-                        modifiers="0"/>
-        </BasicSequence>
-      </CleanupSequence>
-    </TestCase>
-    <TestCase id="_4s" name="Play/pause project 6">
-      <SetupSequence id="_4t" name="Add second test project">
-        <MouseEventStep clicks="1" client="$(client)"
-                        component="buttonAdd_project" event="MOUSE_MPRC"
-                        id="_4u" modifiers="16"/>
-        <TextInputStep clear="true" client="$(client)"
-                       component="frameJTimeSched.text" id="_4v">
-          <text>test project 2</text>
-        </TextInputStep>
-        <KeyEventStep client="$(client)" component="frameJTimeSched.text"
-                      event="KEY_PTR" id="_4w" keychar="10" keycode="10"
-                      modifiers="0"/>
-        <BasicSequence id="_4x" name="Sort projects">
-          <MouseEventStep clicks="1" client="$(client)"
-                          component="frameJTimeSched.header&amp;0"
-                          event="MOUSE_MPRC" id="_4y" modifiers="16"/>
-          <MouseEventStep clicks="1" client="$(client)"
-                          component="frameJTimeSched.header@Title"
-                          event="MOUSE_MPRC" id="_4z" modifiers="16"/>
-        </BasicSequence>
-      </SetupSequence>
-      <BasicSequence id="_4+" name="Play project">
-        <MouseEventStep clicks="1" client="$(client)"
-                        component="frameJTimeSched.table1_project_|_0:00:00_overall_|_0:00:00_today&amp;7&amp;0"
-                        event="MOUSE_MPRC" id="_4-" modifiers="16"/>
-      </BasicSequence>
-      <BasicSequence id="_58" name="Delete project">
-        <MouseEventStep clicks="1" client="$(client)"
-                        component="frameJTimeSched.table@Title&amp;0"
-                        event="MOUSE_MPRC" id="_59" modifiers="16"/>
-        <KeyEventStep client="$(client)" component="frameJTimeSched.table"
-                      event="KEY_PTR" id="_5A" keychar="127" keycode="127"
+                      event="KEY_PTR" id="_F8" keychar="127" keycode="127"
                       modifiers="0"/>
       </BasicSequence>
-      <BasicSequence id="_5B" name="Check second test project paused">
+      <BasicSequence id="_F9" name="Check project wasn't deleted">
         <CheckStringStep checktype="item" client="$(client)"
                          component="frameJTimeSched.table1_project_|_0:00:00_overall_|_0:00:00_today@Title&amp;0"
-                         id="_5C">
-          <text>test project 2</text>
-        </CheckStringStep>
-        <CheckStringStep checktype="item" client="$(client)"
-                         component="frameJTimeSched.table1_project_|_0:00:00_overall_|_0:00:00_today&amp;7&amp;0"
-                         id="_5D"/>
-      </BasicSequence>
-      <CleanupSequence id="_5E" name="Delete second test project">
-        <MouseEventStep clicks="1" client="$(client)"
-                        component="frameJTimeSched.table1_project_|_0:00:00_overall_|_0:00:00_today@Title&amp;0"
-                        event="MOUSE_MPRC" id="_5F" modifiers="16"/>
-        <KeyEventStep client="$(client)"
-                      component="frameJTimeSched.table1_project_|_0:00:00_overall_|_0:00:00_today"
-                      event="KEY_PTR" id="_5G" keychar="127" keycode="127"
-                      modifiers="0"/>
-      </CleanupSequence>
-    </TestCase>
-    <TestCase id="_5H" name="Play/pause project 7">
-      <SetupSequence id="_5I" name="Add second test project">
-        <MouseEventStep clicks="1" client="$(client)"
-                        component="buttonAdd_project" event="MOUSE_MPRC"
-                        id="_5J" modifiers="16"/>
-        <TextInputStep clear="true" client="$(client)"
-                       component="frameJTimeSched.text" id="_5K">
-          <text>test project 2</text>
-        </TextInputStep>
-        <KeyEventStep client="$(client)" component="frameJTimeSched.text"
-                      event="KEY_PTR" id="_5L" keychar="10" keycode="10"
-                      modifiers="0"/>
-        <BasicSequence id="_5M" name="Sort projects">
-          <MouseEventStep clicks="1" client="$(client)"
-                          component="frameJTimeSched.header&amp;0"
-                          event="MOUSE_MPRC" id="_5N" modifiers="16"/>
-          <MouseEventStep clicks="1" client="$(client)"
-                          component="frameJTimeSched.header@Title"
-                          event="MOUSE_MPRC" id="_5O" modifiers="16"/>
-        </BasicSequence>
-      </SetupSequence>
-      <BasicSequence id="_5P" name="Play project">
-        <MouseEventStep clicks="1" client="$(client)"
-                        component="frameJTimeSched.table1_project_|_0:00:00_overall_|_0:00:00_today&amp;7&amp;0"
-                        event="MOUSE_MPRC" id="_5Q" modifiers="16"/>
-      </BasicSequence>
-      <BasicSequence id="_5W" name="Delete second test project">
-        <MouseEventStep clicks="1" client="$(client)"
-                        component="frameJTimeSched.table@Title&amp;1"
-                        event="MOUSE_MPRC" id="_5X" modifiers="16"/>
-        <KeyEventStep client="$(client)" component="frameJTimeSched.table"
-                      event="KEY_PTR" id="_5Y" keychar="127" keycode="127"
-                      modifiers="0"/>
-      </BasicSequence>
-      <BasicSequence id="_5w" name="Check project is still playing">
-        <CheckStringStep checktype="item" client="$(client)"
-                         component="frameJTimeSched.table@Title&amp;0"
-                         id="_5x">
+                         id="_FA">
           <text>test project</text>
         </CheckStringStep>
-        <CheckStringStep checktype="item" client="$(client)"
-                         component="frameJTimeSched.table&amp;7&amp;0"
-                         id="_5y"/>
       </BasicSequence>
-      <CleanupSequence id="_6D" name="Delete test project">
+      <CleanupSequence id="_FB" name="Delete test project">
         <MouseEventStep clicks="1" client="$(client)"
                         component="frameJTimeSched.table1_project_|_0:00:00_overall_|_0:00:00_today@Title&amp;0"
-                        event="MOUSE_MPRC" id="_6E" modifiers="16"/>
+                        event="MOUSE_MPRC" id="_FC" modifiers="16"/>
         <KeyEventStep client="$(client)"
                       component="frameJTimeSched.table1_project_|_0:00:00_overall_|_0:00:00_today"
-                      event="KEY_PTR" id="_6F" keychar="127" keycode="127"
+                      event="KEY_PTR" id="_FD" keychar="127" keycode="127"
                       modifiers="0"/>
-      </CleanupSequence>
-    </TestCase>
-    <TestCase id="_5e" name="Play/pause project 8">
-      <SetupSequence id="_5f" name="Add second test project">
-        <MouseEventStep clicks="1" client="$(client)"
-                        component="buttonAdd_project" event="MOUSE_MPRC"
-                        id="_5g" modifiers="16"/>
-        <TextInputStep clear="true" client="$(client)"
-                       component="frameJTimeSched.text" id="_5h">
-          <text>test project 2</text>
-        </TextInputStep>
-        <KeyEventStep client="$(client)" component="frameJTimeSched.text"
-                      event="KEY_PTR" id="_5i" keychar="10" keycode="10"
-                      modifiers="0"/>
-        <BasicSequence id="_5j" name="Sort projects">
-          <MouseEventStep clicks="1" client="$(client)"
-                          component="frameJTimeSched.header&amp;0"
-                          event="MOUSE_MPRC" id="_5k" modifiers="16"/>
-          <MouseEventStep clicks="1" client="$(client)"
-                          component="frameJTimeSched.header@Title"
-                          event="MOUSE_MPRC" id="_5l" modifiers="16"/>
-        </BasicSequence>
-      </SetupSequence>
-      <BasicSequence id="_5m" name="Play project">
-        <MouseEventStep clicks="1" client="$(client)"
-                        component="frameJTimeSched.table1_project_|_0:00:00_overall_|_0:00:00_today&amp;7&amp;0"
-                        event="MOUSE_MPRC" id="_5n" modifiers="16"/>
-      </BasicSequence>
-      <BasicSequence id="_5o" name="Play second test project">
-        <MouseEventStep clicks="1" client="$(client)"
-                        component="frameJTimeSched.table&amp;7&amp;1"
-                        event="MOUSE_MPRC" id="_5p" modifiers="16"/>
-      </BasicSequence>
-      <BasicSequence id="_5q"
-                     name="Check second project is the only one playing">
-        <CheckStringStep checktype="item" client="$(client)"
-                         component="frameJTimeSched.table&amp;7&amp;0"
-                         id="_5r"/>
-        <CheckStringStep checktype="item" client="$(client)"
-                         component="frameJTimeSched.table&amp;7&amp;1"
-                         id="_5s"/>
-      </BasicSequence>
-      <CleanupSequence id="_6G" name="Delete the 2 projects">
-        <BasicSequence id="_6H" name="Delete second test project">
-          <MouseEventStep clicks="1" client="$(client)"
-                          component="frameJTimeSched.table@Title&amp;1"
-                          event="MOUSE_MPRC" id="_6I" modifiers="16"/>
-          <KeyEventStep client="$(client)" component="frameJTimeSched.table"
-                        event="KEY_PTR" id="_6J" keychar="127" keycode="127"
-                        modifiers="0"/>
-        </BasicSequence>
-        <BasicSequence id="_6K" name="Delete test project">
-          <MouseEventStep clicks="1" client="$(client)"
-                          component="frameJTimeSched.table1_project_|_0:00:00_overall_|_0:00:00_today@Title&amp;0"
-                          event="MOUSE_MPRC" id="_6L" modifiers="16"/>
-          <KeyEventStep client="$(client)"
-                        component="frameJTimeSched.table1_project_|_0:00:00_overall_|_0:00:00_today"
-                        event="KEY_PTR" id="_6M" keychar="127" keycode="127"
-                        modifiers="0"/>
-        </BasicSequence>
       </CleanupSequence>
     </TestCase>
   </TestSet>
   <TestSet id="_6N" name="Edit a project's color">
     <DependencyReference id="_9F"
                          reference="Setup(+ add test project) + Teardown"/>
-    <TestCase id="_6t" name="Play/pause project 1">
+    <TestCase id="_D9" name="Edit project color 1">
+      <SetupSequence id="_DM" name="Setup 2ndtest project">
+        <ProcedureCall id="_DN" procedure="Add test project 2"/>
+      </SetupSequence>
+      <BasicSequence id="_DB" name="Select test project">
+        <MouseEventStep clicks="1" client="$(client)"
+                        component="frameJTimeSched.table1_project_|_0:00:00_overall_|_0:00:00_today@Title&amp;0"
+                        event="MOUSE_MPRC" id="_DC" modifiers="16"/>
+      </BasicSequence>
+      <BasicSequence id="_DD" name="Select test project 2">
+        <MouseEventStep clicks="1" client="$(client)"
+                        component="frameJTimeSched.table2_projects_|_0:00:00_overall_|_0:00:00_today@Title&amp;1"
+                        event="MOUSE_MPRC" id="_DE" modifiers="16"/>
+      </BasicSequence>
+      <BasicSequence id="_DF" name="Check test project 2  is selected">
+        <CheckStringStep checktype="item" client="$(client)"
+                         component="frameJTimeSched.table2_projects_|_0:00:00_overall_|_0:00:00_today@Title&amp;1"
+                         id="_DG">
+          <text>test project 2</text>
+        </CheckStringStep>
+      </BasicSequence>
+      <CleanupSequence id="_Eq" name="Delete 2 test projects">
+        <MouseEventStep clicks="1" client="$(client)"
+                        component="frameJTimeSched.table2_projects_|_0:00:00_overall_|_0:00:00_today@Title&amp;1"
+                        event="MOUSE_MPRC" id="_Er" modifiers="16"/>
+        <KeyEventStep client="$(client)"
+                      component="frameJTimeSched.table2_projects_|_0:00:00_overall_|_0:00:00_today"
+                      event="KEY_PTR" id="_Es" keychar="127" keycode="127"
+                      modifiers="0"/>
+        <MouseEventStep clicks="1" client="$(client)"
+                        component="frameJTimeSched.table1_project_|_0:00:00_overall_|_0:00:00_today@Title&amp;0"
+                        event="MOUSE_MPRC" id="_Et" modifiers="16"/>
+        <KeyEventStep client="$(client)"
+                      component="frameJTimeSched.table1_project_|_0:00:00_overall_|_0:00:00_today"
+                      event="KEY_PTR" id="_Eu" keychar="127" keycode="127"
+                      modifiers="0"/>
+      </CleanupSequence>
+    </TestCase>
+    <TestCase id="_DQ" name="Edit project color 2 - cancel color change">
       <BasicSequence id="_7E" name="Open color edit dialog">
         <MouseEventStep clicks="1" client="$(client)"
                         component="frameJTimeSched.table1_project_|_0:00:00_overall_|_0:00:00_today&amp;3&amp;0"
                         event="MOUSE_MPRC" id="_7F" modifiers="16"/>
         <ComponentWaiter client="$(client)" component="dialog2" id="_7G"/>
       </BasicSequence>
-      <BasicSequence id="_7I" name="Select green color">
-        <MouseEventStep clicks="1" client="$(client)" component="button"
-                        event="MOUSE_MPRC" id="_7J" modifiers="16"/>
+      <BasicSequence id="_7x" name="Cancel color change">
+        <KeyEventStep client="$(client)" component="button2" event="KEY_PTR"
+                      id="_7y" keychar="27" keycode="27" modifiers="0"/>
       </BasicSequence>
-      <BasicSequence id="_7K" name="Check project color is green">
-        <CheckStringStep checktype="item" client="$(client)"
-                         component="frameJTimeSched.table1_project_|_0:00:00_overall_|_0:00:00_today&amp;3&amp;0"
-                         id="_7L"/>
-      </BasicSequence>
+      <ProcedureCall id="_Ea"
+                     procedure="Check project color is unset (selected project)"/>
       <CleanupSequence id="_6d" name="Delete test project">
         <MouseEventStep clicks="1" client="$(client)"
                         component="frameJTimeSched.table1_project_|_0:00:00_overall_|_0:00:00_today@Title&amp;0"
@@ -601,80 +307,71 @@
                       modifiers="0"/>
       </CleanupSequence>
     </TestCase>
-    <TestCase id="_7M" name="Play/pause project 2">
-      <SetupSequence id="_7U" name="Make project green">
-        <BasicSequence id="_7W" name="Open color edit dialog">
-          <MouseEventStep clicks="1" client="$(client)"
-                          component="frameJTimeSched.table1_project_|_0:00:00_overall_|_0:00:00_today&amp;3&amp;0"
-                          event="MOUSE_MPRC" id="_7X" modifiers="16"/>
-          <ComponentWaiter client="$(client)" component="dialog2" id="_7Y"/>
-        </BasicSequence>
-        <MouseEventStep clicks="1" client="$(client)" component="button"
-                        event="MOUSE_MPRC" id="_7V" modifiers="16"/>
-      </SetupSequence>
-      <BasicSequence id="_7Z" name="Open color edit dialog">
+    <TestCase id="_8T" name="Edit project color 3 - cancel custom color">
+      <BasicSequence id="_8U" name="Open color edit dialog">
         <MouseEventStep clicks="1" client="$(client)"
                         component="frameJTimeSched.table1_project_|_0:00:00_overall_|_0:00:00_today&amp;3&amp;0"
-                        event="MOUSE_MPRC" id="_7a" modifiers="16"/>
-        <ComponentWaiter client="$(client)" component="dialog2" id="_7b"/>
+                        event="MOUSE_MPRC" id="_8V" modifiers="16"/>
+        <ComponentWaiter client="$(client)" component="dialog2" id="_8W"/>
       </BasicSequence>
-      <BasicSequence id="_7e" name="Remove project's color">
+      <BasicSequence id="_8X" name="Open custom color dialog">
         <MouseEventStep clicks="1" client="$(client)"
-                        component="buttonTipReset_color2" event="MOUSE_MPRC"
-                        id="_7f" modifiers="16"/>
+                        component="buttonTipChoose_custom_color"
+                        event="MOUSE_MPRC" id="_8Y" modifiers="16"/>
+        <ComponentWaiter client="$(client)"
+                         component="dialogChoose_a_custom_color" id="_8Z"/>
       </BasicSequence>
-      <BasicSequence id="_7g" name="Check project doesn't have color">
-        <CheckStringStep checktype="item" client="$(client)"
-                         component="frameJTimeSched.table1_project_|_0:00:00_overall_|_0:00:00_today&amp;3&amp;0"
-                         id="_7h"/>
+      <BasicSequence id="_8h" name="Cancel color change">
+        <MouseEventStep clicks="1" client="$(client)" component="buttonCancel"
+                        event="MOUSE_MPRC" id="_8i" modifiers="16"/>
       </BasicSequence>
-      <CleanupSequence id="_9G" name="Delete test project">
+      <ProcedureCall id="_EZ"
+                     procedure="Check project color is unset (selected project)"/>
+      <CleanupSequence id="_9P" name="Delete test project">
         <MouseEventStep clicks="1" client="$(client)"
                         component="frameJTimeSched.table1_project_|_0:00:00_overall_|_0:00:00_today@Title&amp;0"
-                        event="MOUSE_MPRC" id="_9H" modifiers="16"/>
+                        event="MOUSE_MPRC" id="_9Q" modifiers="16"/>
         <KeyEventStep client="$(client)"
                       component="frameJTimeSched.table1_project_|_0:00:00_overall_|_0:00:00_today"
-                      event="KEY_PTR" id="_9I" keychar="127" keycode="127"
+                      event="KEY_PTR" id="_9R" keychar="127" keycode="127"
                       modifiers="0"/>
       </CleanupSequence>
     </TestCase>
-    <TestCase id="_7i" name="Play/pause project 3">
-      <SetupSequence id="_7j" name="Make project green">
-        <BasicSequence id="_7k" name="Open color edit dialog">
-          <MouseEventStep clicks="1" client="$(client)"
-                          component="frameJTimeSched.table1_project_|_0:00:00_overall_|_0:00:00_today&amp;3&amp;0"
-                          event="MOUSE_MPRC" id="_7l" modifiers="16"/>
-          <ComponentWaiter client="$(client)" component="dialog2" id="_7m"/>
-        </BasicSequence>
-        <MouseEventStep clicks="1" client="$(client)" component="button"
-                        event="MOUSE_MPRC" id="_7n" modifiers="16"/>
-      </SetupSequence>
-      <BasicSequence id="_7o" name="Open color edit dialog">
+    <TestCase id="_8l" name="Edit project color 4 - reset custom color">
+      <BasicSequence id="_8m" name="Open color edit dialog">
         <MouseEventStep clicks="1" client="$(client)"
                         component="frameJTimeSched.table1_project_|_0:00:00_overall_|_0:00:00_today&amp;3&amp;0"
-                        event="MOUSE_MPRC" id="_7p" modifiers="16"/>
-        <ComponentWaiter client="$(client)" component="dialog2" id="_7q"/>
+                        event="MOUSE_MPRC" id="_8n" modifiers="16"/>
+        <ComponentWaiter client="$(client)" component="dialog2" id="_8o"/>
       </BasicSequence>
-      <BasicSequence id="_7x" name="Cancel color change">
-        <KeyEventStep client="$(client)" component="button2" event="KEY_PTR"
-                      id="_7y" keychar="27" keycode="27" modifiers="0"/>
+      <BasicSequence id="_8p" name="Open custom color dialog">
+        <MouseEventStep clicks="1" client="$(client)"
+                        component="buttonTipChoose_custom_color"
+                        event="MOUSE_MPRC" id="_8q" modifiers="16"/>
+        <ComponentWaiter client="$(client)"
+                         component="dialogChoose_a_custom_color" id="_8r"/>
       </BasicSequence>
-      <BasicSequence id="_7z" name="Check project color is green">
-        <CheckStringStep checktype="item" client="$(client)"
-                         component="frameJTimeSched.table1_project_|_0:00:00_overall_|_0:00:00_today&amp;3&amp;0"
-                         id="_7+"/>
+      <BasicSequence id="_8z"
+                     name="Reset custom color selection (goes white)">
+        <MouseEventStep clicks="1" client="$(client)" component="buttonReset"
+                        event="MOUSE_MPRC" id="_8+" modifiers="16"/>
       </BasicSequence>
-      <CleanupSequence id="_9J" name="Delete test project">
+      <BasicSequence id="_95" name="Set custom color (white) (for check)">
+        <MouseEventStep clicks="1" client="$(client)" component="buttonOK"
+                        event="MOUSE_MPRC" id="_96" modifiers="16"/>
+      </BasicSequence>
+      <ProcedureCall id="_EN" procedure="Check project color is white"/>
+      <CleanupSequence id="_9S" name="Delete test project">
         <MouseEventStep clicks="1" client="$(client)"
                         component="frameJTimeSched.table1_project_|_0:00:00_overall_|_0:00:00_today@Title&amp;0"
-                        event="MOUSE_MPRC" id="_9K" modifiers="16"/>
+                        event="MOUSE_MPRC" id="_9T" modifiers="16"/>
         <KeyEventStep client="$(client)"
                       component="frameJTimeSched.table1_project_|_0:00:00_overall_|_0:00:00_today"
-                      event="KEY_PTR" id="_9L" keychar="127" keycode="127"
+                      event="KEY_PTR" id="_9U" keychar="127" keycode="127"
                       modifiers="0"/>
       </CleanupSequence>
     </TestCase>
-    <TestCase id="_7-" name="Play/pause project 4">
+    <TestCase id="_7-" name="Edit project color 5 - set custom color">
       <BasicSequence id="_85" name="Open color edit dialog">
         <MouseEventStep clicks="1" client="$(client)"
                         component="frameJTimeSched.table1_project_|_0:00:00_overall_|_0:00:00_today&amp;3&amp;0"
@@ -697,11 +394,7 @@
         <MouseEventStep clicks="1" client="$(client)" component="buttonOK"
                         event="MOUSE_MPRC" id="_8Q" modifiers="16"/>
       </BasicSequence>
-      <BasicSequence id="_8R" name="Check custom color is set">
-        <CheckStringStep checktype="item" client="$(client)"
-                         component="frameJTimeSched.table1_project_|_0:00:00_overall_|_0:00:00_today&amp;3&amp;0"
-                         id="_8S"/>
-      </BasicSequence>
+      <ProcedureCall id="_ES" procedure="Check project color is custom"/>
       <CleanupSequence id="_9M" name="Delete test project">
         <MouseEventStep clicks="1" client="$(client)"
                         component="frameJTimeSched.table1_project_|_0:00:00_overall_|_0:00:00_today@Title&amp;0"
@@ -712,84 +405,59 @@
                       modifiers="0"/>
       </CleanupSequence>
     </TestCase>
-    <TestCase id="_8T" name="Play/pause project 5">
-      <BasicSequence id="_8U" name="Open color edit dialog">
+    <TestCase id="_Dj" name="Edit project color 6 - remove project color">
+      <SetupSequence id="_7j" name="Make project green">
+        <BasicSequence id="_7k" name="Open color edit dialog">
+          <MouseEventStep clicks="1" client="$(client)"
+                          component="frameJTimeSched.table1_project_|_0:00:00_overall_|_0:00:00_today&amp;3&amp;0"
+                          event="MOUSE_MPRC" id="_7l" modifiers="16"/>
+          <ComponentWaiter client="$(client)" component="dialog2" id="_7m"/>
+        </BasicSequence>
+        <MouseEventStep clicks="1" client="$(client)" component="button"
+                        event="MOUSE_MPRC" id="_7n" modifiers="16"/>
+      </SetupSequence>
+      <BasicSequence id="_Dp" name="Open color edit dialog">
         <MouseEventStep clicks="1" client="$(client)"
                         component="frameJTimeSched.table1_project_|_0:00:00_overall_|_0:00:00_today&amp;3&amp;0"
-                        event="MOUSE_MPRC" id="_8V" modifiers="16"/>
-        <ComponentWaiter client="$(client)" component="dialog2" id="_8W"/>
+                        event="MOUSE_MPRC" id="_Dq" modifiers="16"/>
+        <ComponentWaiter client="$(client)" component="dialog2" id="_Dr"/>
       </BasicSequence>
-      <BasicSequence id="_8X" name="Open custom color dialog">
+      <BasicSequence id="_7e" name="Remove project's color">
         <MouseEventStep clicks="1" client="$(client)"
-                        component="buttonTipChoose_custom_color"
-                        event="MOUSE_MPRC" id="_8Y" modifiers="16"/>
-        <ComponentWaiter client="$(client)"
-                         component="dialogChoose_a_custom_color" id="_8Z"/>
+                        component="buttonTipReset_color2" event="MOUSE_MPRC"
+                        id="_7f" modifiers="16"/>
       </BasicSequence>
-      <BasicSequence id="_8a" name="Select custom color">
-        <MouseEventStep clicks="1" client="$(client)"
-                        component="panelSwatches.panel" event="MOUSE_MPRC"
-                        id="_8b" modifiers="16" x="150" y="51"/>
-      </BasicSequence>
-      <BasicSequence id="_8h" name="Cancel color change">
-        <MouseEventStep clicks="1" client="$(client)" component="buttonCancel"
-                        event="MOUSE_MPRC" id="_8i" modifiers="16"/>
-      </BasicSequence>
-      <BasicSequence id="_8j" name="Check project remains uncolored">
-        <CheckStringStep checktype="item" client="$(client)"
-                         component="frameJTimeSched.table1_project_|_0:00:00_overall_|_0:00:00_today&amp;3&amp;0"
-                         id="_8k"/>
-      </BasicSequence>
-      <CleanupSequence id="_9P" name="Delete test project">
+      <ProcedureCall id="_EY"
+                     procedure="Check project color is unset (selected project)"/>
+      <CleanupSequence id="_Dw" name="Delete test project">
         <MouseEventStep clicks="1" client="$(client)"
                         component="frameJTimeSched.table1_project_|_0:00:00_overall_|_0:00:00_today@Title&amp;0"
-                        event="MOUSE_MPRC" id="_9Q" modifiers="16"/>
+                        event="MOUSE_MPRC" id="_Dx" modifiers="16"/>
         <KeyEventStep client="$(client)"
                       component="frameJTimeSched.table1_project_|_0:00:00_overall_|_0:00:00_today"
-                      event="KEY_PTR" id="_9R" keychar="127" keycode="127"
+                      event="KEY_PTR" id="_Dy" keychar="127" keycode="127"
                       modifiers="0"/>
       </CleanupSequence>
     </TestCase>
-    <TestCase id="_8l" name="Play/pause project 6">
-      <BasicSequence id="_8m" name="Open color edit dialog">
+    <TestCase id="_Dz" name="Edit project color 7 - select color">
+      <BasicSequence id="_D+" name="Open color edit dialog">
         <MouseEventStep clicks="1" client="$(client)"
                         component="frameJTimeSched.table1_project_|_0:00:00_overall_|_0:00:00_today&amp;3&amp;0"
-                        event="MOUSE_MPRC" id="_8n" modifiers="16"/>
-        <ComponentWaiter client="$(client)" component="dialog2" id="_8o"/>
+                        event="MOUSE_MPRC" id="_D-" modifiers="16"/>
+        <ComponentWaiter client="$(client)" component="dialog2" id="_E0"/>
       </BasicSequence>
-      <BasicSequence id="_8p" name="Open custom color dialog">
-        <MouseEventStep clicks="1" client="$(client)"
-                        component="buttonTipChoose_custom_color"
-                        event="MOUSE_MPRC" id="_8q" modifiers="16"/>
-        <ComponentWaiter client="$(client)"
-                         component="dialogChoose_a_custom_color" id="_8r"/>
+      <BasicSequence id="_7I" name="Select green color">
+        <MouseEventStep clicks="1" client="$(client)" component="button"
+                        event="MOUSE_MPRC" id="_7J" modifiers="16"/>
       </BasicSequence>
-      <BasicSequence id="_8s" name="Select custom color">
-        <MouseEventStep clicks="1" client="$(client)"
-                        component="panelSwatches.panel" event="MOUSE_MPRC"
-                        id="_8t" modifiers="16" x="150" y="51"/>
-      </BasicSequence>
-      <BasicSequence id="_8z"
-                     name="Reset custom color selection (goes white)">
-        <MouseEventStep clicks="1" client="$(client)" component="buttonReset"
-                        event="MOUSE_MPRC" id="_8+" modifiers="16"/>
-      </BasicSequence>
-      <BasicSequence id="_95" name="Set custom color (white) (for check)">
-        <MouseEventStep clicks="1" client="$(client)" component="buttonOK"
-                        event="MOUSE_MPRC" id="_96" modifiers="16"/>
-      </BasicSequence>
-      <BasicSequence id="_97" name="Check white is selected">
-        <CheckStringStep checktype="item" client="$(client)"
-                         component="frameJTimeSched.table1_project_|_0:00:00_overall_|_0:00:00_today&amp;3&amp;0"
-                         id="_98"/>
-      </BasicSequence>
-      <CleanupSequence id="_9S" name="Delete test project">
+      <ProcedureCall id="_ET" procedure="Check project color is green"/>
+      <CleanupSequence id="_E5" name="Delete test project">
         <MouseEventStep clicks="1" client="$(client)"
                         component="frameJTimeSched.table1_project_|_0:00:00_overall_|_0:00:00_today@Title&amp;0"
-                        event="MOUSE_MPRC" id="_9T" modifiers="16"/>
+                        event="MOUSE_MPRC" id="_E6" modifiers="16"/>
         <KeyEventStep client="$(client)"
                       component="frameJTimeSched.table1_project_|_0:00:00_overall_|_0:00:00_today"
-                      event="KEY_PTR" id="_9U" keychar="127" keycode="127"
+                      event="KEY_PTR" id="_E7" keychar="127" keycode="127"
                       modifiers="0"/>
       </CleanupSequence>
     </TestCase>
@@ -811,6 +479,51 @@
     </TestCase>
   </TestSet>
   <PackageRoot id="_3">
+    <Procedure id="_EB" name="Check project color is green">
+      <BasicSequence id="_7K" name="Check project color is green">
+        <CheckImageStep client="$(client)"
+                        component="frameJTimeSched.table1_project_|_0:00:00_overall_|_0:00:00_today&amp;3&amp;0"
+                        id="_EA">
+          <ImageNode height="21" name="checkimage" width="21">
+            <webp size="58">UaRzgjAAv(*wpBQPT?37EAAAxXCtCAg"r}WL~~[{]|YVZlE"YE_[O('{(GB5X4+'zz:vTAA</webp>
+          </ImageNode>
+        </CheckImageStep>
+      </BasicSequence>
+    </Procedure>
+    <Procedure id="_EK" name="Check project color is white">
+      <BasicSequence id="_EL" name="Check project color is white">
+        <CheckImageStep client="$(client)"
+                        component="frameJTimeSched.table1_project_|_0:00:00_overall_|_0:00:00_today&amp;3&amp;0"
+                        id="_EM">
+          <ImageNode height="21" name="checkimage" width="21">
+            <webp size="38">UaRzaVAAv(*wpBQPT?2OCAAAxXCtCAQ"t(j_3}=WB54FAA</webp>
+          </ImageNode>
+        </CheckImageStep>
+      </BasicSequence>
+    </Procedure>
+    <Procedure id="_EP" name="Check project color is custom">
+      <BasicSequence id="_EQ" name="Check project color is pink">
+        <CheckImageStep client="$(client)"
+                        component="frameJTimeSched.table1_project_|_0:00:00_overall_|_0:00:00_today&amp;3&amp;0"
+                        id="_ER">
+          <ImageNode height="21" name="checkimage" width="21">
+            <webp size="56">UaRz{hAAv(*wpBQPT?JlEAAAxXCtCAg""~~~]}|}5K6SCtYE_[O('{(GB5X4+'zz:vTA</webp>
+          </ImageNode>
+        </CheckImageStep>
+      </BasicSequence>
+    </Procedure>
+    <Procedure id="_EV"
+               name="Check project color is unset (selected project)">
+      <BasicSequence id="_EW" name="Check project color is blue">
+        <CheckImageStep client="$(client)"
+                        component="frameJTimeSched.table1_project_|_0:00:00_overall_|_0:00:00_today&amp;3&amp;0"
+                        id="_EX">
+          <ImageNode height="21" name="checkimage" width="21">
+            <webp size="38">UaRzaVAAv(*wpBQPT?2OCAAAxXCtCAQ"j%2mx}=WB54FAA</webp>
+          </ImageNode>
+        </CheckImageStep>
+      </BasicSequence>
+    </Procedure>
     <Procedure id="_9x" name="Add test project">
       <BasicSequence id="_34" name="Add test project">
         <MouseEventStep clicks="1" client="$(client)"
@@ -822,6 +535,20 @@
         </TextInputStep>
         <KeyEventStep client="$(client)" component="frameJTimeSched.text"
                       event="KEY_PTR" id="_37" keychar="10" keycode="10"
+                      modifiers="0"/>
+      </BasicSequence>
+    </Procedure>
+    <Procedure id="_Ce" name="Add test project 2">
+      <BasicSequence id="_Cf" name="Add test project 2">
+        <MouseEventStep clicks="1" client="$(client)"
+                        component="buttonAdd_project" event="MOUSE_MPRC"
+                        id="_Cg" modifiers="16"/>
+        <TextInputStep clear="true" client="$(client)"
+                       component="frameJTimeSched.text" id="_Ch">
+          <text>test project 2</text>
+        </TextInputStep>
+        <KeyEventStep client="$(client)" component="frameJTimeSched.text"
+                      event="KEY_PTR" id="_Ci" keychar="10" keycode="10"
                       modifiers="0"/>
       </BasicSequence>
     </Procedure>
@@ -871,7 +598,7 @@
             <ClientWaiter client="$(client)" id="_2w"/>
           </IfSequence>
         </BasicSequence>
-        <ProcedureCall id="_9z" procedure="Add test project"/>
+        <ProcedureCall id="_Ck" procedure="Add test project"/>
       </SetupSequence>
       <CleanupSequence id="_2x" name="Teardown">
         <BasicSequence id="_3G" name="Close app">
