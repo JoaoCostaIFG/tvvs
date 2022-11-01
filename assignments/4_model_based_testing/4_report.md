@@ -25,14 +25,13 @@ The most important aspects of this use-case are:
 - When a user **adds** a project while **adding another one** i.e., still
   editing its name, the name change is confirmed and the user is prompted for
   the name of the new project;
-- When a user minimizes the application to the tray area while setting a new
-  project's name, the process is resumed upon maximizing the application window.
+- Upon creating a new project, the user is immediately prompted to edit 
+the project's name. However, there is the possibility to cancel this action 
+(the project will keep the default name).
 
-We decided to represent the application's end-state as the moment the
-application is closed. This state and the transitions to it are not part of the
-tests.
-
-The state that represents the "closed application" (the final state) is ommitted since every state has a transition to it. 
+We decided that the application's end-state is the moment the
+application is closed. However, we chose to ommit it since every 
+state has a transition to it. 
 
 ![Use-case 1's state machine](./state_machines/state_machine_1.png)
 
@@ -40,13 +39,7 @@ The state that represents the "closed application" (the final state) is ommitted
 
 ![Use-case 1's transition tree](./transition_trees/transition_tree_1.png)
 
-In contrast with the other branches of the tree, the first branch tests
-something that doesn't appear related to the use-case: open the application,
-minimize it, and then maximize it again. This indicates that the state
-**_MinimizedToTray_** probably shouldn't exist as it is not related to the
-use-case of _adding a new project_.
-
-With 5 leaf nodes in the tree, we need to create 5 tests to cover all states and
+With 3 leaf nodes in the tree, we need to create 3 tests to cover all states and
 transitions of the system.
 
 #### Transition table
