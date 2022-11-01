@@ -1,17 +1,11 @@
 @startuml
 skinparam linetype polyline
 
-[Dashboard 0] -d-> [MinimizedToTray 0] : Minimize
-[Dashboard 0] -d-> [PlayingProject 0] : StartProject\n[nº projects > 0]
+[Dashboard 0] -d-> [SelectedProject 0] 
 
-[MinimizedToTray 0] -d-> [Dashboard 1] : Maximize\n[current project is not playing]
-[MinimizedToTray 0] -d-> [MinimizedToTray 1] : ToggleCurrentProject\n[selected a current project]
-[MinimizedToTray 0] -d-> [PlayingProject 1] : Maximize\n[current project is playing]
+[SelectedProject 0] -d-> [SelectedProject 1] 
+[SelectedProject 0] -d-> [DeleteProject 0] 
 
-[PlayingProject 0] -d-> [MinimizedToTray 2] : Minimize 
-[PlayingProject 0] -d-> [Dashboard 2] : PauseProject\n[selected project == current project]
-[PlayingProject 0] -d-> [Dashboard 3] : DeleteProject \n[deleted project == current project]
-[PlayingProject 0] -d-> [PlayingProject 2] : StartProject\n[selected project != current project]
-[PlayingProject 0] -d-> [PlayingProject 3] : DeleteProject\n[deleted project != current project]
+[DeleteProject 0] -d-> [Dashboard 1] 
 
 @enduml
