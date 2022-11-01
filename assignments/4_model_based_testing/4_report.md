@@ -148,7 +148,7 @@ state would have a transition to it.
 With 6 leaf nodes in the tree, we need to create 6 tests to cover all states and
 transitions of the system.
 
-
+Note: The first test case is equal to the first test case of the second use-case, so the test implementation will be the same.
 
 #### Transition table
 
@@ -217,4 +217,4 @@ The test fails, because **QF-Test** isn't able to deliver the event.
 This feedback was written for the QF-Test tool usage under Arch linux. 
 Overall, using QF-Test tool was a positive experience. It was easy to learn how to start using the tool by making simple tests. The application has an intuitive interface, but in order to take the most advantage of the tool and to find out all features, we had to read the documentation and watch some tutorials.
 
-The tool was really useful for Model-based testing, but there were some problems along the way that mainly due to bugs. The application we were testing had some features that involved the icon tray menu. Recorded actions that involved interaction with the tray icon were not reliable since they would only work sometimes. Another difficulty that arose was the verification of visual clues. We wanted to test whether some item was selected or with a different color, but it took a bit of time to understand that the tool was not working as intended. We had to go through a comple
+The tool was really useful for Model-based testing, but there were some problems along the way that mainly due to bugs. The application we were testing had some features that involved the icon tray menu. Recorded actions that involved interaction with the tray icon were not reliable since they would only work sometimes. Another difficulty that arose was the verification of visual clues. We wanted to test whether some item was selected or with a different color, but it took a bit of time to understand that the tool was not working as intended. We had to go through a complex setup in order to be able to verify images.
