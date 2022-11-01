@@ -6,9 +6,8 @@ hide empty description
 Dashboard --> SelectedProject : SelectProject\n[nº projects > 0]
 
 SelectedProject --> SelectedProject : SelectProject
-SelectedProject --> PlayingProject : PlayProject\n[selected project is not playing]
+SelectedProject --> DeleteProject : ClickDeleteButton
 
-PlayingProject --> PlayingProject : PlayProject\n[selected project is not playing]
-PlayingProject --> SelectedProject : PauseProject\n[selected project is playing]
+DeleteProject --> Dashboard : BackToIdle
 
 @enduml

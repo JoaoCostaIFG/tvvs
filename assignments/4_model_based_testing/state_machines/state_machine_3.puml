@@ -8,9 +8,9 @@ Dashboard --> SelectedProject : SelectProject\n[nº projects > 0]
 SelectedProject --> SelectedProject : SelectProject
 SelectedProject --> EditColor : EditProjectColor
 
-EditColor --> Dashboard : SelectColor
-EditColor --> Dashboard : RemoveColor
-EditColor --> Dashboard : CancelColor
+EditColor --> Dashboard : CancelColorChange
+EditColor --> SaveColor : SelectColorChange
+EditColor --> SaveColor : RemoveColorChange
 EditColor --> CustomColor : GoCustomColor
 
 CustomColor --> Dashboard : SelectColor
