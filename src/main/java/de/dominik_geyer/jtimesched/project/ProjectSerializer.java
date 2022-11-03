@@ -51,7 +51,6 @@ public class ProjectSerializer {
 	public ProjectSerializer(String filename) {
 		this.filename = filename;
 	}
-	
 
 	// Calling this method from a shutdown hook won't work because
 	// SAXTransformerFactory which uses the Services API which might
@@ -71,9 +70,10 @@ public class ProjectSerializer {
 		//serializer.setOutputProperty(OutputKeys.DOCTYPE_SYSTEM, "projects.dtd");
 		serializer.setOutputProperty(OutputKeys.INDENT, "yes");
 		hd.setResult(streamResult);
+
 		hd.startDocument();
 		AttributesImpl atts = new AttributesImpl();
-		
+
 		addXmlAttribute(atts, "version", JTimeSchedApp.getAppVersion());
 		startXmlElement(hd, "projects", atts);
 
@@ -110,9 +110,9 @@ public class ProjectSerializer {
 			endXmlElement(hd, "project");
 		}
 		endXmlElement(hd, "projects");
-		
+
 		hd.endDocument();
-		
+
 		out.flush();
 		out.close();
 	}
