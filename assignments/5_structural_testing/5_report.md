@@ -10,3 +10,7 @@
 ![coverage_at_start](img/coverage_at_start.png)
 
 ![coverage_project_package](img/coverage_project_package.png)
+
+### Excluding GUI package
+
+![coverage_without_gui](img/coverage_without_gui.png)

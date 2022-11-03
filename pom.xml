@@ -146,6 +146,11 @@
                   </goals>
                 </execution>
               </executions>
+              <configuration>
+                <excludes>
+                  <exclude>**/gui/**</exclude>
+                </excludes>
+               </configuration>
             </plugin>
         </plugins>
     </build>
