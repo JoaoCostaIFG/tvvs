@@ -11,18 +11,27 @@ import javax.xml.transform.TransformerConfigurationException;
 import java.awt.*;
 import java.io.*;
 import java.nio.file.Files;
-import java.nio.file.OpenOption;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 
 public class ProjectSerializerTest {
 
     private File tmpFile;
     private ProjectSerializer projectSerializer;
+
+    public static boolean projectsEqual(Object o1, Object o2) {
+        if (o1 == o2) return true;
+        if (o1 == null || o2 == null || o1.getClass() != o2.getClass()) return false;
+        Project p1 = (Project) o1;
+        Project p2 = (Project) o2;
+        return p1.isChecked() == p2.isChecked() && p1.getSecondsOverall() == p2.getSecondsOverall() && p1.getSecondsToday() == p2.getSecondsToday() && p1.getQuotaOverall() == p2.getQuotaOverall() && p1.getQuotaToday() == p2.getQuotaToday() && p1.isRunning() == p2.isRunning() && p1.getTitle().equals(p2.getTitle()) && p1.getNotes().equals(p2.getNotes()) && p1.getTimeCreated().equals(p2.getTimeCreated()) && Objects.equals(p1.getColor(), p2.getColor()) && p1.getTimeStart().equals(p2.getTimeStart());
+    }
 
     @BeforeEach
     public void setup() {
@@ -46,7 +55,7 @@ public class ProjectSerializerTest {
 
         // Then
         assertEquals(givenProjects.size(), gottenProjects.size());
-        assertEquals(p, gottenProjects.get(0));
+        assertTrue(projectsEqual(p, gottenProjects.get(0)));
     }
 
     public static Stream<Arguments> readWriteXmlInputs() {
@@ -86,7 +95,7 @@ public class ProjectSerializerTest {
         assertEquals(givenProjects.size(), gottenProjects.size());
         // it sets running projects as not running when saving
         runningProject.setRunning(false);
-        assertEquals(runningProject, gottenProjects.get(0));
+        assertTrue(projectsEqual(runningProject, gottenProjects.get(0)));
     }
 
     @Test
@@ -107,7 +116,7 @@ public class ProjectSerializerTest {
 
         // Then
         assertEquals(givenProjects.size(), gottenProjects.size());
-        assertEquals(runningProject, gottenProjects.get(0));
+        assertTrue(projectsEqual(runningProject, gottenProjects.get(0)));
     }
 
     @Test
@@ -127,7 +136,7 @@ public class ProjectSerializerTest {
 
         // Then
         assertEquals(givenProjects.size(), gottenProjects.size());
-        assertEquals(p, gottenProjects.get(0));
+        assertTrue(projectsEqual(p, gottenProjects.get(0)));
     }
 
     @Test
@@ -147,7 +156,7 @@ public class ProjectSerializerTest {
 
         // Then
         assertEquals(givenProjects.size(), gottenProjects.size());
-        assertEquals(p, gottenProjects.get(0));
+        assertTrue(projectsEqual(p, gottenProjects.get(0)));
     }
 
     @AfterEach

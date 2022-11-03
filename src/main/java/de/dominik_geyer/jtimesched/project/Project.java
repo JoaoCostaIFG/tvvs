@@ -232,17 +232,4 @@ public class Project {
 				secondsOverall, secondsToday,
 				(checked) ? "yes" : "no");
 	}
-
-	@Override
-	public boolean equals(Object o) {
-		if (this == o) return true;
-		if (o == null || getClass() != o.getClass()) return false;
-		Project project = (Project) o;
-		return checked == project.checked && secondsOverall == project.secondsOverall && secondsToday == project.secondsToday && quotaOverall == project.quotaOverall && quotaToday == project.quotaToday && running == project.running && title.equals(project.title) && notes.equals(project.notes) && timeCreated.equals(project.timeCreated) && Objects.equals(color, project.color) && timeStart.equals(project.timeStart);
-	}
-
-	@Override
-	public int hashCode() {
-		return Objects.hash(title, notes, timeCreated, color, checked, secondsOverall, secondsToday, quotaOverall, quotaToday, running, timeStart);
-	}
 }

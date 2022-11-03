@@ -1,9 +1,7 @@
 package de.dominik_geyer.jtimesched.project;
 
 import de.dominik_geyer.jtimesched.JTimeSchedApp;
-import de.dominik_geyer.jtimesched.gui.table.ProjectTable;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -25,6 +23,9 @@ public class ProjectTableModelTest {
 
     @BeforeAll
     public static void setUp() {
+        // TODO: this should handled better (avoid null pointer exception during tests)
+        JTimeSchedApp.setLogger(Logger.getLogger("test log"));
+
         proj1 = new Project("1");
         proj2 = new Project("2");
     }
@@ -98,7 +99,6 @@ public class ProjectTableModelTest {
     @ParameterizedTest
     @MethodSource("setValueAtInputs")
     public void setValueAtTest(int row, int column, Object value, ProjectGetFunction expectedFunc) {
-        JTimeSchedApp.setLogger(Logger.getGlobal());
         // given
         Project p = new Project();
         ProjectTableModel projectTableModel = new ProjectTableModel(new ArrayList<>(Collections.singletonList(p)));
@@ -146,5 +146,93 @@ public class ProjectTableModelTest {
         // then
         // doesn't actually set anything because the column isn't settable
         assertEquals(false, p.isRunning());
+    }
+
+    @Test
+    public void addProjectTest() {
+        // Given
+        ArrayList<Project> projects = new ArrayList<>();
+        ProjectTableModel projectTableModel = new ProjectTableModel(projects);
+
+        // When
+        projectTableModel.addProject(proj1);
+
+        // Then
+        assertEquals(1, projectTableModel.getRowCount());
+        assertEquals(proj1, projects.get(0));
+    }
+
+    @Test
+    public void removeProjectTest() {
+        // Given
+        ArrayList<Project> projects = new ArrayList<>();
+        projects.add(proj1);
+        ProjectTableModel projectTableModel = new ProjectTableModel(projects);
+
+        // When
+        projectTableModel.removeProject(0);
+
+        // Then
+        assertEquals(0, projectTableModel.getRowCount());
+        assertEquals(0, projects.size());
+    }
+
+    @ParameterizedTest
+    @MethodSource("getColumnClassInputs")
+    public void getColumnClassTest(int column, Class<?> expected) {
+        // given
+        ProjectTableModel projectTableModel = new ProjectTableModel(new ArrayList<>());
+
+        // when
+        Object result = projectTableModel.getColumnClass(column);
+
+        // then
+        assertEquals(expected, result);
+    }
+
+    public static Stream<Arguments> getColumnClassInputs() {
+        return Stream.of(
+                Arguments.arguments(ProjectTableModel.COLUMN_COLOR, Color.class),
+                Arguments.arguments(ProjectTableModel.COLUMN_CREATED, Date.class),
+                Arguments.arguments(ProjectTableModel.COLUMN_TIMEOVERALL, Integer.class),
+                Arguments.arguments(ProjectTableModel.COLUMN_TIMETODAY, Integer.class),
+                Arguments.arguments(ProjectTableModel.COLUMN_CHECK, Boolean.class),
+                Arguments.arguments(ProjectTableModel.COLUMN_ACTION_DELETE, Boolean.class),
+                Arguments.arguments(ProjectTableModel.COLUMN_ACTION_STARTPAUSE, Boolean.class),
+                Arguments.arguments(ProjectTableModel.COLUMN_TITLE, String.class),
+                Arguments.arguments(-1, String.class)
+        );
+    }
+
+    @ParameterizedTest
+    @MethodSource("isCellEditableInputs")
+    public void isCellEditableTest(Project p, int column, boolean expected) {
+        // given
+        ProjectTableModel projectTableModel = new ProjectTableModel(new ArrayList<>(Collections.singletonList(p)));
+
+        // when
+        boolean result = projectTableModel.isCellEditable(0, column);
+
+        // then
+        assertEquals(expected, result);
+    }
+
+    public static Stream<Arguments> isCellEditableInputs() {
+        Project runningProj = new Project();
+        runningProj.setRunning(true);
+
+        return Stream.of(
+                Arguments.arguments(proj1, ProjectTableModel.COLUMN_CHECK, true),
+                Arguments.arguments(proj1, ProjectTableModel.COLUMN_TITLE, true),
+                Arguments.arguments(proj1, ProjectTableModel.COLUMN_COLOR, true),
+                Arguments.arguments(proj1, ProjectTableModel.COLUMN_CREATED, true),
+                Arguments.arguments(proj1, ProjectTableModel.COLUMN_TIMEOVERALL, true),
+                Arguments.arguments(runningProj, ProjectTableModel.COLUMN_TIMEOVERALL, false),
+                Arguments.arguments(proj1, ProjectTableModel.COLUMN_TIMETODAY, true),
+                Arguments.arguments(runningProj, ProjectTableModel.COLUMN_TIMETODAY, false),
+                Arguments.arguments(proj1, ProjectTableModel.COLUMN_ACTION_DELETE, false),
+                Arguments.arguments(proj1, ProjectTableModel.COLUMN_ACTION_STARTPAUSE, false),
+                Arguments.arguments(proj1, -1, false)
+        );
     }
 }
