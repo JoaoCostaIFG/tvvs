@@ -33,11 +33,11 @@ We decided that the application's end-state is the moment the
 application is closed. However, we chose to omit it since every 
 state would have a transition to it. 
 
-![Use case 1's state machine](./state_machines/state_machine_1.png)
+<img src="./state_machines/state_machine_1.png" alt="Use case 1's state machine" style="zoom:75%;" />
 
 #### Transition tree
 
-![Use case 1's transition tree](./transition_trees/transition_tree_1.png)
+<img src="./transition_trees/transition_tree_1.png" alt="Use case 1's transition tree" style="zoom:75%;" />
 
 With 3 leaf nodes in the tree, we need to create 3 tests to cover all states and
 transitions of the system.
@@ -83,11 +83,11 @@ We decided that the application's end-state is the moment the
 application is closed. However, we chose to omit it since every 
 state would have a transition to it. 
 
-![Use case 2's state machine](./state_machines/state_machine_2.png)
+<img src="./state_machines/state_machine_2.png" alt="Use case 2's state machine" style="zoom:75%;" />
 
 #### Transition tree
 
-![Use case 2's transition tree](./transition_trees/transition_tree_2.png)
+<img src="./transition_trees/transition_tree_2.png" alt="Use case 2's transition tree" style="zoom:70%;" />
 
 With 2 leaf nodes in the tree, we need to create 2 tests to cover all states and
 transitions of the system.
@@ -139,11 +139,11 @@ We decided that the application's end-state is the moment the
 application is closed. However, we chose to omit it since every 
 state would have a transition to it. 
 
-![Use case 3's state machine](./state_machines/state_machine_3.png)
+<img src="./state_machines/state_machine_3.png" alt="Use case 3's state machine" style="zoom:70%;" />
 
 #### Transition tree
 
-![Use case 3's transition tree](./transition_trees/transition_tree_3.png)
+<img src="./transition_trees/transition_tree_3.png" alt="Use case 3's transition tree" style="zoom:67%;" />
 
 With 6 leaf nodes in the tree, we need to create 6 tests to cover all states and
 transitions of the system.
