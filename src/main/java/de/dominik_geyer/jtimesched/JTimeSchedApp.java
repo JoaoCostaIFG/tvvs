@@ -78,7 +78,7 @@ public class JTimeSchedApp {
 		
 		
 		// initialize logger
-		JTimeSchedApp.LOGGER = Logger.getLogger("JTimeSched");
+		setLogger(Logger.getLogger("JTimeSched"));
 		JTimeSchedApp.LOGGER.setLevel(Level.ALL);
 		
 		try {
@@ -130,6 +130,9 @@ public class JTimeSchedApp {
 		return false;
 	}
 
+	public static void setLogger(Logger logger) {
+		LOGGER = logger;
+	}
 
 	public static Logger getLogger() {
 		return LOGGER;
