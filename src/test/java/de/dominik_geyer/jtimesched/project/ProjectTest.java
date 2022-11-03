@@ -9,8 +9,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 import java.util.Date;
 import java.util.stream.Stream;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class ProjectTest {
     private static final int secondsToday = 10;
@@ -134,5 +133,67 @@ public class ProjectTest {
         // beforeTime <= getTimeStart <= afterTime
         assertTrue(beforeTime.compareTo(this.project.getTimeStart()) <= 0); // before or equal
         assertTrue(afterTime.compareTo(this.project.getTimeStart()) >= 0); // after or equal
+    }
+
+    @Test
+    public void getElapsedSecondsNotRunningTest() {
+        // given
+        this.project.setRunning(false);
+
+        // when + then
+        assertThrows(ProjectException.class, () -> this.project.getElapsedSeconds());
+    }
+
+    @Test
+    public void startRunningTest() {
+        // given
+        this.project.setRunning(true);
+
+        // when + then
+        assertThrows(ProjectException.class, () -> this.project.start());
+    }
+
+    @Test
+    public void pauseNotRunningTest() {
+        // given
+        this.project.setRunning(false);
+
+        // when + then
+        assertThrows(ProjectException.class, () -> this.project.pause());
+    }
+
+    @Test
+    public void toggleNotRunningTest() {
+        // given
+        this.project.setRunning(false);
+
+        // when
+        this.project.toggle();
+
+        // then
+        assertTrue(this.project.isRunning());
+    }
+
+    @Test
+    public void toggleRunningTest() {
+        // given
+        this.project.setRunning(true);
+
+        // when
+        this.project.toggle();
+
+        // then
+        assertFalse(this.project.isRunning());
+    }
+
+    @Test
+    public void resetTodayTest() {
+        // when
+        this.project.resetToday();
+
+        // then
+        assertEquals(0, this.project.getSecondsToday());
+        assertEquals(0, this.project.getQuotaToday());
+        assertTrue(this.project.getTimeStart().compareTo(new Date()) <= 0);
     }
 }

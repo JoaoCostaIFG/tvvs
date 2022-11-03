@@ -235,4 +235,34 @@ public class ProjectTableModelTest {
                 Arguments.arguments(proj1, -1, false)
         );
     }
+
+    /**
+     * Here to meet coverage quota
+     */
+    @Test
+    public void getColumnCountTest() {
+        // given
+        ProjectTableModel projectTableModel = new ProjectTableModel(new ArrayList<>());
+
+        // when
+        int result = projectTableModel.getColumnCount();
+
+        // then
+        assertEquals(8, result);
+    }
+
+    /**
+     * Here to meet coverage quota
+     */
+    @Test
+    public void getColumnNameTest() {
+        // given
+        ProjectTableModel projectTableModel = new ProjectTableModel(new ArrayList<>());
+
+        // when
+        String result = projectTableModel.getColumnName(ProjectTableModel.COLUMN_TITLE);
+
+        // then
+        assertEquals("Title", result);
+    }
 }
