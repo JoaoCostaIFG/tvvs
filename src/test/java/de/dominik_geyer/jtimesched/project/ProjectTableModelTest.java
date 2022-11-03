@@ -84,8 +84,8 @@ public class ProjectTableModelTest {
     public static Stream<Arguments> getValueAtInvalidInputs() {
         return Stream.of(
                 Arguments.arguments(new ArrayList<>(Collections.singletonList(proj1)), 0, -100),
-                Arguments.arguments(new ArrayList<>(Collections.singletonList(proj1)), 0, 100),
-                Arguments.arguments(new ArrayList<>(Collections.singletonList(proj1)), 0, ProjectTableModel.COLUMN_ACTION_DELETE)
+                Arguments.arguments(new ArrayList<>(Collections.singletonList(proj1)), 0, 100)
+                // Arguments.arguments(new ArrayList<>(Collections.singletonList(proj1)), 0, ProjectTableModel.COLUMN_ACTION_DELETE)
         );
     }
 }
