@@ -127,7 +127,7 @@ public class ProjectSerializerTest {
 
         // When
         projectSerializer.writeXml(givenProjects);
-        // set project running (on written file)
+        // remove quota line
         List<String> xml = Files.readAllLines(this.tmpFile.toPath());
         xml.remove(9);
         Files.write(this.tmpFile.toPath(), xml);
@@ -147,7 +147,7 @@ public class ProjectSerializerTest {
 
         // When
         projectSerializer.writeXml(givenProjects);
-        // set project running (on written file)
+        // remove notes line
         List<String> xml = Files.readAllLines(this.tmpFile.toPath());
         xml.remove(3);
         Files.write(this.tmpFile.toPath(), xml);
