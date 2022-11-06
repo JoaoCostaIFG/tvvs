@@ -44,8 +44,6 @@ This section provides a brief description and the result of each unit test we de
 #### ProjectException.java
 #### ProjectSerializer.java
 
-*Note*: For the implementation of the following tests, we added two new methods to the *Project* class: *equals(Object o)* and *hashCode()*. These two methods supported the comparison of projects necessary for tests regarding the project serializer. 
-
 1. **Read/Write XML**
     - **Description**: This parameterized test receives as input different projects: one default project, a checked project, a project with a set color, a project with notes and another one with a null title. Then, the tests are saved in an *XML* file, and recovered from the same file. The test succeeds if the projects are equal (read and write operations were correct). 
 
@@ -64,7 +62,6 @@ This section provides a brief description and the result of each unit test we de
     
 **Result**: All tests pass successfully.
 #### ProjectTableModel.java
-*Note*: Set logger
 
 1. **Set value**
     - **Description**: The test starts by creating a _ProjectTableModel_ that contains a single project. Then, for each settable value of a project (title, date, color, etc), this parametrized test receives different values as inputs and checks if the vallue was correctly set. 
