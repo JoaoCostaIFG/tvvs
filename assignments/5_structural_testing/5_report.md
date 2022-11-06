@@ -122,8 +122,6 @@ This section provides a brief description and the result of each unit test we de
     - **Description**: The test created a null date and attempts to parse it. The test succeeds if it throws a _NullPointerException_.
 ### Code coverage achieved
 
-The following image contains the final results of our work. We were able to successfully achieve ??% of line coverage and ??% of branch coverage. 
-
-o irao gosta (muito) da nach
+The following image contains the final results of our work. We were able to successfully achieve 89% of line coverage and 90% of branch coverage. 
 
 ![coverage_without_gui](img/coverage_without_gui.png)
