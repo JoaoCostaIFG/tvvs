@@ -41,7 +41,28 @@ This section provides a brief description and the result of each unit test we de
 ### de.dominik_geyer.jtimesched.project tests
 
 #### Project.java
-#### ProjectException.java
+
+- **Setup**: Before each test a new project is created, its number of seconds today is set to 10 and the number of seconds overall is set to 30.
+
+1. **Get elapsed seconds not running project**
+    - **Description**: This test stops the project and tries to access the project's number of elapsed seconds. The test succeeds if a _ProjectException_ is thrown. 
+
+2. **Start a running project**
+    - **Description**: This test starts the project and attempts to start it again. The test succeeds if a _ProjectException_ is thrown.
+
+3. **Pause a paused project**
+    - **Description**: This test pauses the project and attempts to pause it again. The test succeeds if a _ProjectException_ is thrown. 
+
+4. **Toggle stopped project**
+    - **Description**: Given a paused project, this test toggles the project and checks if the state of the project changed. The test succeeds if a project ended up in the _running_ state. 
+
+5. **Toggle running project**
+    - **Description**: Given a running project, this test toggles the project and checks if the state of the project changed. The test succeeds if a project ended up in the _paused_ state. 
+
+6. **Reset today seconds**
+    - **Description**: This test tries to reset a project for today. The test succeeds if it was successfully reset: number of seconds today is 0, quota for today is 0, and the start time is equal to the moment the test executes.  
+
+**Result**: All tests pass successfully.
 #### ProjectSerializer.java
 
 1. **Read/Write XML**
@@ -93,6 +114,12 @@ This section provides a brief description and the result of each unit test we de
 **Result**: All tests pass successfully.
 
 #### ProjectTime.java
+
+1. **Parse date**
+    - **Description**: The test created a date as a formatted _String_ and attempts to parse it. The test succeeds if it correctly parses the date.
+
+2. **Parse null date**
+    - **Description**: The test created a null date and attempts to parse it. The test succeeds if it throws a _NullPointerException_.
 ### Code coverage achieved
 
 The following image contains the final results of our work. We were able to successfully achieve ??% of line coverage and ??% of branch coverage. 
