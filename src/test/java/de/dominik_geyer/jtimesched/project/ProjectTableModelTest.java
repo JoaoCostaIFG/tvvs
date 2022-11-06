@@ -134,7 +134,7 @@ public class ProjectTableModelTest {
     }
 
     @Test
-    public void setValueAtInvalidColunmTest() {
+    public void setValueAtInvalidColumnTest() {
         // given
         Project p = new Project();
         ProjectTableModel projectTableModel = new ProjectTableModel(new ArrayList<>(Collections.singletonList(p)));
@@ -254,15 +254,29 @@ public class ProjectTableModelTest {
     /**
      * Here to meet coverage quota
      */
-    @Test
-    public void getColumnNameTest() {
+    @ParameterizedTest
+    @MethodSource("getColumnNameInputs")
+    public void getColumnNameTest(int column, String expectedName) {
         // given
         ProjectTableModel projectTableModel = new ProjectTableModel(new ArrayList<>());
 
         // when
-        String result = projectTableModel.getColumnName(ProjectTableModel.COLUMN_TITLE);
+        String result = projectTableModel.getColumnName(column);
 
         // then
-        assertEquals("Title", result);
+        assertEquals(expectedName, result);
+    }
+
+    public static Stream<Arguments> getColumnNameInputs() {
+        return Stream.of(
+                Arguments.arguments(ProjectTableModel.COLUMN_ACTION_DELETE, ""),
+                Arguments.arguments(ProjectTableModel.COLUMN_CHECK, ""),
+                Arguments.arguments(ProjectTableModel.COLUMN_TITLE, "Title"),
+                Arguments.arguments(ProjectTableModel.COLUMN_COLOR, ""),
+                Arguments.arguments(ProjectTableModel.COLUMN_CREATED, "Created"),
+                Arguments.arguments(ProjectTableModel.COLUMN_TIMEOVERALL, "Time Overall"),
+                Arguments.arguments(ProjectTableModel.COLUMN_TIMETODAY, "Time Today"),
+                Arguments.arguments(ProjectTableModel.COLUMN_ACTION_STARTPAUSE, "")
+        );
     }
 }
