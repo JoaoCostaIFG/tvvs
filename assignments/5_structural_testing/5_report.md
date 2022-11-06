@@ -33,9 +33,10 @@ This section provides a brief description and the result of each unit test we de
 
 #### PlainTextFormatter.java
 
-1. **Format test**
+1. **Format**
     - **Description**: Given a log record (a message, severity and time), this test checks whether the output is formatted as intended. 
-    - **Result**: Success.
+
+**Result**: All tests pass successfully.
 
 ### de.dominik_geyer.jtimesched.project tests
 
@@ -45,28 +46,55 @@ This section provides a brief description and the result of each unit test we de
 
 *Note*: For the implementation of the following tests, we added two new methods to the *Project* class: *equals(Object o)* and *hashCode()*. These two methods supported the comparison of projects necessary for tests regarding the project serializer. 
 
-1. **Read/Write XML test**
+1. **Read/Write XML**
     - **Description**: This parameterized test receives as input different projects: one default project, a checked project, a project with a set color, a project with notes and another one with a null title. Then, the tests are saved in an *XML* file, and recovered from the same file. The test succeeds if the projects are equal (read and write operations were correct). 
-    - **Result**: Success.
 
-2. **Write XML running project test**
+2. **Write XML running project**
     - **Description**: Creates a new project, sets it as running, and saves it to the XML file.
     Then, the project is read from the same XML file. The test succeeds if the project is the same and not running (running projects are saved as not running). 
-    - **Result**: Success.
 
-3. **Read XML running project test**
+3. **Read XML running project**
     - **Description**: Creates a new project, sets it as running, and saves it to the XML file. Then, the XML file is edited to set the project as running and we proceed to read the project from the same XML file. The test succeeds if the project is the same and running.
-    - **Result**: Success.
 
-4. **Read/Write XML project no quota test**
+4. **Read/Write XML project no quota**
     - **Description**: Creates a new project, saves it to the XML file and edits the file in order to remove the line corresponding to the project's quota. Then, the project is read from the same XML file. The test succeeds if the project is the same.
-    - **Result**: Success.
 
-5. **Read/Write XML project no notes test**
+5. **Read/Write XML project no notes**
     - **Description**: Creates a new project, saves it to the XML file and edits the file in order to remove the line corresponding to the project's notes. Then, the project is read from the same XML file. The test succeeds if the project is the same.
-    - **Result**: Success.
     
+**Result**: All tests pass successfully.
 #### ProjectTableModel.java
+*Note*: Set logger
+
+1. **Set value**
+    - **Description**: The test starts by creating a _ProjectTableModel_ that contains a single project. Then, for each settable value of a project (title, date, color, etc), this parametrized test receives different values as inputs and checks if the vallue was correctly set. 
+
+2. **Set value at invalid Column**
+    - **Description**: The test starts by creating a _ProjectTableModel_ that contains a single project. Then, it tries to set to true the value of the
+    _STARTPAUSE_ column. The test succeeds if the value was not set (this type of columns are not settable).
+
+3. **Add project**
+    - **Description**: The test starts by creating a _ProjectTableModel_ that does not contain any project. Then, it tries to add a new project to the table. The test succeeds if the project was successfully added. 
+
+4. **Remove project**
+    - **Description**: The test starts by creating a _ProjectTableModel_ that contains a single project. Then, it tries to remove the project from the table. The test succeeds if the project was successfully removed.     
+
+5. **Get column class**
+    - **Description**: The test starts by creating an empty _ProjectTableModel_. Then, this parametrized test receives inputs for each column on the table and corresponding class. The test succeeds if for each column, the class type present on the table is correct (e.g. title column should be _String_). Additionaly, for an invalid column, the value should be _String_.     
+
+6. **Is cell editable**
+    - **Description**: The test starts by creating a _ProjectTableModel_ that contains a single project. Then, this parametrized test receives different inputs consisting of different columns and an indication of whether the column is editable or not. The test succeeds if each column is editable or not, as expected. 
+
+7. **Column count**
+    - **Description**: The test starts by creating an empty _ProjectTableModel_.
+    Then, it checks the number of columns of the table. The test succeeds if the
+    number of columns equals the expected (8 columns).
+
+8. **Column names**
+    - **Description**: The test starts by creating an empty _ProjectTableModel_. Then, this parametrized test receives different inputs consisting of different columns and the corresponding names. The test succeeds if for each column, its name on the table is correct.
+
+**Result**: All tests pass successfully.
+
 #### ProjectTime.java
 ### Code coverage achieved
 
