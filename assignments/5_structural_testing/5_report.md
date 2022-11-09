@@ -7,40 +7,38 @@
 
 ## Structural Testing
 
-Structural testing is white-box testing technique that provides a systematic way to devise tests. The tests are based 
-on different criteria. For this assignment, the criteria we will be focusing on
-line and decision coverage.  
+Structural testing is white-box testing technique that provides a systematic way to devise tests. The tests are based on different criteria. For this assignment, the criteria we will be focusing on line and decision coverage.
 
-We used [JaCoCo Code Coverage Library for Java](https://www.jacoco.org/jacoco/) to collect
-code coverage. Unit tests were written using the [JUnit framework](https://junit.org/junit5/).
-We reached a line and branch coverage of at least 90% for all classes except for *GUI* related classes. 
+We used [JaCoCo Code Coverage Library for Java](https://www.jacoco.org/jacoco/) to collect code coverage. Unit tests were written using the [JUnit framework](https://junit.org/junit5/).
+
+We reached a line and branch coverage of at least 90% for all classes, with the exception of the *GUI* package. 
+
 ## Previous assignments coverage 
 
-For both assignment #2 and #3, we wrote a few unit tests using a black-box testing technique.
-The two images below show how much coverage these unit tests generated: 21% for the _de.dominik.\_geyer.jtimesched.project_ package and 0% for the rest of the packages. 
+For the previous two assignment (#2 and #3), we wrote a unit tests using a black-box testing techniques. The two images below show how much coverage these unit tests generated: an overall 5% instruction coverage and 6% decision coverage. Only the project package has tests: 21% instruction coverage and 23% decision coverage.
 
 ![coverage_at_start](img/coverage_at_start.png)
 
 ![coverage_project_package](img/coverage_project_package.png)
 
-As a result of this analysis, since there are no classes with both line and brach coverage at 90% or more, it was required to write unit tests for every class (except _GUI_ related ones).
+As a result of this analysis, since there are no classes with both line and decision coverage at 90% or more, it was required to write unit tests for every class (except _GUI_ related ones).
 
 ## Unit tests
 
 This section provides a brief description and the result of each unit test we developed in order to increase project's code coverage. 
 
-### de.dominik_geyer.jtimesched.misc tests
+### *misc* package
 
-#### PlainTextFormatter.java
+#### *PlainTextFormatter* class
 
 1. **Format**
     - **Description**: Given a log record (a message, severity and time), this test checks whether the output is formatted as intended. 
 
 **Result**: All tests pass successfully.
 
-### de.dominik_geyer.jtimesched.project tests
+### *project* package
 
-#### Project.java
+#### *Project* class
 
 - **Setup**: Before each test a new project is created, its number of seconds today is set to 10 and the number of seconds overall is set to 30.
 
@@ -63,7 +61,8 @@ This section provides a brief description and the result of each unit test we de
     - **Description**: This test tries to reset a project for today. The test succeeds if it was successfully reset: number of seconds today is 0, quota for today is 0, and the start time is equal to the moment the test executes.  
 
 **Result**: All tests pass successfully.
-#### ProjectSerializer.java
+
+#### *ProjectSerializer* class
 
 1. **Read/Write XML**
     - **Description**: This parameterized test receives as input different projects: one default project, a checked project, a project with a set color, a project with notes and another one with a null title. Then, the tests are saved in an *XML* file, and recovered from the same file. The test succeeds if the projects are equal (read and write operations were correct). 
@@ -81,8 +80,9 @@ This section provides a brief description and the result of each unit test we de
 5. **Read/Write XML project no notes**
     - **Description**: Creates a new project, saves it to the XML file and edits the file in order to remove the line corresponding to the project's notes. Then, the project is read from the same XML file. The test succeeds if the project is the same.
     
+
 **Result**: All tests pass successfully.
-#### ProjectTableModel.java
+#### *ProjectTableModel* class
 
 1. **Set value**
     - **Description**: The test starts by creating a _ProjectTableModel_ that contains a single project. Then, for each settable value of a project (title, date, color, etc), this parametrized test receives different values as inputs and checks if the vallue was correctly set. 
@@ -104,16 +104,15 @@ This section provides a brief description and the result of each unit test we de
     - **Description**: The test starts by creating a _ProjectTableModel_ that contains a single project. Then, this parametrized test receives different inputs consisting of different columns and an indication of whether the column is editable or not. The test succeeds if each column is editable or not, as expected. 
 
 7. **Column count**
-    - **Description**: The test starts by creating an empty _ProjectTableModel_.
-    Then, it checks the number of columns of the table. The test succeeds if the
+    - **Description**: The test starts by creating an empty _ProjectTableModel_. Then, it checks the number of columns of the table. The test succeeds if the
     number of columns equals the expected (8 columns).
-
+    
 8. **Column names**
-    - **Description**: The test starts by creating an empty _ProjectTableModel_. Then, this parametrized test receives different inputs consisting of different columns and the corresponding names. The test succeeds if for each column, its name on the table is correct.
+    - **javaDescription**: The test starts by creating an empty _ProjectTableModel_. Then, this parametrized test receives different inputs consisting of different columns and the corresponding names. The test succeeds if for each column, its name on the table is correct.
 
 **Result**: All tests pass successfully.
 
-#### ProjectTime.java
+#### *ProjectTime* class
 
 1. **Parse date**
     - **Description**: The test created a date as a formatted _String_ and attempts to parse it. The test succeeds if it correctly parses the date.
@@ -122,6 +121,6 @@ This section provides a brief description and the result of each unit test we de
     - **Description**: The test created a null date and attempts to parse it. The test succeeds if it throws a _NullPointerException_.
 ### Code coverage achieved
 
-The following image contains the final results of our work. We were able to successfully achieve 89% of line coverage and 90% of branch coverage. 
+The following image contains the final results of our work. We were able to successfully achieve 89% of line coverage and 90% of branch coverage.
 
 ![coverage_without_gui](img/coverage_without_gui.png)
