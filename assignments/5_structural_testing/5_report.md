@@ -25,7 +25,16 @@ As a result of this analysis, since there are no classes with both line and deci
 
 ## Unit tests
 
-This section provides a brief description and the result of each unit test we developed in order to increase project's code coverage. 
+This section provides a brief description of the JUnit features explored and the result of each unit test we developed in order to increase project's code coverage. 
+
+## JUnit Features
+
+- Most tests work by comparing an expected result with a result. This types of comparisons use `assertEquals`. Other tests that require the comparison of a boolean value use `assertTrue` or `assertFalse`. In addition, tests where exceptions are expected, we use `assertThrows`.
+- Some tests require a setup before running. For cases like this, we used `@BeforeEach` or `@BeforeAll`, depending on the situation. An example can be found on `ProjectSerializer.java` where each test requires the creation of a temporary file and a `ProjectSerializer` instance. 
+- For tests that needed to be run multiple times with different values, we used
+`@ParametrizedTest`s along with `@MethodSource` to provide arguments to the test.
+- We used `fail()` to explicitly create a failure for the `parseDateNullTest()` on
+`ProjectTimeTest.java`.
 
 ### *misc* package
 
