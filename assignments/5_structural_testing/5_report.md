@@ -27,7 +27,7 @@ As a result of this analysis, since there are no classes with both line and deci
 
 This section provides a brief description of the JUnit features explored and the result of each unit test we developed in order to increase project's code coverage. 
 
-## JUnit Features
+### JUnit Features
 
 - Most tests work by comparing an expected result with a result. These types of comparisons use `assertEquals`. Other tests that require comparing a boolean value use `assertTrue` or `assertFalse`. In addition, tests where exceptions are expected, we use `assertThrows`.
 - Some tests require a setup before running. For cases like this, we used `@BeforeEach` or `@BeforeAll`, depending on the situation. An example can be found on `ProjectSerializer.java`, where each test requires the creation of a temporary file and a `ProjectSerializer` instance. 
