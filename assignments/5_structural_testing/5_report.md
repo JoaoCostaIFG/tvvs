@@ -133,3 +133,22 @@ This section provides a brief description of the JUnit features explored and the
 The following image contains the final results of our work. We successfully achieved 89% of line coverage and 90% of branch coverage.
 
 ![coverage_without_gui](img/coverage_without_gui.png)
+
+Missing lines not covered by our test are all related to *try/catch* blocks for `ProjectException`.
+This exception happens when the program tries to apply some action on a project that should be running, but it is not.
+An example of this case can be seen in the code snippet below:
+
+```java
+public int getSecondsToday() {
+        int seconds = this.secondsToday;
+        
+        if (this.isRunning())
+            try {
+                seconds += this.getElapsedSeconds();
+            } catch (ProjectException e) {
+                e.printStackTrace();
+            }
+        
+        return seconds;
+    }
+```
