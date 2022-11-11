@@ -30,11 +30,9 @@ This section provides a brief description of the JUnit features explored and the
 ### JUnit Features
 
 - Most tests work by comparing an expected result with a result. These types of comparisons use `assertEquals`. Other tests that require comparing a boolean value use `assertTrue` or `assertFalse`. In addition, tests where exceptions are expected, we use `assertThrows`.
-- Some tests require a setup before running. For cases like this, we used `@BeforeEach` or `@BeforeAll`, depending on the situation. An example can be found on `ProjectSerializer.java`, where each test requires the creation of a temporary file and a `ProjectSerializer` instance. 
-- For tests that needed to be run multiple times with different values, we used
-`@ParametrizedTest`s along with `@MethodSource` to provide arguments to the test.
-- We used `fail()` to explicitly create a failure for the `parseDateNullTest()` on
-`ProjectTimeTest.java`.
+- Some tests require a setup before running. For cases like this, we used `@BeforeEach` or `@BeforeAll`, depending on the situation. An example can be found on `ProjectSerializer.java`, where each test requires the creation of a temporary file and a `ProjectSerializer` instance. We also `@AfterEach` for some clean-up tasks (for example at `ProjectSerializer.java`).
+- For tests that needed to be run multiple times with different values, we used `@ParametrizedTest`s along with `@MethodSource` to provide arguments to the test.
+- We used `fail()` to explicitly create a failure for the `parseDateNullTest()` on `ProjectTimeTest.java`.
 
 ### *misc* package
 
@@ -134,9 +132,7 @@ The following image contains the final results of our work. We successfully achi
 
 ![coverage_without_gui](img/coverage_without_gui.png)
 
-Missing lines not covered by our test are all related to *try/catch* blocks for `ProjectException`.
-This exception happens when the program tries to apply some action on a project that should be running, but it is not.
-An example of this case can be seen in the code snippet below:
+The lines not covered by our test are related to unreachable *catch* blocks in *try/catch* statements for `ProjectException`. This exception happens when the program tries to apply some action on a project that should be running, but it is not (or vice-versa). An example of this case can be seen in the code snippet below:
 
 ```java
 public int getSecondsToday() {
@@ -152,3 +148,6 @@ public int getSecondsToday() {
         return seconds;
     }
 ```
+
+The other uncovered lines are on the main function of the project.
+
