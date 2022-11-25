@@ -7,9 +7,6 @@
 
 ## Dataflow Testing
 
-1. public int getSecondsToday()
-2. public void adjustSecondsToday(int secondsToday)
-3. public static int parseSeconds(String strTime)
 
 ## Dataflow Test #1
 
@@ -21,7 +18,7 @@ This function purpose is..
 
 ### Dataflow Graph
 
-![dataflow_graph_1](dataflow_graphs/dataflow_graphs_1.png)
+![dataflow_graph_1](dataflow_graphs/dataflow_graph_1.png)
 
 ### Unit Test
 
@@ -34,7 +31,7 @@ Brief description of the outcome and whether it fails...
 
 ### Dataflow Graph
 
-![dataflow_graph_2](dataflow_graphs/dataflow_graphs_2.png)
+![dataflow_graph_2](dataflow_graphs/dataflow_graph_2.png)
 
 ### Unit Test
 
@@ -44,6 +41,6 @@ Brief description of the outcome and whether it fails...
 
 ### Dataflow Graph
 
-![dataflow_graph_3](dataflow_graphs/dataflow_graphs_3.png)
+![dataflow_graph_3](dataflow_graphs/dataflow_graph_3.png)
 
 ### Unit Test
