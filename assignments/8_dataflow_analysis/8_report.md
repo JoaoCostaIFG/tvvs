@@ -23,10 +23,33 @@ This function purpose is..
 
 ![dataflow_graph_1](dataflow_graphs/dataflow_graphs_1.png)
 
+### Def-use pairs
+
+#### Variable this.secondsToday
+
+| Pair ID | Def   | Use | Path           |
+| ------- | ----- | --- | -------------- |
+| 1       | Start | 154 | `<Start, 154>` |
+
+#### Variable seconds
+
+| Pair ID | Def | Use | Path                        |
+| ------- | --- | --- | --------------------------- |
+| 1       | 154 | 158 | `<154, 156, 157, 158>`      |
+| 2       | 154 | 163 | `<154, 156, 163>`           |
+| 3       | 154 | 163 | `<154, 156, 157, 160, 163>` |
+| 4       | 154 | 158 | `<154, 156, 157, 158>`      |
+| 5       | 158 | 163 | `<158, 163>`                |
+
+### All defs
+
+- `this.secondsToday` - pair ID 1
+- `seconds` - pair IDS 1 and 5
+
 ### Unit Test
 
-Brief description of the test...
-Brief description of the outcome and whether it fails...
+Brief description of the test... Brief description of the outcome and whether it
+fails...
 
 ## Dataflow Test #2
 
@@ -40,10 +63,12 @@ Brief description of the outcome and whether it fails...
 
 ## Dataflow Test #3
 
-**Function**: `public static int parseSeconds(String strTime)` in `ProjectTime.Java`
+**Function**: `public static int parseSeconds(String strTime)` in
+`ProjectTime.Java`
 
 ### Dataflow Graph
 
 ![dataflow_graph_3](dataflow_graphs/dataflow_graphs_3.png)
 
 ### Unit Test
+
