@@ -7,8 +7,9 @@
 
 ## Dataflow Testing
 
-Dataflow testing is a white-box testing technique based on finding the test paths
-of a program according to the locations of definitions and uses of variables in the program.
+Dataflow testing is a white-box testing technique based on finding the test 
+paths of a program according to the locations of definitions and uses of 
+variables in the program.
 
 ## Dataflow Test #1
 
@@ -17,8 +18,8 @@ of a program according to the locations of definitions and uses of variables in 
 **Purpose:** This function returns the number of seconds that a project
 has been active for the current day. 
 
-**Reason for selection**: It is crucial that this function works as intended since
-other important functions rely on it.
+**Reason for selection**: It is crucial that this function works as intended 
+since other important functions rely on it.
 
 ### Dataflow Graph
 
@@ -56,12 +57,17 @@ other important functions rely on it.
 
 ### Unit Tests
 
-Brief description of the test... Brief description of the outcome and whether it
-fails...
+The created test checks if the function returns the correct value of seconds.
+This value depends on whether the project is running or not. We ran the test for 
+a running project and a stopped project to cover all paths according to the 
+criteria.
+
+All tests pass **successfully**.
 
 ## Dataflow Test #2
 
-**Function**: `public int adjustSecondsToday()` in `Project.Java`
+**Function**: `public void adjustSecondsToday(int secondsToday)` in 
+`Project.Java`
 
 **Purpose:** This function receives an integer representing the number of
 seconds that it took to complete a task. Then, the function updates the number
@@ -122,6 +128,12 @@ user input, so it needs to be reliable.
 
 ### Unit Tests
 
+The created test checks if the function adjusts the number of seconds of a 
+project correctly. We ran the test for a negative and a positive input to 
+cover all paths according to the criteria.
+
+All tests pass **successfully**.
+
 ## Dataflow Test #3
 
 **Function**: `public static int parseSeconds(String strTime)` in
@@ -165,13 +177,13 @@ needs to be robust.
 
 #### Variable m
 
-| **Pair ID** | **Def** | **Use** |      **Path**       |
-| :---------: | :-----: | :-----: | :-----------------: |
-|      1      |   38    | (40,T)  |     <38,40,41>      |
-|      2      |   38    | (40,F)  |     <38,40,43>      |
-|      3      |   38    |   43    |     <38,40,43>      |
-|      4      |   38    |   44    |    <38,40,43,44>    |
-|      5      |   38    |   45    |  <38,40,43,44,45>   |
+| **Pair ID** | **Def** | **Use** |     **Path**     |
+| :---------: | :-----: | :-----: | :--------------: |
+|      1      |   38    | (40,T)  |    <38,40,41>    |
+|      2      |   38    | (40,F)  |    <38,40,43>    |
+|      3      |   38    |   43    |    <38,40,43>    |
+|      4      |   38    |   44    |  <38,40,43,44>   |
+|      5      |   38    |   45    | <38,40,43,44,45> |
 
 **Coverage criteria**:
 - **all-defs**: {1}
@@ -216,3 +228,8 @@ needs to be robust.
 - **all-uses**: {1}
 
 ### Unit Tests
+The created test checks if the function parsed the string representing a 
+timestamp correctly. We ran the test for one valid and another invalid input to 
+cover all paths according to the criteria.
+
+All tests pass **successfully**.
