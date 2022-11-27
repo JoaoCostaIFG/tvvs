@@ -29,9 +29,9 @@ since other important functions rely on it.
 
 #### Variable this.secondsToday
 
-| Pair ID | Def   | Use | Path           |
-| ------- | ----- | --- | -------------- |
-| 1       | Start | 154 | `<Start, 154>` |
+| **Pair ID** | **Def** | **Use** | **Path**       |
+| ----------- | ------- | ------- | -------------- |
+| 1           | Start   | 154     | `<Start, 154>` |
 
 **Coverage criteria**:
 - **all-defs**: {1}
@@ -41,13 +41,13 @@ since other important functions rely on it.
 
 #### Variable seconds
 
-| Pair ID | Def | Use | Path                        |
-| ------- | --- | --- | --------------------------- |
-| 1       | 154 | 158 | `<154, 156, 157, 158>`      |
-| 2       | 154 | 163 | `<154, 156, 163>`           |
-| 3       | 154 | 163 | `<154, 156, 157, 160, 163>` |
-| 4       | 158 | 158 | `<158, 158>`                |
-| 5       | 158 | 163 | `<158, 163>`                |
+| **Pair ID** | **Def** | **Use** | **Path**                    |
+| ----------- | ------- | ------- | --------------------------- |
+| 1           | 154     | 158     | `<154, 156, 157, 158>`      |
+| 2           | 154     | 163     | `<154, 156, 163>`           |
+| 3           | 154     | 163     | `<154, 156, 157, 160, 163>` |
+| 4           | 158     | 158     | `<158, 158>`                |
+| 5           | 158     | 163     | `<158, 163>`                |
 
 **Coverage criteria**:
 - **all-defs**: {2,4}
@@ -63,6 +63,26 @@ a running project and a stopped project to cover all paths according to the
 criteria.
 
 All tests pass **successfully**.
+
+`getSecondsTodayTest` in `ProjectTest.java`
+```java 
+    @ParameterizedTest
+    @MethodSource("getSecondsTodayInputs")
+    public void getSecondsTodayTest(Boolean running) {
+        // when
+        this.project.setRunning(running);
+
+        //then
+        assertEquals(this.project.getSecondsToday(), ProjectTest.secondsToday);
+    }
+
+    public static Stream<Arguments> getSecondsTodayInputs() {
+        return Stream.of(
+                Arguments.arguments(false),
+                Arguments.arguments(true)
+        );
+    }
+```
 
 ## Dataflow Test #2
 
@@ -134,6 +154,35 @@ cover all paths according to the criteria.
 
 All tests pass **successfully**.
 
+`adjustSecondsValidTest` in `ProjectTest.java`
+
+```java
+    @ParameterizedTest()
+    @MethodSource("adjustSecondsValidInputs")
+    public void adjustSecondsValidTest(int secondsToday) {
+        // given
+        secondsToday = Math.max(secondsToday,0);
+        int expectedSecondsToday = secondsToday;
+        int expectedSecondsOverall = ProjectTest.secondsOverall - ProjectTest.secondsToday + secondsToday;
+
+        // when
+        this.project.adjustSecondsToday(secondsToday);
+
+        // then
+        assertEquals(expectedSecondsToday, this.project.getSecondsToday());
+        assertEquals(expectedSecondsOverall, this.project.getSecondsOverall());
+    }
+
+    public static Stream<Arguments> adjustSecondsValidInputs() {
+        return Stream.of(
+                // ...
+                // dataflow testing
+                Arguments.arguments(-1),
+                Arguments.arguments(1)
+        );
+    }
+```
+
 ## Dataflow Test #3
 
 **Function**: `public static int parseSeconds(String strTime)` in
@@ -186,7 +235,7 @@ needs to be robust.
 |      5      |   38    |   45    | <38,40,43,44,45> |
 
 **Coverage criteria**:
-- **all-defs**: {1}
+- **all-defs**: {3}
 - **all-c-uses**: {3,4,5}
 - **all-p-uses**: {1,2}
 - **all-uses**: {1,2,3,4,5}
@@ -233,3 +282,47 @@ timestamp correctly. We ran the test for one valid and another invalid input to
 cover all paths according to the criteria.
 
 All tests pass **successfully**.
+
+`parseSecondsValidTest` in `ProjectTimeTest.java`
+```java
+    @ParameterizedTest(name = "Hours: {0} | Minutes: {1} | Seconds: {2}")
+    @MethodSource("parseSecondsValidInputs")
+    public void parseSecondsValidTest(String hours, String minutes, String seconds) throws ParseException {
+        // given
+        int expectedSeconds = timeComponentsToSecs(hours, minutes, seconds);
+        String timeStr = timeComponentsToTimeStr(hours, minutes, seconds);
+
+        // when
+        int result = ProjectTime.parseSeconds(timeStr);
+
+        // then
+        assertEquals(expectedSeconds, result);
+    }
+
+    private static Stream<Arguments> parseSecondsValidInputs() {
+        return Stream.of(
+                //...
+                // Dataflow testing
+                Arguments.arguments("00", "00", "59")
+        );
+    }
+```
+
+`parseSecondsInvalidTest` in `ProjectTimeTest.java`
+```java
+    @ParameterizedTest(name = "Hours: {0} | Minutes: {1} | Seconds: {2}")
+    @MethodSource("parseSecondsInvalidInputs")
+    public void parseSecondsInvalidTest(String timeStr) {
+        // when + then
+        assertThrows(ParseException.class, () -> ProjectTime.parseSeconds(timeStr));
+    }
+
+    private static Stream<Arguments> parseSecondsInvalidInputs() {
+        return Stream.of(
+                // ...
+                // Dataflow testing
+                Arguments.arguments("00")    
+        );
+    }
+
+```

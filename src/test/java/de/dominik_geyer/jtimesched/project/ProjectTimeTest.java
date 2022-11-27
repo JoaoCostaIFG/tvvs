@@ -102,7 +102,7 @@ public class ProjectTimeTest {
                 Arguments.arguments("0000:00"),    // E44 - off-point
 
                 // Dataflow testing
-                Arguments.arguments("00")    // E44 - off-point
+                Arguments.arguments("00")
         );
     }
 
