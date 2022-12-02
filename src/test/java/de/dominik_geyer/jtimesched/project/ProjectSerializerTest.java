@@ -12,6 +12,7 @@ import java.awt.*;
 import java.io.*;
 import java.nio.file.Files;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Stream;
@@ -58,6 +59,7 @@ public class ProjectSerializerTest {
         assertTrue(projectsEqual(p, gottenProjects.get(0)));
     }
 
+
     public static Stream<Arguments> readWriteXmlInputs() {
         Project checkedProject = new Project();
         checkedProject.setChecked(true);
@@ -71,13 +73,49 @@ public class ProjectSerializerTest {
         Project nullTitleProject = new Project();
         nullTitleProject.setTitle("");
 
+        Project timedProject = new Project();
+        timedProject.setTimeStart(new Date(333));
+        timedProject.setTimeCreated(new Date(666));
+
         return Stream.of(
                 Arguments.arguments(new Project()),
                 Arguments.arguments(checkedProject),
                 Arguments.arguments(coloredProject),
                 Arguments.arguments(notedProject),
-                Arguments.arguments(nullTitleProject)
+                Arguments.arguments(nullTitleProject),
+                Arguments.arguments(timedProject)
         );
+    }
+
+    @Test
+    public void xmlContentTest() throws TransformerConfigurationException, IOException, SAXException {
+        // Given
+        Project p = new Project();
+        p.setTimeCreated(new Date(0));
+        p.setTimeStart(new Date(0));
+        p.setColor(new Color(255, 0, 255));
+        List<Project> givenProjects = Collections.singletonList(p);
+
+        // When
+        projectSerializer.writeXml(givenProjects);
+
+        // Then
+        final String testStr = "<?xml version=\"1.0\" encoding=\"UTF-8\"?><projects version=\"unknown\">\n" +
+                "    <project>\n" +
+                "        <title>project</title>\n" +
+                "        <notes/>\n" +
+                "        <created>0</created>\n" +
+                "        <started>0</started>\n" +
+                "        <running>no</running>\n" +
+                "        <checked>no</checked>\n" +
+                "        <time overall=\"0\" today=\"0\"/>\n" +
+                "        <quota overall=\"0\" today=\"0\"/>\n" +
+                "        <color red=\"255\" green=\"0\" blue=\"255\" alpha=\"255\"/>\n" +
+                "    </project>\n" +
+                "</projects>";
+
+        List<String> xml = Files.readAllLines(this.tmpFile.toPath());
+        assertEquals(testStr, String.join("\n", xml));
     }
 
     @Test

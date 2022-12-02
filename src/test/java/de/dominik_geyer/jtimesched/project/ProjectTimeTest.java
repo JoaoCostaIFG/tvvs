@@ -145,4 +145,16 @@ public class ProjectTimeTest {
             // good
         }
     }
+
+    @Test
+    public void formatSecondsBig() throws ParseException {
+        // Given
+        int s = 32763;
+
+        // When
+        String formatted = ProjectTime.formatSeconds(s);
+
+        // Then
+        assertEquals(s, ProjectTime.parseSeconds(formatted));
+    }
 }
