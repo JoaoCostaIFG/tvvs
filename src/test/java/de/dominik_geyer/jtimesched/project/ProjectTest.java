@@ -7,6 +7,7 @@ import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
 
 import java.util.Date;
+import java.util.Properties;
 import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -217,5 +218,46 @@ public class ProjectTest {
                 Arguments.arguments(false),
                 Arguments.arguments(true)
         );
+    }
+
+    @Test
+    public void toStringTest() {
+        // Given
+        Project p = new Project();
+
+        // When
+        String pStr = p.toString();
+
+        // Then
+        assertEquals("Project [title=project, running=no, secondsOverall=0, secondsToday=0, checked=no]", pStr);
+    }
+
+    @Test
+    public void notesTest() {
+        // Given
+        String testNote = "A test note for a test project.";
+        Project p = new Project();
+        p.setNotes(testNote);
+
+        // When
+        String gottenNote = p.getNotes();
+
+        // Then
+        assertEquals(testNote, gottenNote);
+    }
+
+    @Test
+    public void elapsedSecondsTest() throws InterruptedException, ProjectException {
+        // Given
+        int sleepDuration = 1000;
+        Project p = new Project();
+        p.setRunning(true);
+
+        // When
+        Thread.sleep(sleepDuration);
+        int elapsedSecs = p.getElapsedSeconds();
+
+       // Then
+        assertTrue(sleepDuration / 1000 <= elapsedSecs);
     }
 }
