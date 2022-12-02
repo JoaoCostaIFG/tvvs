@@ -20,6 +20,12 @@ The mutation score on the `project` package:
 - formatSecondsBig
 
 
+### ProjectSerializer
+
+- readWriteXmlTest - timedProject nos inputs
+- readWriteXmlTest - quotaProject nos inputs
+
+
 ### Ignored
 
 - ProjectTableModel - setValueAt() - ternario no logger é uma lib extyerna, n vale a pena testar/mock

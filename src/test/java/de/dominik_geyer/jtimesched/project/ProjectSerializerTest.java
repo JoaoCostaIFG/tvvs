@@ -76,6 +76,12 @@ public class ProjectSerializerTest {
         Project timedProject = new Project();
         timedProject.setTimeStart(new Date(333));
         timedProject.setTimeCreated(new Date(666));
+        timedProject.setSecondsToday(333);
+        timedProject.setSecondsOverall(666);
+
+        Project quotaProject = new Project();
+        quotaProject.setQuotaToday(666);
+        quotaProject.setQuotaOverall(999);
 
         return Stream.of(
                 Arguments.arguments(new Project()),
@@ -83,7 +89,8 @@ public class ProjectSerializerTest {
                 Arguments.arguments(coloredProject),
                 Arguments.arguments(notedProject),
                 Arguments.arguments(nullTitleProject),
-                Arguments.arguments(timedProject)
+                Arguments.arguments(timedProject),
+                Arguments.arguments(quotaProject)
         );
     }
 
