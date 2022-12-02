@@ -48,7 +48,10 @@ public class ProjectTimeTest {
                 Arguments.arguments("00", "00", "00"),    // E1 - off-point 2
                 Arguments.arguments("00", "00", "59"),    // E7 - on-point
                 Arguments.arguments("00", "59", "00"),    // E10 - on-point
-                Arguments.arguments("00", "59", "59")    // E32 - on-point 2
+                Arguments.arguments("00", "59", "59"),    // E32 - on-point 2
+
+                // Dataflow testing
+                Arguments.arguments("00", "00", "59")
         );
     }
 
@@ -96,7 +99,10 @@ public class ProjectTimeTest {
                 Arguments.arguments("::"),    // E41 - off-point
                 Arguments.arguments("000000"),    // E42 - off-point
                 Arguments.arguments("00:0000"),    // E43 - off-point
-                Arguments.arguments("0000:00")    // E44 - off-point
+                Arguments.arguments("0000:00"),    // E44 - off-point
+
+                // Dataflow testing
+                Arguments.arguments("00")
         );
     }
 

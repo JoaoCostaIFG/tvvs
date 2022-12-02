@@ -28,6 +28,7 @@ public class ProjectTest {
     @MethodSource("adjustSecondsValidInputs")
     public void adjustSecondsValidTest(int secondsToday) {
         // given
+        secondsToday = Math.max(secondsToday,0);
         int expectedSecondsToday = secondsToday;
         int expectedSecondsOverall = ProjectTest.secondsOverall - ProjectTest.secondsToday + secondsToday;
 
@@ -47,7 +48,11 @@ public class ProjectTest {
                 Arguments.arguments(ProjectTest.secondsToday + 1),
 
                 // boundary-value analysis
-                Arguments.arguments(0)  // E1 on-point
+                Arguments.arguments(0),  // E1 on-point
+
+                // dataflow testing
+                Arguments.arguments(-1),
+                Arguments.arguments(1)
         );
     }
 
@@ -195,5 +200,22 @@ public class ProjectTest {
         assertEquals(0, this.project.getSecondsToday());
         assertEquals(0, this.project.getQuotaToday());
         assertTrue(this.project.getTimeStart().compareTo(new Date()) <= 0);
+    }
+
+    @ParameterizedTest
+    @MethodSource("getSecondsTodayInputs")
+    public void getSecondsTodayTest(Boolean running) {
+        // when
+        this.project.setRunning(running);
+
+        //then
+        assertEquals(this.project.getSecondsToday(), ProjectTest.secondsToday);
+    }
+
+    public static Stream<Arguments> getSecondsTodayInputs() {
+        return Stream.of(
+                Arguments.arguments(false),
+                Arguments.arguments(true)
+        );
     }
 }
