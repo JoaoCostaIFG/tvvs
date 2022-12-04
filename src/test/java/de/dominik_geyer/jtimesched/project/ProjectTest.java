@@ -42,19 +42,13 @@ public class ProjectTest {
     }
 
     public static Stream<Arguments> adjustSecondsValidInputs() {
-        return Stream.of(
-                Arguments.arguments(0),
-                Arguments.arguments(ProjectTest.secondsToday - 1),
-                Arguments.arguments(ProjectTest.secondsToday),
-                Arguments.arguments(ProjectTest.secondsToday + 1),
+        return Stream.of(Arguments.arguments(0), Arguments.arguments(ProjectTest.secondsToday - 1), Arguments.arguments(ProjectTest.secondsToday), Arguments.arguments(ProjectTest.secondsToday + 1),
 
                 // boundary-value analysis
                 Arguments.arguments(0),  // E1 on-point
 
                 // dataflow testing
-                Arguments.arguments(-1),
-                Arguments.arguments(1)
-        );
+                Arguments.arguments(-1), Arguments.arguments(1));
     }
 
     @ParameterizedTest()
@@ -73,11 +67,7 @@ public class ProjectTest {
     }
 
     public static Stream<Arguments> adjustSecondsInvalidInputs() {
-        return Stream.of(
-                Arguments.arguments(-1),
-                Arguments.arguments(-(ProjectTest.secondsToday - 1)),
-                Arguments.arguments(-ProjectTest.secondsToday),
-                Arguments.arguments(-(ProjectTest.secondsToday + 1)),
+        return Stream.of(Arguments.arguments(-1), Arguments.arguments(-(ProjectTest.secondsToday - 1)), Arguments.arguments(-ProjectTest.secondsToday), Arguments.arguments(-(ProjectTest.secondsToday + 1)),
 
                 // boundary-value analysis
                 Arguments.arguments(-1)  // E1 off-point
@@ -97,9 +87,7 @@ public class ProjectTest {
     public static Stream<Arguments> setSecondsOverallInputs() {
         return Stream.of(
                 // category partition
-                Arguments.arguments(-1),
-                Arguments.arguments(0),
-                Arguments.arguments(1),
+                Arguments.arguments(-1), Arguments.arguments(0), Arguments.arguments(1),
 
                 // boundary-value analysis
                 Arguments.arguments(-1),    // off-point
@@ -118,11 +106,7 @@ public class ProjectTest {
     }
 
     public static Stream<Arguments> setSecondsTodayInputs() {
-        return Stream.of(
-                Arguments.arguments(-1),
-                Arguments.arguments(0),
-                Arguments.arguments(1)
-        );
+        return Stream.of(Arguments.arguments(-1), Arguments.arguments(0), Arguments.arguments(1));
     }
 
     @Test
@@ -166,6 +150,23 @@ public class ProjectTest {
 
         // when + then
         assertThrows(ProjectException.class, () -> this.project.pause());
+    }
+
+    @Test
+    public void pauseRunningTest() throws InterruptedException, ProjectException {
+        // given
+        int sleepDuration = 1000;
+        this.project.setSecondsOverall(0);
+        this.project.setSecondsToday(0);
+        this.project.setRunning(true);
+
+        // when
+        Thread.sleep(sleepDuration);
+        this.project.pause();
+
+        // then
+        assertTrue(sleepDuration / 1000 <= this.project.getSecondsToday());
+        assertTrue(sleepDuration / 1000 <= this.project.getSecondsOverall());
     }
 
     @Test
@@ -214,10 +215,39 @@ public class ProjectTest {
     }
 
     public static Stream<Arguments> getSecondsTodayInputs() {
-        return Stream.of(
-                Arguments.arguments(false),
-                Arguments.arguments(true)
-        );
+        return Stream.of(Arguments.arguments(false), Arguments.arguments(true));
+    }
+
+    @Test
+    public void getSecondsTodayRunningTest() throws InterruptedException {
+        // Given
+        int sleepDuration = 1000;
+        int baseSecondsToday = sleepDuration * 2 / 1000;
+        this.project.setSecondsToday(baseSecondsToday);
+
+        // When
+        this.project.setRunning(true);
+        Thread.sleep(sleepDuration);
+        int secondsToday = this.project.getSecondsToday();
+
+        // Then
+        assertTrue(baseSecondsToday + sleepDuration / 1000 <= secondsToday);
+    }
+
+    @Test
+    public void getSecondsOverallRunningTest() throws InterruptedException {
+        // Given
+        int sleepDuration = 1000;
+        int baseSecondsOverall = sleepDuration * 2 / 1000;
+        this.project.setSecondsOverall(baseSecondsOverall);
+
+        // When
+        this.project.setRunning(true);
+        Thread.sleep(sleepDuration);
+        int secondsOverall = this.project.getSecondsOverall();
+
+        // Then
+        assertTrue(baseSecondsOverall + sleepDuration / 1000 <= secondsOverall);
     }
 
     @Test
@@ -266,12 +296,11 @@ public class ProjectTest {
     public void elapsedSecondsTest() throws InterruptedException, ProjectException {
         // Given
         int sleepDuration = 1000;
-        Project p = new Project();
-        p.setRunning(true);
+        this.project.setRunning(true);
 
         // When
         Thread.sleep(sleepDuration);
-        int elapsedSecs = p.getElapsedSeconds();
+        int elapsedSecs = this.project.getElapsedSeconds();
 
         // Then
         assertTrue(sleepDuration / 1000 <= elapsedSecs);

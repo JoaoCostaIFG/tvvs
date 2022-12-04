@@ -41,12 +41,18 @@ Problems:
 
 - toStringTest
 - notesTest
+- pauseRunningTest
+- getSecondsTodayRunningTest
+- getSecondsOverallRunningTest
 
 Problems:
 
 - `setSecondsOverall`, `setSecondsToday`, `adjustSecondsToday`:
   - Mudar a condition boundary não faz diferença (se for 0, dá set 0) =>
     equivalent mutant
+- `getSecondsToday`, `getSecondsOverall`:
+  - `e.printStackTrace` can't test the print of the stack trace (furthermore,
+    the catch statement is unreachable)
 
 ### Ignored
 
