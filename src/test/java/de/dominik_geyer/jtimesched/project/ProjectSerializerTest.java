@@ -83,6 +83,9 @@ public class ProjectSerializerTest {
         quotaProject.setQuotaToday(666);
         quotaProject.setQuotaOverall(999);
 
+        Project titledProject = new Project();
+        titledProject.setTitle("the project title");
+
         return Stream.of(
                 Arguments.arguments(new Project()),
                 Arguments.arguments(checkedProject),
@@ -90,7 +93,8 @@ public class ProjectSerializerTest {
                 Arguments.arguments(notedProject),
                 Arguments.arguments(nullTitleProject),
                 Arguments.arguments(timedProject),
-                Arguments.arguments(quotaProject)
+                Arguments.arguments(quotaProject),
+                Arguments.arguments(titledProject)
         );
     }
 

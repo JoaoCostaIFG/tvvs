@@ -23,15 +23,35 @@ The mutation score on the `project` package:
 
 - readWriteXmlTest - timedProject nos inputs
 - readWriteXmlTest - quotaProject nos inputs
+- readWriteXmlTest - titledProject nos inputs
+
+Problems:
+
+- writeXml:
+  - Indent de 4 e charset UTF-8 são os defaults do writer => não conseguimos
+    apanhar nos testes
+  - o `atts.clear()` antes do `addXmlAttribute` das quotas não faz nada
+    (equivalente mutant)
+  - o start e end do documents e o flush/close da output stream não parecem
+    fazer efeito em Linux
+- readXml:
+  - tem um `System.out.println` para debug, que não conseguimos testar
 
 ### Project
 
 - toStringTest
 - notesTest
-    
+
+Problems:
+
+- `setSecondsOverall`, `setSecondsToday`, `adjustSecondsToday`:
+  - Mudar a condition boundary não faz diferença (se for 0, dá set 0) =>
+    equivalent mutant
+
 ### Ignored
 
-- ProjectTableModel - setValueAt() - ternario no logger é uma lib extyerna, n vale a pena testar/mock
+- ProjectTableModel - setValueAt() - ternario no logger é uma lib extyerna, n
+  vale a pena testar/mock
 
 ## Equivalent mutants
 

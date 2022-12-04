@@ -29,7 +29,7 @@ public class ProjectTest {
     @MethodSource("adjustSecondsValidInputs")
     public void adjustSecondsValidTest(int secondsToday) {
         // given
-        secondsToday = Math.max(secondsToday,0);
+        secondsToday = Math.max(secondsToday, 0);
         int expectedSecondsToday = secondsToday;
         int expectedSecondsOverall = ProjectTest.secondsOverall - ProjectTest.secondsToday + secondsToday;
 
@@ -247,6 +247,22 @@ public class ProjectTest {
     }
 
     @Test
+    public void quotaTest() {
+        // Given
+        int quotaToday = 333;
+        int quotaOverall = 999;
+        Project p = new Project();
+
+        // When
+        p.setQuotaToday(quotaToday);
+        p.setQuotaOverall(quotaOverall);
+
+        // Then
+        assertEquals(quotaToday, p.getQuotaToday());
+        assertEquals(quotaOverall, p.getQuotaOverall());
+    }
+
+    @Test
     public void elapsedSecondsTest() throws InterruptedException, ProjectException {
         // Given
         int sleepDuration = 1000;
@@ -257,7 +273,7 @@ public class ProjectTest {
         Thread.sleep(sleepDuration);
         int elapsedSecs = p.getElapsedSeconds();
 
-       // Then
+        // Then
         assertTrue(sleepDuration / 1000 <= elapsedSecs);
     }
 }
