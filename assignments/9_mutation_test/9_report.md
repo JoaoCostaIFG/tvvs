@@ -89,6 +89,10 @@ Linux, nor on Windows:
 - `out.flush();`
 - `out.close();`
 
+**Note**: In addition, on Linux removing the identation line
+`tf.setAttribute("indent-number", new Integer(4));` causes a mutant to not be
+killed while on Windows this is not the case.
+
 ### Project
 
 We created a series of tests for this class:
@@ -132,10 +136,12 @@ different methods:
 
 ### ProjectTableModel
 
-**TODO: this.fireTableRowsUpdated(row, row);**
+We didn't increase the mutation score for this class.
 
-- ProjectTableModel - setValueAt() - ternario no logger é uma lib extyerna, n
-vale a pena testar/mock
+- There are several lines of code that are related with the GUI. These are all
+the lines that start with "fireTableRows".
+- In the method `setValueAt()`, there are some prints by logger which we did
+not test because it is not worth mocking the logger.
 
 ## Equivalent mutants
 
@@ -152,6 +158,8 @@ already be equal to 0.
 
 ### ProjectSerializer
 
+- Mutant removed the line that sets the character set as UTF-8. This doesn't 
+affect anything since this is the default character set.
 ![serializer_equivalent_muts](img/serializer_equivalent_muts.png)
 
 - Mutant removed the line `atts.clear()`. It does not affect anything.
