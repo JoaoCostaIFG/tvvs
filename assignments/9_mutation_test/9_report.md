@@ -40,13 +40,13 @@ increase the mutation score.
 ### ProjectTime
 
 For this class, it was enough to create one test,
-`public void formatSecondsBig()`, to achieve **100%** mutation coverage. This
-test passes a large number as an argument to the
-`ProjectTime.formatSeconds(int s)` method.
+`public void formatSecondsBig()` (`ProjectTimeTest.java` line 156), to achieve
+**100%** mutation coverage. This test passes a large number as an argument to
+the `ProjectTime.formatSeconds(int s)` method.
 
 ### ProjectSerializer
 
-#### readWriteXmlInputs test
+#### readWriteXml test (`ProjectSerializerTest.java` line 49)
 
 For `ProjectSerializer` tests, we added three new parameters to the
 `public static Stream<Arguments> readWriteXmlInputs()` parametrized test. Each
@@ -60,7 +60,7 @@ parameters are:
 **Note**: This parametrized test has a `System.out.println`, which we can not
 test, preventing us from reaching the 100% mutation coverage mark.
 
-#### xmlContentTest
+#### xmlContent test (`ProjectSerializerTest.java` line 102)
 
 We created a new test, `public void xmlContentTest()`, which takes a singleton
 projects list and saves the project's information into an `xml` file. Then, the
@@ -100,20 +100,22 @@ appear to affect the result of the method.
 
 We created a series of tests for this class:
 
-- `toStringTest()` that tests whether the `toString()` method of a project works
-  as expected.
-- `notesTest()` that checks if the program retrieves the notes of a project
-  correctly.
-- `elapsedSecondsTest()` that checks whether the number of elapsed seconds of a
-  running project is correct.
-- `quotaTest()` that checks if the program sets and retrieves the quota of a
-  project correctly.
-- `pauseRunningTest()` that checks whether the number of elapsed seconds of a
-  paused project is within the expected margin.
-- `getSecondsTodayRunningTest()` that succeeds if the correct number of
-  `secondsToday` retrieved for a running test is within the expected margin.
-- `getSecondsOverallRunningTest()` that succeeds if the correct number of
-  `secondsOverall` retrieved for a running test is within the expected margin.
+- `toStringTest()` (`ProjectTest.java` line 254) that tests whether the
+  `toString()` method of a project works as expected.
+- `notesTest()` (`ProjectTest.java` line 266) that checks if the program
+  retrieves the notes of a project correctly.
+- `elapsedSecondsTest()` (`ProjectTest.java` line 96) that checks whether the
+  number of elapsed seconds of a running project is correct.
+- `quotaTest()` (`ProjectTest.java` line 280) that checks if the program sets
+  and retrieves the quota of a project correctly.
+- `pauseRunningTest()` (`ProjectTest.java` line 156) that checks whether the
+  number of elapsed seconds of a paused project is within the expected margin.
+- `getSecondsTodayRunningTest()` (`ProjectTest.java` line 222) that succeeds if
+  the correct number of `secondsToday` retrieved for a running test is within
+  the expected margin.
+- `getSecondsOverallRunningTest()` (`ProjectTest.java` line 238) that succeeds
+  if the correct number of `secondsOverall` retrieved for a running test is
+  within the expected margin.
 
 **Problems**:
 
