@@ -29,7 +29,7 @@ The mutation score on the `project` package:
   - We will focus on raising this percentage as much as possible for this
     assignment.
   - Line coverage is very high (98%).
-  - Mutation coverage needs a little bit of work, mainly in `Project.java` and
+  - Mutation coverage needs work, specially in `Project.java` and
     `ProjectTime.java`.
 
 ## Unit Tests
@@ -184,3 +184,7 @@ In the end, we were able to achieve the following scores in mutation coverage:
 Score on the `project` package:
 
 ![end_mut_score_proj](img/end_mut_score_proj.png)
+
+**Note**: the mutation score achieved is higher on systems running Windows. The
+`ProjectSerializer` has higher coverage on Windows, because the mutants that
+remove that calls to close file descriptors are killed.
